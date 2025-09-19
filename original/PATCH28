@@ -1,0 +1,172 @@
+Patch 28 contains a complete rewrite of the documentation.  All but the
+"Quickies" section has been completed.  This will be pretty much the
+final form of the documentation, so please give me any feedback on it
+that you can.
+
+Patch 28 also contains a number of structural adjustments and expansions
+for future coding.  The NPC code is still incomplete, but I have a backbone
+in place now.  There were also a large number of bug fixes, including the
+locating of one or two tricky bugs that were causing some strange
+behaviors.
+
+I. Installing this patch
+========================
+
+If you received conquer as a full tar file (cq5beta-28.tar.Z) you
+may just skip this set of directions, but you might still need to
+use the information inside the CONVERTING file if you have any old
+campaigns in place.
+
+	0. Make sure to update any old campaigns with the old version
+	   of conqrun so that the "*.exc" files are not out of
+	   alignment.  [See the file CONVERTING for more information.]
+
+	1. First type "make clobber" while in the conquer directory.
+
+	2. Unpack the patch, installing any files to their appropriate
+	   locations.  Then run "patch -p < diff.p28" when in the
+	   conquer directory.
+
+	3. Remove all "*.orig" files and check for any "*.rej" files.
+	   If there are any rejections, see if you can find out why
+	   they failed and get in touch with me.  [adb@cs.bu.edu]
+
+	4. Copy the file "Include/header.h.dist" to "Include/header.h"
+	   and edit the file to make any selections needed for your
+	   machine.
+
+        5. Copy the file "Makefile.top" to "Makefile" and then edit
+	   the file to make any selections needed for your machine.
+
+	6. Type "make mkfiles" to build the new Makefiles.
+
+	7. Type "make build" to build the new version.
+
+	8. If there are any problems (undeclared functions, improperly
+	   declared functions, etc.) you might need to edit the
+	   "Include/sysconf.h" file.  [IF YOU DO... PLEASE LET ME KNOW
+	   SO I CAN FIX IT IN THE FUTURE!!!  adb@cs.bu.edu]
+
+	9. Type "make install" to install it.
+
+       10. Once the build is complete, you want to be sure that you
+	   finish the conversion process of old data files by running
+	   the "conqrun -E" program as recommended in CONVERTING.
+
+II. What files are new to this patch.
+=====================================
+
+The files which are new to this patchlevel:
+
+	PATCH28		- this file; resides in toplevel directory.
+        executeX.h      - defines new exec codes; place in Include/
+        Economics.nr    - economics documentation; place in Docs/
+        Nations.nr      - ntn+race documentation; place in Docs/
+        Quickies.nr     - empty doc file; place in Docs/
+        Version.nr      - version and history docs; place in Docs/
+        Xchanges.nr     - mail system documentation; place in Docs/
+
+III. What files may be removed.
+===============================
+
+If you desire, the file PATCH27 is no longer needed.  But, it does
+have some important notes which you might want to hold onto.
+
+Also, the file Src/CHANGES may be removed as it is an outdated note to
+myself.
+
+IV. Changes made in this patch.
+===============================
+
+	=== Movement now handles fractions of a percentage.
+
+	=== Fixed the sorting program to not remove blank lines from news.
+
+	=== New documentation files have been added and old ones have
+	    been rewritten.  [These account for well over half of all
+	    of all the changes.]
+
+	=== The "Version" information is now contained in a doc file.
+
+	=== Replaced many of the #define statements with enumerated
+	    types.  This should allow for easier compilation on some
+	    older machines, if, of course, they support enums. :-)
+
+        === Added a definable "Late Start" campaign variable.
+
+	=== Added a "Growth Rate" setting to allow the adjustment of
+	    global reproduction rates.
+
+	=== Expanded the city structure to contain information for a
+	    future automatic distribution system.  Will still need
+	    some changes for a full implementation.
+
+	=== Fixed a bug in the abrt() macro.
+
+	=== After enlisting the newly drafted unit will be selected.
+
+	=== Any unit with speed of "stuck" will be set to "normal"
+	    speed when unloaded from a ship.
+
+	=== The "following" has been clarified in the army reports.
+
+	=== The currency attribute is now calculated.
+
+	=== Decreased the value of soldiers during the nation creation
+	    mode.
+
+	=== Fixed a bug with the Maximum Efficiency being written to
+	    the data file after the Efficiency value.
+
+	=== Clarified the message given when Sortie is selected.
+
+	=== Properly handle unlinking from a group when changing the
+	    unit status.
+
+	=== Make sure that the last_loc information is always traced
+	    for a unit, even when in a group.
+
+	=== Made sure the -l option of conquer checked the hide-login
+	    campaign option.
+
+	=== Increased the combat bonuses due to speed.
+
+	=== Tweaked the combat code slightly to handle small vs. large
+	    confrontations.
+
+	=== Expanded check for new army unit number.
+
+	=== Fixed the poptoworkers function to not confuse some
+	    compilers.
+
+	=== Added the header-mode option to the configuration and
+	    environment setups.
+
+	=== Added the system mail checker option to the configuration
+	    and environment setups.
+
+	=== Tweaked the attractiveness of sectors.
+
+	=== Fixed the data entries for Archery and Armor, same
+	    information was missing. [OOPS!]
+
+	=== The speed for fleets has been increased.
+
+	=== The display mode editor now has a an abort option.
+
+	=== The unit side display is now more consistent... movement
+	    left and speed are now side by side at all times.
+
+	=== Space characters may now be used to represent various
+	    vegetations or elevations.
+
+	=== Mine overworkings are now reported in economic summaries.
+
+	=== The MOTD is now shown with score reports.
+
+	=== Added the reverse shift focus command to the movement
+	    functions.
+
+	=== Fixed some bugs in the displaying of status selections for
+	    navies and caravans.
+

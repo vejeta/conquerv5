@@ -1,0 +1,286 @@
+
+The History of Conquer
+
+     Conquer  was originally developed by Edward Barlow under the name
+     of "conquest".   It was then renamed to "Conquer" to avoid a con­
+     flict with a program which already used that name.
+
+     Conquer   has   been   posted   to   the   USENET   source  group
+     "comp.sources.games" for a number of releases.  With version 3 of
+     Conquer,  Adam  Bryant began pestering the author with bug fixes,
+     enhancements and other annoying questions.  Ed felt it  necessary
+     to  show  Adam  how annoying people who send "bug fixes, enhance­
+     ments, and questions" can be by asking him to take over the  sup­
+     port of Conquer with version 4.1.  Adam, naive as he was, accept­
+     ed.
+
+     After releasing ten patches (or eleven depending on how you count
+     the  last  patch)  for version 4, it was realized that a complete
+     rewrite would be needed to implement all  of  the  features  that
+     would  be  needed.   So,  version 5.x represents a complete, from
+     scratch, recoding of Conquer.  A list of most of the enhancements
+     from  version  4 to version 5 is provided at the end of this sec­
+     tion as a reference for those familiar with the earlier  version.
+
+     The  original work was done on an AT+T machine with attempts made
+     to keep it as portable as possible.  Later releases  and  patches
+     were  done  on  a  BSD  Unix  Encore,  and Suns, with the current
+     rewritten release being done almost entirely on Suns  of  various
+     shapes  and  sizes.   Throughout  the rewrite, effort was made to
+     conform to ANSI C standards while providing compatibility for  as
+     many older compilers as possible.
+
+Giving Thanks
+
+     Throughout  the  life  of  Conquer, there has always been a great
+     deal of help given by the members of the USENET community.  With­
+     out  them,  Conquer would probably have died a lonely death years
+     ago.  Some people helped just  by  making  marvelous  suggestions
+     that  no  one  had  thought  of before, and others have helped by
+     sending in patches and bug fixes based on their own hard work.
+
+     While I would like to be able to thank every person who has  ever
+     helped  with  Conquer,  there  are  just too many who have played
+     parts to list them all.  If I  have  missed  someone  whose  work
+     should have deserved mention, and I am sure there are many, it is
+     only because of my poor memory and organizational skills.  I hope
+     that  anyone who is left out, will be please forgive me, and send
+     me a reminder to add them to the list.
+
+     Just some of the people to whom Conquer is indebted:
+
+     Jonathan Bayer    Brian Bresnahan   Dean Brooks       Richard Caley
+     Andrew Collins    Ken Dalka         Paul Davison      Robert Deroy
+     Bob Earl          Don Fast          Dave Flowers      Martin Forrsen
+     Charles C. Fu     Derick Hirasawa   Richard Kennaway  Ernest Kim
+     Tero Kivinen      Kenneth Moyle     Joe Nolet         Joe E. Powell
+     Brian Rauchfuss   Eugene Wang
+
+         The players at all of the Conquer sites around the world.
+
+     This list is very incomplete right now...  please  get  in  touch
+     with me if you think you should be added.
+
+List of Version 5.x Changes
+
+     There  are  many  adjustments which have been made to Conquer be­
+     tween the release of Version 4.x and Version 5.x.  In a way, Con­
+     quer  will  be more difficult for those players familiar with the
+     earlier version, because they will expect to see the old  Conquer
+     behavior.   So,  in order to allow people to become familiar with
+     the new version as quickly as possible, I am providing this  sum­
+     mary of changes and enhancements.
+
+     ==  The world shape used by Conquer is no longer rectangular.  It
+          is now that of a cylinder, where movement from left to right
+          is wrapped, while that from top to bottom is not.
+
+     == During world creation, a hexagonal or a rectangular coordinate
+          system may be specified.
+
+     == The numbering of the Y axis is reversed from version 4.x.  So,
+          the value of Y now increases towards the north.
+
+     ==  If  the "relative coordinates" option is enabled, each nation
+          will have a central reference point  (usually  the  national
+          Capital),  upon  which  all  other coordinate values will be
+          based.  {Ex., the sector to the northeast of  the  reference
+          sector is [1][1] and that to the west is [-1][0].}
+
+     == If the "check logins" option is enabled, only the owner of the
+          nation will be able to log into a nation, even if the  pass­
+          word is known.
+
+     ==  The  display system has been entirely reconfigured.  Not only
+          can the display "zoom", but there are also four possible si­
+          multaneous  displays  on the most detailed zoom setting, in­
+          stead of the old method of having two display styles at  all
+          times.
+
+     == The world generator is greatly enhanced, producing worlds that
+          are much more realistic in land mass shaping.  A new  curses
+          interface  has  also  been  provided  during world creation,
+          which contains many more global options.
+
+     == The size of the world can be up to 256x256 in dimensions.   If
+          desired,  this limitation can be removed during compilation,
+          and a world of any size (within the scope of the platform on
+          which  Conquer  is  running)  can  be specified.  {Note that
+          changing this particular compilation option will make previ­
+          ous world data structures incompatible}.
+
+     == A new altitude of valley (v) has been added.
+
+     ==  Sectors now contain major and minor designations.  This means
+          that a sector has a specified main use, and the minor desig­
+          nations  indicate  attributes  of the sector.  So, it is now
+          possible to have a town sector which has roads going through
+          it, and a blacksmith in residence.
+
+     ==  A  new  raw  material of "wood" has been added.  This is used
+          mainly in the construction of ships and fortifications.
+
+     == Raw materials are no longer  gathered  on  a  national  basis.
+          They are now located in caches, stockades, towns, cities and
+          the Capital.  This means that production and distribution of
+          resources  will have to be handled on a city by city, region
+          by region basis.  This also means that sieges  will  have  a
+          greater  effect, since a sector under siege will have to de­
+          pend on the its own resources until the siege is broken.
+
+     == Capturing of sectors now  takes  place  only  during  updates.
+          This  eliminates  a  number of "race conditions" which would
+          cause serious problems whenever two players  tried  to  take
+          the same sector on the same turn.
+
+     == The number of men needed to capture a sector is now determined
+          by the population of the sector being captured, not the pop­
+          ulation of the nation doing the capturing.
+
+     ==  Non-city sectors may now be captured if an overwhelming force
+          of troops is within the sector.  For city sectors,  all  de­
+          fenders must still be eliminated before a sector may be tak­
+          en.
+
+     == Caravans have been added.  Caravans are used like  navies,  to
+          transport  goods along the land.  They are of minimal effec­
+          tiveness in combat.
+
+     == All of the data structures within Conquer are now  dynamic  in
+          nature.   There is no limit on the number of armies, navies,
+          or caravans a nation may possess, but the cost for units now
+          includes  a  base  surcharge for each unit.  This means that
+          two army units of 75 men each are more  expensive  than  one
+          army unit of the same type with 150 men.  {This was done for
+          the sake of realism and out of a need to discourage  an  ex­
+          cessive number of small units}
+
+     ==  Monster  units  of the same type may now be grouped together.
+          Monsters still have a relative strength greater than that of
+          a  normal  soldier,  but  since that value is a constant, it
+          need not be stored in the strength  data  of  every  monster
+          unit.
+
+     ==  Leader  units  now earn experience.  The strength of a leader
+          will increase as time goes on, reflecting greater  skill  in
+          the leader.
+
+     == Leaders may now be grouped under other leaders.
+
+     ==  Scouting  is no longer an accessible army status.  Scouts and
+          spies must always be drafted.
+
+     == Types of movement are now separate from statuses.   The  speed
+          of  a  unit  may  be  any  of Slow, Normal, March or Flight.
+          MARCH and FLIGHT have, therefore, been removed as  statuses.
+
+     == The status of AMBUSH has been added.
+
+     ==  The  magical  enhancement of a troop is now separate from the
+          status of the unit.  So, for example, a unit may now  be  in
+          magically enhanced garrison mode.
+
+     ==  The  status  of  a  group  leader indicates the status of the
+          group.  This means that a group is no longer just an  attack
+          force.
+
+     ==  A unit Garrisoned in a wall sector may be moved to any neigh­
+          boring wall sector once  per  turn.   [This  implements  pa­
+          trolling along a wall]
+
+     == Navies (and caravans) now possess statuses.
+
+     ==  There  are  now  four  ship types, each with a given purpose:
+          Barges (to carry carvans),  Galleys  (to  carry  civilians),
+          Warships  (to carry army units), and Merchants (to carry raw
+          materials).
+
+     == Combat between land and naval forces is now possible.
+
+     == Extended commands (via the ESC-key in version 4.x) may now  be
+          performed on navies and caravans as well as armies.
+
+     == There are many more extended commands available.
+
+     == The mail facility has been enhanced.
+
+     ==  It  is  now  possible  to  bind  keys, including multiple key
+          strokes, to Conquer functions.
+
+     == All of the display mode combinations may be reorganized by the
+          player.
+
+     ==  The trading board has been removed; the new method of trading
+          requires the transportation of ships or caravans to the  lo­
+          cation of where trading takes place.  [NOT IMPLEMENTED]
+
+     ==  The production and budget screens have been rewritten and are
+          now geared around regional reports.
+
+     == Spells are cast by the individual leader units,  whose  spell­
+          casting  ability  is  governed  on  an individual basis.  ==
+          There are specific  leader  types,  known  as  spellcasters,
+          which should have most of the burden of the spell powers.
+
+     ==  The new designation of "shrine" is used as a location for the
+          spell casting leaders to regain their magical  strength  for
+          spell casting.
+
+     ==  The new designation of "wall" is used as a defensive position
+          to limit the movement of enemy  troops.   Patrols  may  move
+          along neighboring wall sectors, extending defensive lines.
+
+     ==  Farms  must  now  be cultivated in order to fully utilize the
+          production ability of the sector.  A  "farm"  is  designated
+          during  the spring, becomes "fertile" during the summer, and
+          "fruitful" during the fall.  An interruption  of  the  cycle
+          causes  less  than  optimal production during the summer and
+          fall seasons. {This means that sectors will have to be  held
+          during  the  entire year, or captured unharmed, for the full
+          fall yield to be realized}
+
+     == Army units may be upgraded to a better unit type for a reduced
+          cost.
+
+     ==  Minor  designations  are used to determine the sector status.
+          The "devastated" minor designation indicates  a  sector  has
+          been  ruined,  and  its production will by 1/4 of normal.  A
+          minor designation of "sieged" is used to indicate  a  sector
+          where  enemy  troops  have successfully blockaded the sector
+          owner and allies.
+
+     == Supply centers are able to give out and receive supplies  from
+          sectors  within a given range of sectors.  This range is de­
+          termined by the sector designation,  seasonal  conditionals,
+          national  skills and other factors.  Any sectors outside the
+          range of all supply centers must be supported  using  navies
+          or  caravans  or  else the sector will be "unsupported", and
+          people will starve and the structures decay.
+
+     == The new designation of "cache" has been added which provides a
+          place  for  storing items which is not visible to any nation
+          but the sector owner.
+
+     == The main map display can be made to display more detailed  in­
+          formation about the current sector.  Simply use the "toggle-
+          infomode" command to adjust how the display is used.
+
+     == A full screen loading interface has  been  provided  to  allow
+          easier transfer of goods between supply centers, navies, and
+          caravans.
+
+     == A configuration file, ".conqrc" has  been  provided  to  allow
+          easy  customization  of the Conquer environment.  Customiza­
+          tion commands are placed in this file and read in at  start­
+          up.  Conquer can automatically generate a configuration file
+          for a player, through the use of the "store-settings" option
+          under the "conquer-options" command.
+
+     ==  The  Conquer  god  or demi-god may now disable user logins at
+          will.
+
+     == Movement is now on a percentage scheme.  All  units  start  at
+          "100"  and  movement  between  sectors will deduct a certain
+          percentage of the movement  ability  from  the  unit.   This
+          scheme  is  easier for most people to understand, and yet is
+          still basically the same as the other schemes.

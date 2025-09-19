@@ -1,0 +1,241 @@
+/* conquer: Copyright (c) 1992 by Ed Barlow and Adam Bryant
+ *
+ * MODIFICATION OF THIS FILE IMPLIES THAT THE MODIFIER WILL ACCEPT
+ * A LIMITED USE COPYRIGHT AS FOLLOWS:
+ *
+ * 1) This software is copyrighted and protected by law.  The owners
+ *     of this software, which hereafter is known as "conquer", are
+ *     Edward M. Barlow and Adam D. Bryant, who hereby grant you a
+ *     personal, non-exclusive right to use this software.
+ *     All rights on this software are reserved.
+ * 2) conquer, once modified, may not be redistributed in any form.
+ *     Any requests for new software shall, for now, be the perogative
+ *     of the authors.
+ * 3) Loss or damage caused by this software shall not be the
+ *     responsibility of the authors.
+ * 4) If any enhancements to this software are made, the authors shall
+ *     be notified via electronic mail, and if there is no response,
+ *     via US mail to:
+ *
+ *        Adam Bryant                       Ed Barlow
+ *        120 Glenville Ave. Apt 7          115 E 34ths St.
+ *        Allston, MA 02134                 NY, NY 10016
+ *        (617) 787-4794                    (212) 679-1439
+ *        adb@bu.edu
+ *
+ *     The home phone numbers listed above are to be used sparingly,
+ *     and before 11PM if it is important.   Ed Barlow no longer has
+ *     easy access to arpanet, so is not able to support conquer as
+ *     well as he was originally able to.  If anybody knows of a cheep
+ *     (preferably free) way to login to an account in New York with
+ *     network access, feel free to contact Ed at the address listed
+ *     above.  Also, Adam Bryant is providing all of the support for
+ *     version 4.x and above, so Ed will likely not be able to help
+ *     with problems associated with those versions.
+ * 5) No attempt shall be made to make any money from this game or to
+ *     use any portion of this code to make any money without the
+ *     authors' permission.
+ * 6) No attempt shall be made to port this software to any form of
+ *     personal computer without the permission of Ed Barlow.
+ * 7) You agree to use your best efforts to see that any user of
+ *     conquer complies with the terms and conditions stated above.
+ * 8) The above copyright agreement will not be tampered with in any
+ *     form.
+ *
+ */
+
+/* === System Dependent Compilation Definitions === */
+
+/* What version of conquer is this? */
+#define VERSION "Version 5.0b"
+
+/* Super User Information */
+#define OWNER	"Kevin"	/* administrators name (just for show)	*/
+#define LOGIN	"kevin"		/* administrators login id. IMPORTANT!	*/
+
+/* ============ PRIMARY ADJUSTMENTS =========== */
+/* == WARNING: Changing any of the following == */
+/* ==   adjusts the format of the data file. == */
+/* ============================================ */
+
+/* Implementation of data compression */
+#define COMPRESS	/* use compression when storing the data file	*/
+#ifdef COMPRESS
+#define COMP_NAME	"compress"	/* file compression program	*/
+#define COMP_READ	"zcat"		/* how to read compressed files	*/
+#define COMP_SFX	".Z"		/* compressed file suffix	*/
+#endif
+
+/* Storage specification options */
+#define MANY_UNITS	/* allow more than 255 army, navy, cvan units	*/
+#define HUGE_MAP	/* allow really huge ( > 256x256 ) map sizes	*/
+#define ABSMAXNTN 100	/* maximum number of nations in the world       */
+
+/* ========= END OF PRIMARY ADJUSTMENTS ======= */
+
+/* === Secondary System Dependencies === */
+
+#define DEFAULT_UMASK 077	/* Default permissions mask for conquer	*/
+#define CUSTOM_UMASK  066	/* permissions mask for rcfile output	*/
+#define FULLWRITE_UMASK 000	/* permissions to do anything to file	*/
+
+#define ALLOW_EDIT_FORK	/* allow (demi-)god to spawn a secure(?) editor	*/
+#define DO_TIME_CHECK	/* implement time checking for conquer access;
+			   this requires the signal() SIGALRM routines.	*/
+/*#define SYSMAIL*/		/* if your system supports mail; conquer will
+			   notify players about system mail.		*/
+
+/* File locking definition */
+#define LOCKF		/* If your site uses NFS file locking routines
+			   and has the lockd daemon running */
+
+/* Command strings for system programs */
+#define REMOVE_NAME	"/bin/rm -f"	/* how are files removed?	*/
+#ifdef SYSMAIL
+#define SPOOLDIR "/usr/spool/mail/"	/* location of mail spool w '/'	*/
+#endif
+
+/* Timing commands */
+#define MAIL_TIME 60	/* time in seconds between checks on mail files	*/
+#define TIMETOBOOT 120	/* time in seconds before -T forces logouts */
+
+/* File format to generate a tempory file, must have %s with a %d later */
+#ifndef VMS
+#define TMP_FILE_FMT "/tmp/%s.%d"
+#define TMP_DIR	"/tmp"	/* this is the name of the directory for above */
+#else
+#endif /* VMS */
+
+/* Editor preferences */
+#define ENV_EDITOR	"EDITOR"	/* environment string of editor */
+#define DEFAULT_EDITOR	"/usr/ucb/vi"	/* the name for the default */
+
+/* For sites running the VMS operating system */
+/* #define VMS */	/* if the machine is running under the VMS OS */
+#ifdef VMS
+/* VMS sites will need to comment these out if inappropriate */
+#define VAXC		/* the default VMS compiler */
+#define TSERVER		/* terms controlled via the VMS terminal server */
+#endif /* VMS */
+
+/* Files used for standard input and output realignment */
+#ifndef VMS
+#define NULL_INPUT "/dev/null"
+#define NULL_OUTPUT "/dev/null"
+#else
+#define NULL_INPUT ""
+#define NULL_OUTPUT ""
+#endif /* VMS */
+
+/* === Optional Configuration Definitions === */
+
+#define SECURITY	/* limit god access to proper login names only.	*/
+#define LISTUSERS	/* extra info -l: need gethostbyname or uname.	*/
+#define REMAKE		/* allow world rebuild even if datafile exists	*/
+#define CHEAT		/* allow npcs to obtain small help		*/
+#define	SPEW		/* spew random messages from npcs 		*/
+#define RUNSTOP		/* stop update if players are still in the game	*/
+#ifdef RUNSTOP
+/* define this and RUNSTOP to have an update wait for players to finish */
+/* this is VERY important if your intend on having automatic updates.	*/
+#define UPDATESLEEP 30	/* sleep for UPDATESLEEP seconds and try again	*/
+#endif /* RUNSTOP */
+
+/* Computer behavior options [Unimplemented] */
+/* #define NPC_COUNT_ARMIES */	/* defined if NPC nations can always count
+				   armies This makes them to cheat by by seeing
+				   even magically disguised troops */
+/* #define NPC_SEE_SECTORS */	/* defined if NPC nations can always see
+				   sectors. This allows them to cheat by being
+				   allowed to see all sector attributes of even
+				   disguised sectors */
+/* #define NPC_SEE_CITIES */	/* defined if NPC nations can always see cities
+				   This allows them to cheat by being able to
+				   see if a VOID sector is a city/town.
+				   Simulates the players ability to tell cities
+				   via movement. */
+
+/* === Parameter Settings; Most likely need not be changed === */
+
+#define NRAND_DIGITS 9	/* decimal digits in "non-random" number [<= 9]	*/
+#define MIN_WORLD_SIZE 24	/* minimum value for a world axis.	*/
+#define MAXFORTVAL 24	/* the maximum internal value for fortification	*/
+#define MAXCHARITY 25	/* absolute limit which charity may reach.	*/
+#define MAXTAX 20	/* maximum setting of the taxation rate.	*/
+#define MAXNEWS 12	/* total number of turns worth of news saved.	*/
+#define PLEADER_EXP 100	/* % chance for leader to gain 1 exp pt / year	*/
+#define LONGTRIP 100	/* navy trip lth for 100% attrition of civs	*/
+#define SPEEDUP_COST 1	/* move decrease just before increasing speed	*/
+#define PSTARVE	25	/* % of population that starves if not fed	*/
+#define PCOLLAPSE 10	/* % change of unsupplied sector deterioration	*/
+#define PDISBAND 10	/* % of a unit that disbands w/out supplies.	*/
+#define PVOLUNTEERS 20	/* % of a sector population available for duty	*/
+#define PBARNICLES 2	/* % chance for ship damage w/out supplies	*/
+#define	LATESTART 2	/* 1 pt / LATESTART turns after beginning for
+			   new nations when they start late in the game	*/
+#define MIN_GAIN_STR 250 /* minimum strength needed to gain attack bonus */
+#define PROB_GAIN_STR 1500 /* 100% chance to gain attack bonus for strength */
+
+/* Range Values; making these numbers large takes more CPU time */
+#define LANDSEE 2	/* how far you can see from your land		*/
+#define NAVYSEE 1	/* how far navies can see around them		*/
+#define ARMYSEE 2	/* how far armies can see around them		*/
+#define CVNSEE 1	/* how far caravans can see around them		*/
+#define PRTZONE	3	/* how far pirates roam from their basecamp	*/
+#define MEETNTN	2	/* how close nations must be to adjust status	*/
+#define NAVYRANGE 3	/* how close fleets need to be to engage	*/
+#define VISRANGE 4	/* sector number known if within this range	*/
+
+/* Pager Settings */
+#define MAX_FILE_LINES 5000	/* max file size for pager to read in	*/
+#define D_PAGEOFF 0	/* offset of current line from the top in pager	*/
+#define D_PAGETAB 8	/* spacing for tabs in the pager		*/
+
+/* Sector Specifications */
+#define DESFOOD	4		/* min food val to redesignate sector	*/
+#define TOOMANYPEOPLE 5000L	/* too many people in sector - 1/2 repro
+				   and 1/2 production; not in cities.	*/
+#define ABSMAXPEOPLE 50000L	/* absolute max people in any sector	*/
+#define	MILLSIZE 500L		/* min number of people to work a mill	*/
+#define TOOMUCHMINED 50000L	/* units mined for 100% chance of metal
+				   depletion actual chance is prorated	*/
+
+/* Cost Specifications */
+#define MOVECOST 20L		/* talons cost for each command entered	*/
+#define PEOPLE_MCOST 50L	/* cost for one civilian in move_people	*/
+#define NAVYMAINT 4000L		/* navy maintainance cost / hold	*/
+#define CVNMAINT 1000L		/* caravan maintainance cost		*/
+#define FORTCOST 1000L		/* cost to build a fort point		*/
+#define CARAVANCOST 5000L	/* cost for caravans (per 10 wagons)	*/
+#define CARAVANWOOD 400L	/* how much wood per 10 wagons		*/
+
+/* Base numeric settings */
+#define TAKESECTOR 75		/* base number of soldiers for capture  */
+#define TAKE_RATIO 7		/* Ratio N:1 needed to take a sector	*/
+#define BASE_TAKEPCT 10		/* Troop size, % of civs, for capturing */
+#define MAXLOSS	 60		/* maximum % of men lost in 1:1 battle	*/
+#define	FINDPERCENT 1		/* percent to find gold/metal in sector	*/
+#define LOAD_CITYCOST 4		/* move lost in (un)loading in cities	*/
+#define LOAD_LANDCOST 12	/* move lost in (un)loading elsewhere	*/
+
+/* Unit definitions */
+#define MAXNAVYCREW 100		/* full strength crew on a naval fleet	*/
+#define MAXCVNCREW 30		/* full strength crew on a 1 "caravan"	*/
+#define NAVY_HOLD 100000L	/* storage space of a ship unit		*/
+#define CVN_HOLD 50000L		/* storage space of a caravan wagon	*/
+#define ARMYUNITCOST 500L	/* added cost per separate army unit	*/
+#define NAVYUNITCOST 1000L	/* added cost per separate navy unit	*/
+#define CVNUNITCOST 500L	/* added cost per separate caravan unit	*/
+#define WAGONS_IN_CVN 10	/* number of wagons per cvn size unit	*/
+
+/* Addtional Npc Behavior Settings */
+#define CITYLIMIT 5L		/* % of npc pop in sctr before => city	*/
+#define CITYPERCENT 20L		/* % of npc pop able to be in cities	*/
+/* note that militia are not considered military below	*/
+#define MILRATIO 8L		/* ratio civ:mil for NPCs		*/
+#define MILINCAP 8L		/* ratio (mil in cap):mil for NPCs	*/
+#define	MILINCITY 10L		/* militia=people/MILINCITY in city/cap */
+#define NPCTOOFAR 15		/* npcs stay within this distance of cap*/
+#define METALORE 7L		/* metal/soldier needed for +1% weapons	*/
+
+/* To change the default campaign settings, see buildA.h */

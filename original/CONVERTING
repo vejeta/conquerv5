@@ -1,0 +1,23 @@
+Conquer now contains routines for automatically converting
+old data files to the current data file format.  The method
+used to insure that the conversion would work is:
+
+    1. update (conqrun -x) using the older version of conquer.  This
+       will read in all of the data in the *.exc files, which will NOT
+       be converted.
+
+    2. prevent logins until the new version and data file are in place.
+       (use the "conqrun -T" option).
+
+    3. once the new binaries are in place, you perform the
+       conversion by reading and then writing the datafile.  The
+       "conqrun -E" option is probably the best method to use.
+        
+
+If anything goes wrong or if you have trouble with this... please
+let me know right away.
+
+adam
+ps. If you should happen to forget to update with the old version
+before you remove it, just be sure to remove all of the "*.exc" files
+instead.

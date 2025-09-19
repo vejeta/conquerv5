@@ -1,0 +1,57 @@
+The format of the file is
+	The first section contains lines starting with disable: <hostname>
+		these lines disable playing at specified host. The hostname
+		must be canonical name, the aliases are not checked
+	The second second section contains lines starting with dayname or
+	its at least three letters long abbreviation. The rest of the line
+	contains 47 or 48 chars long line whose format is:
+		2 chars for each hour. First column indicates the nice value,
+		or data if the system is closed. The second column indicates
+		the starting 10 minutes when the update takes place
+		The following letters are used:
+			X = closed, . = Open, N = Default nice, [0123456789]
+			indicates used nice value (is multplied by 2 to get
+			actual nice value)
+	The rest of the lines are ignored.
+
+disable: joker.cs.hut.fi
+disable: spiff.cs.hut.fi
+disable: batman.cs.hut.fi
+disable: zelda.cs.hut.fi
+disable: silver-surfer.cs.hut.fi
+disable: wonderwoman.cs.hut.fi
+disable: toxic-avenger.cs.hut.fi
+disable: judge-dredd.cs.hut.fi
+disable: modesty-blaise.cs.hut.fi
+disable: exterminator.cs.hut.fi
+disable: corto-maltese.cs.hut.fi
+disable: marsupilami.cs.hut.fi
+
+	We disabled the machines with long names because rpc.lockd 
+	keeps dying when lockf() is called on machines with names longer
+	than 9 chars.
+	A fasist staff person sits on zelda's console....
+	spiff swaps on MO disk. Slowwww........
+	joker and batman are diskservers
+	
+	
+    	0                   1                   2 
+	0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 
+Mon:	. . . . . . . . N 5 X X X X X X X 5 N . . .0. . 
+Tue:	. . . . . . . . N 5 X X X X X X X 5 N . . .0. . 
+Wed:	. . . . . . . . N 5 X X X X X X X 5 N . . .0. . 
+Thu:	. . . . . . . . N 5 X X X X X X X 5 N . . .0. . 
+Fri:	. . . . . . . . N 5 X X X X X X X 5 N . . .0. . 
+Sat:	. . . . . . . . . . . . . . . . . . . . . .0. . 
+Sun:	. . . . . . . . . . . . . . . . . . . . . .0. . 
+
+	The game can be used every day before 8am with priority 0
+	Every weekday between 8am and 9am the priority is default (4)
+	Every weekday between 9am and 10am the priority is (2 * 5 = 10)
+	Game is not allowed 10 and 17 on weekdays.
+	from 17 to 18 priority is again 10
+	from 18 to 19 priority is 4
+	The rest of a weekday the priority is 0, but update takes 
+	place at 2100 and the users are logged out and new logins
+	are disabled for 10 first minutes of that hour.
+	

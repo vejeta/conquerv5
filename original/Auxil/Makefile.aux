@@ -1,0 +1,109 @@
+#	conquer: Copyright (c) 1991 by Edward M Barlow and Adam Bryant
+#		 All Rights Reserved
+#
+#	This Makefile should not need changing.
+#
+#	Please report any problems that you encounter with any of the
+#	Makefiles.  If any problems develop while compiling, or if any
+#	files but the Makefiles and header.h files need editing,
+#	please send me mail.
+#			adb@cs.bu.edu
+#			adb@bucsf.bu.edu
+#       		adb@bu.edu
+#
+
+#	All of the default settings
+MAKE	= %%MAKE%%
+MKDPND	= %%MKDPND%%
+MKDIR	= %%MKDIR%%
+SHELL	= %%SHELL%%
+CD	= %%CD%%
+CC	= %%CC%%
+RM      = %%RM%%
+CP	= %%CP%%
+MV	= %%MV%%
+ECHO	= %%ECHO%%
+STRIP	= %%STRIP%%
+NULL	= %%NULL%%
+TOUCH	= %%TOUCH%%
+CHOWN	= %%CHOWN%%
+CHMOD	= %%CHMOD%%
+LIBS	= %%LIBS%%
+SYSFLG	= %%SYSFLG%%
+CFLAGS	= %%CFLAGS%%
+TOPDIR	= %%TOPDIR%%
+DATADIR	= %%DATADIR%%
+BINDIR	= %%BINDIR%%
+INCDIR	= %%TOPDIR%%/%%INCDIR%%
+SRCDIR	= %%TOPDIR%%/%%SRCDIR%%
+AUXDIR	= %%TOPDIR%%/%%AUXDIR%%
+DOCDIR	= %%TOPDIR%%/%%DOCDIR%%
+CQUER	= %%CQUER%%
+CQRUN	= %%CQRUN%%
+CQSORT	= %%CQSORT%%
+CXTRACT	= %%CXTRACT%%
+GFILS	= %%GFILS%%
+AFILS	= %%AFILS%%
+XFILS	= %%XFILS%%
+GOBJS	= %%GOBJS%%
+AOBJS	= %%AOBJS%%
+XOBJS	= %%XOBJS%%
+
+#
+#	Building and Installation Procedures
+#
+all:	
+	@${ECHO} "Use one of:"
+	@${ECHO} "   make build       -- build everything"
+	@${ECHO} "   make install     -- install everything"
+	@${ECHO} "   make clean       -- clean up some files"
+	@${ECHO} "   make clobber     -- clean up all files"
+
+#
+build:	${CQSORT}
+	@${ECHO} Build in Auxil done
+
+#
+install:	in${CQSORT}
+	@${ECHO} Installation in Auxil done
+
+#	Cleaning things up
+clean:
+	${RM} *.o *~ *.bak \#* ${NULL}
+
+#	Really clean things up
+clobber:	clean
+	${RM} in${CQSORT} ${CQSORT} ${NULL}
+
+#
+#	Makefile specfic variables
+#
+
+#	use the value of C flags
+CFLGS	= ${CFLAGS}
+CPPFLGS	= ${SYSFLG}
+
+#	list of object files
+SORTOBJS	= sort.o
+
+#
+#	Rules and dependencies for this Makefile
+#
+.c.o:	$<
+	${CC} ${CFLGS} ${CPPFLGS} -c $*.c
+
+${CQSORT}:	${SORTOBJS}
+	${CC} ${CFLGS} -o ${CQSORT} ${SORTOBJS}
+
+in${CQSORT}:	${CQSORT}
+	@${ECHO} Installing ${CQSORT}...
+	${STRIP} ${CQSORT}
+	-${RM} ${BINDIR}/${CQSORT} ${NULL}
+	-${MKDIR} ${BINDIR}
+	${MV} ${CQSORT} ${BINDIR}
+	${CHOWN} ${BINDIR}/${CQSORT}
+	${CHMOD} 755 ${BINDIR}/${CQSORT}
+	${TOUCH} ${CQSORT}
+	${TOUCH} in${CQSORT}
+
+#
