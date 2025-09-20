@@ -7,7 +7,7 @@
  * THIS FILE SHOULD NOT NEED MODIFYING
  *
  * If any changes should be necessary, please send such changes 
- * along with the OS, and machine type, to conquer-bugs@cs.bu.edu
+ * along with the OS, and machine type, to https://github.com/vejeta/conquerv5/issues
  */
 
 /* stupid stuff for SGI systems */

@@ -1,16 +1,25 @@
-#	conquer: Copyright (c) 1991 by Edward M Barlow and Adam Bryant
-#		 All Rights Reserved
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-FileCopyrightText: 1987-1992 Ed Barlow <barlowedward@hotmail.com>
+# SPDX-FileCopyrightText: 1987-1992 Adam Bryant <adb@usa.com>
+# SPDX-FileCopyrightText: 2025 Juan Manuel Méndez Rey <vejeta@gmail.com>
 #
-#	This Makefile should not need changing.
+# Conquer - Classic Multi-Player Strategy Game - Build Configuration
 #
-#	Please report any problems that you encounter with any of the
-#	Makefiles.  If any problems develop while compiling, or if any
-#	files but the Makefiles and header.h files need editing,
-#	please send me mail.
-#			adb@cs.bu.edu
-#			adb@bucsf.bu.edu
-#       		adb@bu.edu
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 #
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# Relicensed to GPL v3+ with explicit permission from original authors.
+# For relicensing documentation, see RELICENSING-PERMISSIONS.md
 
 #	All of the default settings
 MAKE	= /usr/bin/make

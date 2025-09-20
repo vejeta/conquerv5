@@ -1,7 +1,7 @@
 This list of possible problems encountered during compilation is meant
 to point out already encountered problems and their associated
 solutions.  If your problem is not on the list below, you can email me
-at 'adb@cs.bu.edu' to see if I can help you out.
+at 'vejeta@gmail.com or https://github.com/vejeta/conquerv5/issues' to see if I can help you out.
 
 Problem #0:  Make: Line 213: syntax error.  Stop.
 
@@ -203,4 +203,4 @@ Problem #10: when installed setuid the real user name is not obtained
 
 
 Adam Bryant
-adb@cs.bu.edu
+vejeta@gmail.com or https://github.com/vejeta/conquerv5/issues

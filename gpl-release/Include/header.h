@@ -1,53 +1,28 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-/* conquer: Copyright (c) 1992 by Ed Barlow and Adam Bryant
+/*
+ * Conquer - Classic Multi-Player Strategy Game - Main Header File
  *
- * MODIFICATION OF THIS FILE IMPLIES THAT THE MODIFIER WILL ACCEPT
- * A LIMITED USE COPYRIGHT AS FOLLOWS:
+ * Originally Copyright (C) 1987-1992 Ed Barlow <barlowedward@hotmail.com>
+ * Originally Copyright (C) 1987-1992 Adam Bryant <adb@usa.com>
+ * Copyright (C) 2025 Juan Manuel Méndez Rey <vejeta@gmail.com>
  *
- * 1) This software is copyrighted and protected by law.  The owners
- *     of this software, which hereafter is known as "conquer", are
- *     Edward M. Barlow and Adam D. Bryant, who hereby grant you a
- *     personal, non-exclusive right to use this software.
- *     All rights on this software are reserved.
- * 2) conquer, once modified, may not be redistributed in any form.
- *     Any requests for new software shall, for now, be the perogative
- *     of the authors.
- * 3) Loss or damage caused by this software shall not be the
- *     responsibility of the authors.
- * 4) If any enhancements to this software are made, the authors shall
- *     be notified via electronic mail, and if there is no response,
- *     via US mail to:
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- *        Adam Bryant                       Ed Barlow
- *        120 Glenville Ave. Apt 7          115 E 34ths St.
- *        Allston, MA 02134                 NY, NY 10016
- *        (617) 787-4794                    (212) 679-1439
- *        adb@bu.edu
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *     The home phone numbers listed above are to be used sparingly,
- *     and before 11PM if it is important.   Ed Barlow no longer has
- *     easy access to arpanet, so is not able to support conquer as
- *     well as he was originally able to.  If anybody knows of a cheep
- *     (preferably free) way to login to an account in New York with
- *     network access, feel free to contact Ed at the address listed
- *     above.  Also, Adam Bryant is providing all of the support for
- *     version 4.x and above, so Ed will likely not be able to help
- *     with problems associated with those versions.
- * 5) No attempt shall be made to make any money from this game or to
- *     use any portion of this code to make any money without the
- *     authors' permission.
- * 6) No attempt shall be made to port this software to any form of
- *     personal computer without the permission of Ed Barlow.
- * 7) You agree to use your best efforts to see that any user of
- *     conquer complies with the terms and conditions stated above.
- * 8) The above copyright agreement will not be tampered with in any
- *     form.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
+ * Relicensed to GPL v3+ with explicit permission from original authors.
+ * For relicensing documentation, see RELICENSING-PERMISSIONS.md
  */
 
-/* === System Dependent Compilation Definitions === */
-
-/* What version of conquer is this? */
 #define VERSION "Version 5.0b"
 
 /* Super User Information */

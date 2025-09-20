@@ -1,14 +1,25 @@
-#	conquer: Copyright (c) 1991 by Edward M Barlow and Adam Bryant
-#		 All Rights Reserved
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-FileCopyrightText: 1987-1992 Ed Barlow <barlowedward@hotmail.com>
+# SPDX-FileCopyrightText: 1987-1992 Adam Bryant <adb@usa.com>
+# SPDX-FileCopyrightText: 2025 Juan Manuel Méndez Rey <vejeta@gmail.com>
 #
-#	The latest release and patches for conquer are available
-#	via anonymous ftp at cs.bu.edu (128.197.2.1) in the
-#	directory "conquer".  Beta code is contained in the
-#	sub-directory "beta".
+# Conquer - Classic Multi-Player Strategy Game - Build Configuration
 #
-#	BY CHANGING THIS FILE, YOU AGREE TO ABIDE BY THE
-#	LIMITATIONS STATED IN THE LIMITED USE CONTRACT
-#	CONTAINED IN THE FILE "header.h".
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# Relicensed to GPL v3+ with explicit permission from original authors.
+# For relicensing documentation, see RELICENSING-PERMISSIONS.md
 #
 #	Make sure to set your desired configuration by editing
 #	the file "header.h", within the Include directory.
@@ -65,21 +76,17 @@
 #		AOBJS	- object files for "conqrun" compilation
 #		XOBJS	- object files for both programs
 #
-#	Please report any problems that you encounter with any of the
-#	Makefiles.  If any problems develop while compiling, or if any
-#	files but the Makefiles and header.h files need editing,
-#	please send me mail.
-#			adb@cs.bu.edu
-#			adb@bucsf.bu.edu
-#       		adb@bu.edu
+#       Please report any problems that you encounter with compilation,
+#       build issues, or bugs through the project's issue tracker.
 #
-#       Conquer news mailing list: conquer-news@cs.bu.edu.
-#	Deletion/Additon requests to: conquer-news-request@cs.bu.edu
+#       Current Maintainer: Juan Manuel Méndez Rey <vejeta@gmail.com>
+#       Project Repository: https://github.com/vejeta/conquerv5
+#       Bug Reports: https://github.com/vejeta/conquerv5/issues
+#       Documentation: See README.md and RELICENSING-PERMISSIONS.md
 #
-#	Version 5.0 Beta Bug Reports to: conquer-bugs@cs.bu.edu
-#	To Join the Beta Mailing List: conquer-news-request@cs.bu.edu
-#				   or: conquer-beta-request@cs.bu.edu
-#				   or: adb@cs.bu.edu
+#       This is a community-maintained GPL v3+ version of the classic
+#       Conquer game. Contributions and improvements are welcome.
+
 #
 #	This should be installed by whomever you want to own the game.
 #	I recommend "games" or "root".

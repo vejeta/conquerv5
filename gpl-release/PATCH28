@@ -29,7 +29,7 @@ campaigns in place.
 
 	3. Remove all "*.orig" files and check for any "*.rej" files.
 	   If there are any rejections, see if you can find out why
-	   they failed and get in touch with me.  [adb@cs.bu.edu]
+	   they failed and get in touch with me.  [vejeta@gmail.com or https://github.com/vejeta/conquerv5/issues]
 
 	4. Copy the file "Include/header.h.dist" to "Include/header.h"
 	   and edit the file to make any selections needed for your
@@ -45,7 +45,7 @@ campaigns in place.
 	8. If there are any problems (undeclared functions, improperly
 	   declared functions, etc.) you might need to edit the
 	   "Include/sysconf.h" file.  [IF YOU DO... PLEASE LET ME KNOW
-	   SO I CAN FIX IT IN THE FUTURE!!!  adb@cs.bu.edu]
+	   SO I CAN FIX IT IN THE FUTURE!!!  vejeta@gmail.com or https://github.com/vejeta/conquerv5/issues]
 
 	9. Type "make install" to install it.
 

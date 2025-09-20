@@ -3,13 +3,12 @@
 #
 #	This Makefile should not need changing.
 #
-#	Please report any problems that you encounter with any of the
-#	Makefiles.  If any problems develop while compiling, or if any
-#	files but Makefile.top and header.h files need editing,
-#	please send me mail.
-#			adb@cs.bu.edu
-#			adb@bucsf.bu.edu
-#       		adb@bu.edu
+#       Please report any problems with compilation or build issues
+#       through the project's issue tracker.
+#
+#       Current Maintainer: Juan Manuel Méndez Rey <vejeta@gmail.com>
+#       Project Repository: https://github.com/vejeta/conquerv5
+#       Bug Reports: https://github.com/vejeta/conquerv5/issues
 #
 
 #	All of the default settings

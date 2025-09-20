@@ -31,7 +31,7 @@ game, feel free to get in touch with me.
 .sp
 .in +4.0i
 Adam Bryant
-adb@bu.edu
+vejeta@gmail.com (current maintainer)
 .in -4.0i
 .fi
 .CE
