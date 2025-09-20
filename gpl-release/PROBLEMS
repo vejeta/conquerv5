@@ -1,0 +1,206 @@
+This list of possible problems encountered during compilation is meant
+to point out already encountered problems and their associated
+solutions.  If your problem is not on the list below, you can email me
+at 'adb@cs.bu.edu' to see if I can help you out.
+
+Problem #0:  Make: Line 213: syntax error.  Stop.
+
+   Such a response usually means that the "make" program is not a very
+   good one, and cannot handle the "${VARNAME:.c=.o} replacement
+   construct.  You will need to either get a better make ("gnumake" is
+   supposed to be nice) or make sure to uncomment all lines what have
+   a "# === BROKEN MAKE ===" line before them.  First do this with the
+   top level Makefile, then "make mkfiles" and do it with the rest of
+   the "Makefile"s.
+
+   NOTE:  some makes do not properly parse this structure and just
+   return an empty setting instead, causing unknown targets or empty
+   dependency lists.  If such things occur, you will also need to go
+   back and kill things just like above.
+
+Problem #1:  warning: implicit declaration of function `exit'
+
+   GCC and other ANSI compilers will return this error message.  You
+   may just ignore it.  But, I would like to eliminate them, if possible,
+   for the final release.  So, be sure to send me all such warnings,
+   with a complete description of your hardware, operating system, and
+   compiler.
+
+Problem #2:  Undefined functions upon linking.
+
+   If there are functions which are not part of your system library,
+   but were used by conquer, their lack will be shown during the
+   linking of all of the object files into the conquer or conqrun
+   programs.  In order to avoid these errors, you can uncomment an
+   option to avoid the use of the given function.
+
+   An example linking error:
+
+    % cc -O -o conqrun mainA.o ...
+    Undefined:
+       _mkdir()
+
+   The list of associated functions and the compilation option which
+   will need to be (un)commented out from the file 'header.h':
+
+     Undefined Function          Solution to Problem
+     ===================         ====================
+      _mkdir()                    comment out MKDIR option
+      _random()                   comment out RANDOM option
+      _srandom()                  comment out RANDOM option
+      _crypt()                    comment out CRYPT option
+      _re_exec()                  comment out REGEXP option
+      _re_comp()                  comment out REGEXP option
+      _getdtablesize()            comment out GETDTABLESIZE option
+      _cuserid()                  comment out CUSERID option
+      _lockf()                    comment out LOCKF option
+      _flock()                    comment out FILELOCK option
+      _bzero()                    comment out BSD option
+      _memset()                   uncomment BSD option
+      _setreuid()                 comment out SETREUID option
+
+Problem #3:  size_t undefined during compilation.
+
+   Problem, error encountered during compilation:
+
+    "sysconf.h", line 1234: size_t undefined
+
+   Solution, you should comment out the SIZET_FREAD option within the
+   file header.h.
+
+Problem #4:  error or warning generated concerning redeclaration of fread().
+
+   Problem, encountered during compilation:
+
+    "sysconf.h", line 1234: redeclaration of function fread()
+
+   This can occur when your system declares fread() and fwrite() as
+   being of the type size_t.  If this error message or warning is
+   generated, it can be fixed by uncommenting the SIZET_FREAD option
+   within the file 'header.h'.
+
+Problem #5:  cextract command not found
+
+   Problem, encountered only during an attempted build within the
+   Include directory.  This will only take place if you are attempting
+   to create the 'fileX.h', 'fileG.h' and 'fileA.h' prototype files.
+
+   In order to do so, you must install the cextract program somewhere
+   within your path.  Go to the Auxil/cextract directory and build the
+   program so that it may be used.  [Read the INSTALL instructions]
+
+Problem #6:  any of the 'file[AGX].h' include files are wrong or missing.
+
+   This may have to be done if you are actually programming some of
+   the conquer code.  [I do hope you let me encorporate any of the
+   changes that you make into my own code for distribution :-)]
+
+   Note that if any of the files are missing totally, you will first
+   have to create an empty file so that the C preprocessor will not
+   exit when it cannot find the include file it is supposed to, then you
+   will have to run the 'make build'.
+
+Problem #7:  conquer or conqrun always say "try again later"
+
+   This problem can be caused by a number of things.  The indication that
+   you have such a problem will be a message such as:
+
+       Someone else is adding.
+       Please try again later.
+
+   when you try to add a nation with 'conqrun -a' and there is definitely
+   no one adding a nation.  It can also be seen when a player is not able
+   to log into a nation due to "Someone already being logged in".
+
+   The list of circumstances and solutions:
+
+      System Type          Options                 Solution
+   -----------------+---------------------+-----------------------------
+   |System with NFS |FILELOCK, LOCKF      |Either:                     |
+   | (such as a SUN)|                     |  - recompile without LOCKF |
+   |                |                     |    (only if system is a    |
+   |                |                     |     standalone)            |
+   |                |                     |  - check that the lockd is |
+   |                |                     |     running properly.      |
+   |----------------+---------------------+----------------------------|
+   |System with NFS |FILELOCK, LOCKF      |recompile without the LOCKF |
+   | but which does |                     |option being set. [this     |
+   | not actually   |                     |usually means that the lockd|
+   | run NFS.       |                     |daemon will not be running] |
+   |----------------+---------------------+----------------------------|
+   |Any system      |FILELOCK             |this can be caused by there |
+   |                |                     |being processes still in the|
+   |                |                     |background, running and thus|
+   |                |                     |keeping the lock active.    |
+   |                |                     |If this is not the case, I  |
+   |                |                     |do not really know what can |
+   |                |                     |be the cause.               |
+   |----------------+---------------------+----------------------------|
+   |Any system      |no options set for   |this can happen any time a  |
+   |                |filelocking.         |program is exited abnormally|
+   |                |                     |(seg fault or machine crash)|
+   |                |                     |the only solution to this is|
+   |                |                     |to either wait until the    |
+   |                |                     |lock file times out (this is|
+   |                |                     |given by TIME_DEAD) or just |
+   |                |                     |remove the lock file.       |
+   -----------------+---------------------+-----------------------------
+
+   Note:  If your system does support the FILELOCKing mechanism, this
+          should be used instead of depending on the very rudimentary
+          built in file locking system.
+
+Problem #8:  complaints about system header files.
+
+   There are two possible problems which might cause the compilation
+   to complain about the system header files:
+
+      1) non-unique identifiers within a certain number of characters.
+         If you are using gcc, simply increase the number following
+         the "id-clash" flag.  If you aren't, then this means that I
+         have a variable name conflict with header files.  This is not
+         easily solvable and should be reported to me.
+
+      2) the type declaration for a system function, such as
+         "strcpy()", "sprintf()", "sleep()", etc. does not match the
+         declaration I have supplied within my program.  Simply fix
+         the declaration of the function to match what your system has
+         and *THIS IS MOST IMPORTANT*, let me know about it, so that I
+         can fix it in the next patch.
+
+Problem #9:  On SCO Unix Sys V systems, IOT trap during conqrun -m
+
+   I have gotten reports about an IOT trap occuring when trying to
+   build worlds larger than or equal to 128x128.  The IOT trap is
+   encountered after the population is added to the world.
+
+   Note that in running conqrun -m on an already built campaign allows
+   one to get to the 128x128 level okay, but 136x136 and above will
+   still get the trap.
+
+   I am currently trying to track down this problem, but without
+   having access to such a system myself, this is difficult thing to
+   do.  I believe, though, that the problem is due to a memory error
+   and as such might be that much more difficult to track down.
+
+Problem #10: when installed setuid the real user name is not obtained
+		and the "setuid" user name is retrieved instead.
+
+   This problem has developed a few times at a couple of different
+   sites.
+
+   On SGI's running NFS, the final linking has to be done with a
+   special library to use the NFS routines.  [Why this couldn't be
+   handled by default, I have no clue.]  I think the manual page
+   intro(3Y) contains the instructions for doing this.
+
+   On a SYSVR3 on a Motorola 886DP SYSV/88, it was found that the
+   cuserid() function would return the value of the effective user
+   id, instead of the real user id.  This was fixed by removing the
+   CUSERID compilation option.  My guess is that most sites
+   encountering such problems should be able to solve it in this
+   manner.
+
+
+Adam Bryant
+adb@cs.bu.edu

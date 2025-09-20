@@ -1,0 +1,46 @@
+It will always be necessary to redo these commands whenever you
+receive a new patch or tar file, to assure that any Makefile changes
+are propogated to all of your files.
+
+Basic Unix Installation Instructions for 5.0 beta:
+
+   - Make sure everything is unpacked into the proper directories.
+         Src should contain the C source code
+         Include should contain all of the C header files
+         Docs should contain what little documentation there is
+         Auxil should contain any additional support programs
+   - Copy the file Include/header.h.dist to Include/header.h
+   - Edit the file Include/header.h
+   - Copy the file Makefile.top to Makefile
+   - Edit the file Makefile
+   - Run 'make Makefiles' to configure all of the Makefiles
+   - Run 'make build' to build all of the proper binaries
+   - Run 'make install' to install the programs
+
+Warning:  some older versions of make do not understand the string
+replacement contstruct.  This takes the form of "${A:.c=.o}" and will
+replace all of the file suffixes of '.c' with '.o'.  When this is not
+available to the make program, it simply replaces it with a blank, and
+causes major problems.  For now, I haven't thought of a way to avoid
+this, but I hope to do so in a future beta release.  Just edit each of the
+Makefiles by hand looking for the proper place to replace for any
+such constructs.
+
+Note to VMS users:  I have not yet gotten the procedure down
+for building on VMS systems, since I do not have such a system
+to work with.  [If any method, such as a DCL script, can be supplied
+to me, I would greatly appreciate it]
+
+Note to programmers:
+
+If you wish to program code for this version of conquer you will
+probably wish to make use of the prototype extracting program.  I
+use this program to build the 'file*.h' include files.
+
+These files are the prototypes for all of the functions within
+conquer and as such, will probably have to be updated if you do
+any programming for conquer.  I have a copy of the cextract program
+available if you needed, just send me email.
+
+adam bryant
+adb@cs.bu.edu

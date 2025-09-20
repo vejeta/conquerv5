@@ -1,0 +1,22 @@
+This directory is to contain source code for programs other
+than the standard conquer binaries.
+
+The list of programs:
+
+cextract   -- A set of routines written to generate proper prototypes from
+              C source code.  Two programs currently make use of the code:
+              cextract and cextdoc.  The cextract program is used to build
+              C header files for multi-file projects, and the cextdoc code
+              is used to automatically generate documentation from C source
+              code in either straight text or troff format.  Feel free to
+              examine or make use of the code, as they may be distributed
+              separately from conquer.
+
+conqsort   -- a sorting program written specifically for conquer because of
+              many problems with the standard unix "sort" program.
+
+psmap      -- a postscript map generator for conquer version 4.9. This has
+              not yet been ported to version 5.0 map output.
+
+
+adam bryant   adb@cs.bu.edu

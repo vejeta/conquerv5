@@ -1,0 +1,64 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+/* conquer : Copyright (c) 1992 by Ed Barlow and Adam Bryant
+ *
+ * Please see the copyright notice located in the header.h file.
+ */
+
+/* This file holds the codes for the movement routines */
+#ifndef __executeX_h__
+#define __executeX_h__
+
+typedef enum exectype {
+
+  /* list of army adjustments */
+  EX_ARMYLOC, EX_ARMYTYPE, EX_ARMYSTAT, EX_ARMYMOVE, EX_ARMYLEAD,
+  EX_ARMYSIZE, EX_ARMYID, EX_ARMYSPLY, EX_ARMYSPTS, EX_ARMYEFF,
+  EX_ARMYMAXEFF, EX_ARMYCREATE, EX_ARMYDESTROY, EX_ARMYOLOC,
+  EX_ARMYMERCS,
+
+  /* list of army group adjustments */
+  EX_GRPLOC = 20, EX_GRPMOVE,
+
+  /* list of navy adjustments */
+  EX_NAVYLOC = 30, EX_NAVYSHIP, EX_NAVYSTAT, EX_NAVYMOVE, EX_NAVYID,
+  EX_NAVYCREW, EX_NAVYPEOP, EX_NAVYMTRLS, EX_NAVYSPLY, EX_NAVYARMY,
+  EX_NAVYEFF, EX_NAVYCREATE, EX_NAVYDESTROY, EX_NAVYOLOC, EX_NAVYCVN,
+
+  /* list of caravan adjustments */
+  EX_CVNLOC = 50, EX_CVNSIZE, EX_CVNSTAT, EX_CVNMOVE, EX_CVNID,
+  EX_CVNCREW, EX_CVNSPLY, EX_CVNPEOP, EX_CVNEFF, EX_CVNMTRLS,
+  EX_CVNCREATE, EX_CVNDESTROY, EX_CVNOLOC,
+
+  /* list of supply center adjustments */
+  EX_CITYLOC = 70, EX_CITYNAME, EX_CITYPEOP, EX_CITYMTRLS,
+  EX_CITYIMTRLS, EX_CITYFORT, EX_CITYSTALONS, EX_CITYCREATE,
+  EX_CITYDESTROY, EX_CITYWEIGHT,
+
+  /* list of item adjustments */
+  EX_ITEMLOC = 90, EX_ITEMID, EX_ITEMMTRLS, EX_ITEMCREATE,
+  EX_ITEMDESTROY, EX_ITEMTYPE, EX_ITEMINFO, EX_ITEMMEN, EX_ITEMARMY,
+  EX_ITEMNAVY, EX_ITEMCVN,
+
+  /* list of national adjustments */
+  EX_NTNNAME = 110, EX_NTNLOGIN, EX_NTNPASSWD, EX_NTNLEADER,
+  EX_NTNLOC, EX_NTNAPLUS, EX_NTNDPLUS, EX_NTNACTIVE, EX_NTNDIPLO,
+  EX_NTNRLOC, EX_NTNREPRO, EX_NTNRACE, EX_NTNMARK, EX_NTNLEDGE,
+  EX_NTNREDGE, EX_NTNTEDGE, EX_NTNBEDGE, EX_NTNCLASS, EX_NTNSCORE,
+  EX_NTNMOVE, EX_NTNSPTS, EX_NTNBUTE, EX_BRIBE, EX_NEWSSIZE,
+  EX_MAILSIZE, EX_NTNRENUM, EX_UNUMSLOT, EX_UNUMCOPY, EX_UNUMRESET,
+  EX_UNUMDEFAULT,
+
+  /* list of sector adjustments */
+  EX_SCTDESG = 150, EX_SCTPEOPLE, EX_SCTOWN, EX_SCTALT, EX_SCTVEG,
+  EX_SCTTGOOD, EX_SCTMNRLS,
+
+  /* list of magical selections */
+  EX_MGK_ADJ = 160, EX_MGKSPELL, EX_MGKSENDING,
+
+  /* list of resource distribution stuff */
+  EX_TAKESTART = 181, EX_TAKEMTRLS, EX_TAKEFINISH = (182 + MTRLS_NUMBER),
+  EX_GIVESTART = 191, EX_GIVEMTRLS, EX_GIVEFINISH = (192 + MTRLS_NUMBER)
+
+} Exectype;
+
+#endif /* __executeX_h__ */
