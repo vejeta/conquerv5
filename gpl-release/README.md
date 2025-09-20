@@ -9,16 +9,56 @@ originally created by Edward M. Barlow and Adam Bryant. This version has been
 relicensed to GPL v3 in 2025 by Juan Manuel Méndez Rey (Vejeta) with explicit
 permission from the original authors.
 
-LICENSING INFORMATION:
-======================
-- Originally Copyright (C) 1988-1989 by Edward M. Barlow and Adam Bryant
-- Copyright (C) 2025 Juan Manuel Méndez Rey (Vejeta)
-- Licensed under GPL v3 with permission from original authors
+## Legal Status and Licensing
 
-This program is free software: you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation, either version 3 of the License, or (at your option) any later
-version. See the COPYING file for the complete GPL v3 license text.
+### Current License: GPL v3+ ✅
+
+This software is now licensed under the **GNU General Public License v3.0 or later** (GPL-3.0-or-later).
+
+**Copyright (C) 1987-1988 Ed Barlow and Adam Bryant**  
+**Copyright (C) 2006-present Juan Manuel Méndez Rey (Vejeta) - GPL relicensing**
+
+### Relicensing Documentation
+
+This game has been successfully relicensed from its original restrictive license to GPL v3 through a **15-year effort** (2006-2025) with explicit written permission from all copyright holders:
+
+📄 **[Full Legal Documentation](./RELICENSING-PERMISSIONS.md)** - Complete email permissions with headers  
+📄 **[Authors & Attribution](./AUTHORS.md)** - All contributors and their roles  
+📄 **[Project History](./HISTORY.md)** - Timeline from 1987 USENET release to present  
+📄 **[License Text](./COPYING)** - Full GPL v3 license  
+
+### Summary of Permissions
+
+| Copyright Holder | Role | Permission Date | Status |
+|-----------------|------|-----------------|--------|
+| **Ed Barlow** | Original creator | March 12, 2016 | ✅ Granted |
+| **Martin Forssen** | PostScript utilities | Sept 15, 2025 | ✅ Granted |
+| **Adam Bryant** | Co-developer | Sep 19, 2025 | ✅ Granted |
+
+> *"Yes i delegated it all to adam aeons ago. Im easy on it all.... copyleft didnt exist when i wrote it and it was all for fun so..."* - Ed Barlow, 2016
+
+> *""Oh, that was a long time ago. But yes, that was me. And I have no problem with relicensing it to GPL."* - Martin Forssen, 2025
+
+> *"I have no issues with applying a new GPL license to Version 5 as well.."* - Adam Bryant, 2025
+
+### Legal Validation
+
+This relicensing effort has been:
+- ✅ Discussed on [Debian Legal mailing lists](http://lists.debian.org/debian-legal/2006/10/msg00063.html)
+- ✅ Tracked as [GNU Savannah task #5945](http://savannah.gnu.org/task/?5945)
+- ✅ Documented at [vejeta.com](http://vejeta.com/historia-del-conquer/)
+- ✅ Preserved with complete email headers for authentication
+
+### What This Means For You
+
+- ✅ **Free to use, modify, and distribute** under GPL v3 terms
+- ✅ **No legal concerns** - all permissions properly obtained
+- ✅ **Contribute with confidence** - clear legal foundation
+- ✅ **Fork freely** - create your own versions under GPL v3
+
+For questions about the relicensing process: vejeta@gmail.com
+
+---
 
 HISTORICAL NOTE:
 ================
