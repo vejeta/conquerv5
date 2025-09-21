@@ -1,0 +1,145 @@
+
+The Documentation System
+
+     As you might have noticed, Conquer is a rather complex game.  For
+     this reason, I hope to provide a thorough documentation system.
+
+     One of the keys to making sure that the documentation is as accu­
+     rate  as possible is the fact that I use the same source files to
+     generate both the online and hardcopy versions of the  documenta­
+     tion.    This  assures  that  if I have gotten something wrong, I
+     have at least been consistent about it.
+
+     For those who are curious, I write the  documentation  using  the
+     roff typesetting package which is available on most Unix systems.
+     I developed my own set of macros which allow me to  create  auto­
+     matic  paging  for both the troff (actually psroff) and the nroff
+     output.  [Well, I did cheat a bit by filtering the nroff output a
+     little,  but  that  was  just  to  allow the output to work in my
+     pager, so you can't hold it against me.]  I only use 3  fonts  in
+     the  psroff  mode:  a  fixed font for the screen examples and two
+     times roman fonts for the normal text and titles.  My macros also
+     have  the  nice  feature  of  keeping track of what will fit on a
+     page, so that I can avoid having sections of text cut in half.
+
+     I am always open to suggestions for  improvement,  and  that  in­
+     cludes  suggestions  for  enhancing  the documentation system, or
+     just ways of clarifying the text  of  the  documentation  itself.
+     So, if you have any ideas you think I should hear about, concern­
+     ing ANY aspect of the game, feel free to get in touch with me.
+
+                                             Adam Bryant
+                                             vejeta@gmail.com (current maintainer)
+
+What is in each Help Section?
+
+     This section gives a quick summary of what each of the help  sec­
+     tions  contain,  so that you might be able to locate the informa­
+     tion more easily.
+
+     Helpfiles ("Conquer Documentation Sections") -- A description  of
+          what  this  part of the documentation is for is given within
+          the section itself.
+
+     Overview ("A General View of Conquer") -- Read this to get a gen­
+          eral idea of what Conquer is about.
+
+     Functions  ("The  List of Commands") -- The list of Conquer func­
+          tions, function descriptions and default key bindings.
+
+     Display ("Conquer Data Display Routines") -- A description of the
+          information display system.
+
+     Sectors  ("Sector  Information") -- Descriptions of designations,
+          constructions, vegetations, elevations and raw materials.
+
+     Nations ("Racial Traits and Nation Roles") --  Information  about
+          the different races and nation types.
+
+     Economics  ("Economic  Management") -- A look at how the economic
+          system of Conquer works.
+
+     Movement ("Unit Relocation")  --  Relocating  units  from  sector
+          [X1,Y1]  to  sector  [X2,Y2]  is  an important aspect of the
+          game, and this section helps you learn how to do just  that.
+
+     Warfare  ("Military Units and Combat") -- How to destroy your op­
+          ponents using military means, or at least  keep  from  being
+          destroyed yourself.
+
+     Powers ("Magic Powers") -- Spell casting and magic powers play an
+          important role in the realm of Conquer, and this  documenta­
+          tion describes how such sorcery is done.
+
+     Xchanges  ("Communication  Between  Players") -- Sending messages
+          from one nation to another  is  much  easier  electronically
+          than via horseback.
+
+     Beginnings  ("Beginners  Hints") -- For those just starting, this
+          section provides tips and hints as to how to become a better
+          player,  or  at least give enough clues to allow you to sur­
+          vive.
+
+     God-Powers ("Conquer God Mode") -- A cookbook for world  creation
+          and a listing of commands for ruling the world.
+
+     Customize ("Conquer Customization Settings") -- This help section
+          describes how to customize the Conquer environment.   Rebind
+          keys,  create  your own displays, and have Conquer store the
+          changes.
+
+     Quickies ("Charts and Summaries") -- A summary  of  the  commands
+          and concepts of Conquer which, printed, will make a nice ad­
+          dition to your desk reference.
+
+     Version ("Version Information") -- Last, but not least, there  is
+          the  credits.   This  document will give a listing of people
+          involved in the creation of Conquer and some of its history.
+
+What about those other things?
+
+     Now, if you were paying attention, as I am sure you were, you are
+     wondering why I left some of the on-line help entries out.  Well,
+     those help entries are used as part of the documentation, but are
+     not built from preset help files.  They are generated by  Conquer
+     based  on  the data in the campaign so an accurate representation
+     is possible.
+
+     The "Runtime" documentation consists of:
+
+     Army Types -- This entry will provide  a  quick  summary  of  the
+          ability  of  a  specified type of army unit.  A good deal of
+          information will be provided, including  combat  information
+          and  any  special  unit  abilities.  A summary of all of the
+          units is also available by entering "*" as the unit type.
+
+     Key Bindings -- This selection provides  an  interactive  way  of
+          querying what function is bound to a given keystroke.
+
+     List  of Commands -- This option provides a listing of all of the
+          global level functions as well as all key bindings which are
+          associated with each function.
+
+     Tradegoods  --  Tradegoods play an important role within Conquer,
+          and as such also need some quick documentation.   Tradegoods
+          are  broken  into fourteen separate classes, with each class
+          producing a given effect.  To get information on items with­
+          in  a class, or on the tradegood class itself, specify which
+          class of tradegoods you are interested in.
+
+          The tradegood classes are: None, Popularity,  Communication,
+          Fishing,  Farming,  Spoilrate,  Lumber,  Knowledge, Eatrate,
+          Health, Terror, Magical, Metals, Jewels.
+
+          The information provided  is:  class  name,  description  of
+          class,  what affect a tradegood has on a sector, the list of
+          tradegoods in the class.  Along with all of the  tradegoods,
+          the  relative  value  of the tradegood, the chance of occur­
+          rence within that class, the major  designation  and  sector
+          population  necessary  to take advantage of the tradegood is
+          given.
+
+     Well, that concludes my summary of the  documentation,  hopefully
+     it  has helped you sort through all of this mess.  [Of course, if
+     anyone but me calls it a mess, they will have some explaining  to
+     do :-)]

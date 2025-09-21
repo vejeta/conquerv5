@@ -1,0 +1,298 @@
+%% Postscript part of conqps
+%% Feel free to hack in it
+%% Comments should be sent to  d8forma@dtek.chalmers.se
+
+%   This is the user variables
+
+% This is the font sizes
+/TitleFont 13 def	% For the title
+/FootFont 7 def		% For the foot texts
+/CoordFont 5 def	% For the coordinates
+/SquareFont 6 def	% For the letters inside the squares
+
+% This is the linewidth  (one unit is 1/72 inch)
+/LineWidth .3 def
+
+% This is how dark some things should be
+% 0 is black   1 is white
+/SeaCol .6 def		% Colour of seas
+/KnownCol .97 def	% Colour of known squares
+/SqTeCol 0 def		% Colour of sector symbols
+/WNCol 0.9 def		% Colour of the other pages in where square
+/WKCol 1 def		% Colour of this page in where square
+
+
+%===========================================================================
+%========== Behind these walls lures the monster called PostSript ==========
+%============== If thou should choose to enter know thy enemy ==============
+%===========================================================================
+
+% This is the size of the little box showing which map this is
+/WhereSize YMARGINS 2 div def
+
+/AdjustX
+{
+  /x exch def
+  x 0 lt { /x x largex 1 add mod def } if
+  x 0 lt { /x x largex 1 add add def } if
+  x largex gt { /x x largex 1 add mod def } if
+  x largex 1 add eq {/x 0 def} if
+  x
+} def
+
+/AdjustY
+{
+  /y exch def
+  y 0 lt { /y y largey 1 add mod def } if
+  y 0 lt { /y y largey 1 add add def } if
+  y largey gt { /y y largey 1 add mod def } if
+  y largey 1 add eq {/y 0 def} if
+   y
+} def
+
+/DoCoords
+{
+  newpath
+  font findfont CoordFont scalefont setfont
+
+  % Do Y coordiates
+  XMARGINS 2 div
+  YMARGINS .80 mul ydel sqsize mul add
+  moveto
+  ystart 1 ystart ydel add
+  {
+    /y exch AdjustY def
+    currentpoint
+    /str y (888) cvs def
+    str stringwidth pop 5 add neg 2
+    rmoveto
+    str show
+    2 copy moveto
+    xdel 1 add sqsize mul 2 add 2 rmoveto
+    str show
+    sqsize sub moveto
+  } for
+
+  % Do X coordinates
+  XMARGINS 2 div 
+  YMARGINS .80 mul CoordFont sub 2 sub
+  moveto
+  xstart 1 xstart xdel add
+  {
+    /x exch AdjustX def
+    x 0 lt { /x x largex add def } if
+    x largex 1 add gt { /x x largex 1 add sub def } if
+    currentpoint
+    /str x (888) cvs def
+    str show
+    2 copy ydel 2 add sqsize mul add 2 add moveto
+    str show
+    exch sqsize add exch moveto
+  } for
+} def
+
+/DoGrid
+{
+  newpath
+
+  % Do X-lines
+  XMARGINS 2 div
+  YMARGINS .80 mul
+  moveto
+  ystart ydel add -1 ystart 1 sub
+  {
+    pop
+    xdel 1 add sqsize mul 0
+    rlineto
+    xdel 1 add sqsize mul neg sqsize
+    rmoveto
+  } for
+
+  % Do Y-lines
+  XMARGINS 2 div
+  YMARGINS .80 mul
+  moveto
+  xstart 1 xstart xdel add 1 add
+  {
+    pop
+    0 ydel 1 add sqsize mul
+    rlineto
+    sqsize ydel 1 add sqsize mul neg
+    rmoveto
+  } for
+
+  stroke
+} def
+
+/FillSec
+{
+  sqsize 0 rlineto
+  0 sqsize rlineto
+  sqsize neg 0 rlineto
+  closepath
+  gsave
+  /old currentgray def
+  setgray
+  fill
+  old setgray
+  grestore
+  stroke
+}def
+
+/DoMap
+{
+  /NotEmpty false def
+  /c ( ) def
+  font findfont SquareFont scalefont setfont
+
+  0 1 xdel
+  {
+    /X exch def
+    0 1 ydel
+    {
+      /Y exch def
+      newpath
+      XMARGINS 2 div X sqsize mul add
+      ydel sqsize mul YMARGINS .80 mul add Y sqsize mul sub
+      moveto
+      /x X xstart add AdjustX def
+      /y Y ystart add AdjustY def
+      c 0 Map y get x get put
+      c ( ) ne
+      {
+        /NotEmpty true def
+        /NotDone true def
+	gsave
+	.01 setlinewidth
+        currentpoint
+         KnownCol FillSec
+         SqTeCol setgray
+        moveto
+	maptype (0) ne
+	{
+          c (#) eq
+          {
+            /NotDone false def
+  	    sqsize dup scale
+  	    .2 .2 rmoveto
+  	    .3 .6 rlineto
+  	    .3 -.6 rlineto
+  	    -.2 .4 rmoveto
+ 	    -.2 0 rlineto
+ 	    stroke
+          } if
+          c (^) eq
+          {
+            /NotDone false def
+ 	    sqsize dup scale
+ 	    .2 .2 rmoveto
+ 	    .3 .4 rlineto
+ 	    .2 -.4 rlineto
+ 	    .1 0 rmoveto
+ 	    -.1 .3 rlineto
+ 	    -.1 -.1 rlineto
+            stroke
+          } if
+          c (%) eq
+          {
+            /NotDone false def
+ 	    sqsize dup scale
+	    currentpoint
+	    translate
+	    .2 .2 rmoveto
+ 	    .4 .2 .2 180 40 arcn
+	    .70 .2 moveto
+ 	    .6 .2 .10 0 180 arc
+ 	    stroke
+          } if
+          c (-) eq
+          {
+            /NotDone false def
+	    sqsize dup scale
+  	    .2 .2 rmoveto
+ 	    .6 0 rlineto
+  	    stroke
+          } if
+        } if
+        c (~) eq
+        {
+          /NotDone false def
+          SeaCol FillSec
+        } if
+        NotDone
+        {
+          sqsize 5 div dup rmoveto
+          c show
+        } if
+	grestore
+      } if
+    } for
+  } for
+} def
+
+
+/DoText
+{
+  font findfont TitleFont scalefont setfont
+  PAGEWIDTH title stringwidth pop sub 2 div
+  YMARGINS .4 mul TitleFont 2 div sub
+  moveto title show
+  font findfont FootFont  scalefont setfont
+  foot stringwidth pop
+  foot2 stringwidth pop
+  gt {foot} {foot2} ifelse
+  stringwidth pop
+  PAGEWIDTH exch sub dup
+  YMARGINS .4 mul
+  moveto foot show
+  YMARGINS .4 mul FootFont 1.5 mul sub
+  moveto foot2 show
+} def
+
+/DrawWhere
+{
+  1 1 xpages { 
+    /xsq exch def
+    ypages -1 1 {
+      /ysq exch def
+      newpath
+      0 0 moveto
+      /sqxsize WhereSize xpages div def
+      /sqysize WhereSize ypages div def
+      xsq sqxsize mul ypages ysq sub sqysize mul
+      rmoveto % Am now at top left of this square
+      sqxsize 0 rlineto
+      0 sqysize rlineto
+      sqxsize neg 0 rlineto
+      closepath
+      WNCol setgray
+      xsq currx eq ysq curry eq and { WKCol setgray } if
+      gsave fill grestore
+      0 setgray stroke
+    } for
+  } for
+} def
+
+/DoPage  % currx curry xstart xdel ystart  ydel
+{
+  /ydel exch def
+  /ystart exch def
+  /xdel exch def
+  /xstart exch def
+  /curry exch def
+  /currx exch def
+
+  /largey Map length 1 sub def
+  /largex Map 1 get length 1 sub def
+
+  initgraphics
+  XOFFSET YOFFSET translate
+  noteq { 0.8544 0.9304 scale 0 YMARGINS .4 mul translate} if
+  LineWidth setlinewidth
+  DoText
+  xpages 1 ne ypages 1 ne or {DrawWhere} if
+  coords {DoCoords} if
+  grid {DoGrid} if
+  DoMap
+  NotEmpty {showpage} if
+} def

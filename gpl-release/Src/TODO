@@ -1,0 +1,533 @@
+
+This is the list of things that should be taken care
+of prior to the official release as well as a listing of
+changes that have been made.  The notation is as follows:
+
+       '+' - this item was finished.
+       '@' - this item no longer needs to be done.
+       '-' - this item will not be done.
+       '~' - this item partially implemented.
+
+ 001. set all configuration defaults after group discussion.
++002. align World Generator items on right column with '.' spacing.
+ 003. implement a vi-mode within the mail editor.
++004. write .conqrc parsing routines.
++005. allow key binding control within the movement section.
+-006. allow key binding control within the pager.
+ 007. balance the nation attributes properly (eatrate, poverty, etc.)
+~008. add the "construct" army status and remove the redundent "scout" status.
++009. remove the "Fallow" designation, and think of a replacement.
+ 010. implement the insert mode in the mail editor.
++011. switch from various arrays to single structures with various data
+      elements.  [major overhaul]
++012. use the keybinding definitions throughout all of the conquer routines.
++013. switch to hex coordinate system.
++014. add loading of trade goods and raw materials for navies and caravans.
++015. add multi-way combat.
++016. add spell casting.
+ 017. add "real_repro()" and "real_ntnmove()" routines to prevent magical
+      powers from missetting the values.
+~018. new highlighting options:  specific nations, specific unit types,
+      movement types.
++019. add "(d)isband" to ESC (extended) command set.
++020. add an "expert user" mode to allow quicker play for experienced users.
++021. purchasing of specific magical powers via purchasing for double price.
++022. make the sector information portion be a full screen to allow for
+      the displaying of much more than is shown currently.
++023. population seems to be drifting to north-northwest, fix migration.
+-024. make farm ability applicable to farming efficiency. [how about:
+         - efficiency = 0.5 x farm_ability + (50 - (0 to 25 based on
+           population crowding)
++025. add a "supply all" command to supply all of the troops within a region.
+ 026. add a "surrender" function to either god mode or normal player mode.
++027. change all of the (mil|civ|wiz) powers to an array of MAG_NUMBER.
++028. provide "city" commands, such as (T)ransfer, (F)ortify, etc.
++029. RE #008: maybe an "engage" status would be a better replacement.
++030. RE #009: replacement of "cache" for hidden supplies.
++031. check for a_isscout() before calls to: *_stat() & take_value() funcs.
+-032. change the movement code to be incremental and check conflicts
+	during the update. [to be done in version 6.x]
++033. remove the '$' preceding all jewel totals.
++034. add in "efficiency" ratings to units and sectors.
++035. optimize sector_produce and sector_consume functions (min_d especially)
+-036. add in a "loyalty" value to sector information.
++037. check the VADJOLOC function during movement... one report of failure.
++038. eliminate ALL rectangular only loops throughout code.
++039. redo the world configuration screen to allow for more items.
++040. write the customizing function for the display modes.
+ 041. implement a conditional "if" test in the .conqrc customization file.
+ 042. remove the heavy copyright restrictions before final shipment.
++043. investigate bugs in loading/unloading of goods aboard caravans/navies.
++044. find and fix what is causing "translocation" of units.
++045. make sure to "mv" the mail files when nations change their names.
++046. allow repairing of ships and caravans to take place within cities.
++047. yank out all but the DRAW_ALL and DRAW_MAP flags from the drawing code.
++048. make HIDESCORES a campaign option instead of a compilation option.
++049. add (S)upply to extended command set. [need to charge players for it]
+ 050. write a "distribution" scheme to realign goods between cities.
+-051. add in the ability to affect nation troops using summary, etc.
++052. implement the back supplying of monster units using SUPPLY.
++053. implement the supply need for both caravan and naval units.
++054. add in god adjustments for ALL items on caravans, navies and armies.
++055. provide a nice tranfer interface to allow onloading and
+      offloading of raw materials and goods also use for cities.
++056. use renaming of CONQSORT in the makefile in dataX.c.
++057. convert the BURDEN stuff to be aligned with the MTRLS stuff.
++058. make the BEEP code be a player option not a compiler option.
++059. assure that "supply" routines are consistent for army, navy, and cvn.
++060. move the mtrls[] information directly into the navy and cvn structs.
+-061. separate out the fortification build into a self-contained routine.
+ 062. add player option to display coordinates along "axises".
++063. fix the calculation in upd_nations() to rebuild WORLD data.
+ 064. rewrite the upd_nations() function... it is very disorganized.
++065. allow disbanding of navies or caravans by dispersing everything.
++066. create a navy_disband() and a caravan_disband() function.
++067. create a "score" report via conquer -s.
++068. give more informative output for conqrun -I.
+ 069. write a map displaying function using conquer -p/-P.
++070. implement a mode to display sector consumption / production information.
++071. allow god to manipulate individual units using selector.
+ 072. implement a text map reader for building the world.
+ 073. implement targetted movement of troops.
++074. make "compaign" variable control of range of naval and cvn supplying.
++075. fix the army support calculations in the economy summary.
+ 076. fix all of the spell casting problems.
+ 077. have the completion routines provide the expansion on the side display.
+ 078. allow manipulation of multiple units using the army/group report.
++079. replace the SYSV definition with properly built SYSV3 and SYSV4.
+-080. allow pager and mail reader to perform horizontal shifting.
++081. implement case insensitive city and nation names.
++082. make sure to clean up troops (being lead or not) if leader kicks
+      the bucket.
++083. make the supply center increase based on minor desgs happen during
+      the update.  Also make sure the sector production increases take
+      place then as well.  [This will cut down on the overhead
+      involved with the current method of going over it for each
+      expenditure] 
+ 084. make the battle reports return less than full information unless
+      a spying unit is in the sector.
++085. keep agents out of battles and let scouts get dragged in on SCOUTCAPT %.
++086. provide a "target" of highlights for the .conqrc file.
++087. implement new highlighting methods which require "target" values.
++088. fix the 'z' relogin command... it doesn't seem to work properly.
++089. determine if moving DEMILIMIT to world structure is a good idea.
++090. at same time as 89, add in a variable to control distance of capitols
+      during the world creation.
+ 091. add '+' and '-' keys to adjust ntn_info stats in incremental levels.
+ 092. related to 91:  switch those that cycle to input strings.
++093. provide variety among mercenary unit types.
++094. fix the "(R)epair" and resupply of naval units.
++095. make winter non-exposure for troops within proper sector allowable.
++096. indicate in the side display the supply status of the units.
++097. properly eliminate dead nations (remove capitol, etc.)
++098. provide a "global" supplying command for all units.
++099. implement the access limitation code so that game play can be
+      restricted if need be.
+-100. maybe encrypt the players files to prevent cheating.
++101. fix capturing of sector code to not take sector unless really desired
++102. fix the bug with the fortification pricing
++103. drafting of mercenaries in non-recruiting sectors
++104. implement the catapult and siege engine bonuses
++105. implement the limitation of bonuses for min_size units
++106. new display highlights:  tradegood class, specific nation.
++107. Set no_move to SPD_STUCK if must be in garrison for turn
++108. When coming out of no_move to move set to SPD_NORM
++109. fix the speed calculation routines
++110. check redistribution of supplies when disbanding
++111. increase recruits when disbanding units.
+ 112. harder highlights: army type, army class
++113. use the enter_unittype() routine in the summon / sending section.
++114. write a function to allow the upgrading of the army types.
+-115. implement a randomness to obtaining better mercs.
++116. allow aerial troops to land.
++117. provide better repair interface for naval and caravan units.
++118. fix the problem with the grouping of monsters during summoning.
++119. prevent decreasing of supplies for monsters, mercs, and spys.
+ 120. implement a summary of all towns in the nation, listing current materials
+      and materials available for relocation.
++121. implement '<', '=', '>' to directly set speeds.  use '*' or 'm' as merge.
++122. allow devastate to destroy all of the other minor designations.
+ 123. assign minimum populations for building of all minor/major designations.
++124. fix consistency problem with cost of materials for unit support.
+ 125. more highlight suggestions: vegetation, elevation.  [lazy and blind?]
++126. fix attractiveness given by magically useful sectors.
++127. don't group monsters during a summoning.
++128. there are some problems with the sector capturing code.  fix 'em.
+~129. provide better balance in the monster units.  [Hero by far the best]
++130. highlight the efficiency in the reports if below 100.
++131. load crew using the transfer mechanism.  [Recruits only!]
++132. fix the unloading of civilians in unlikely sectors.
++133. make sure to select newly drafted units.
+ 134. make sure to select the previous unit after a disband.
+ 135. provide a quick "GROUP ALL IN SECTOR OF THIS TYPE" command.
++136. fix cheating method of chaining caravan/navy transfers.
++137. implement the rule army status and protected navy and caravan status.
++138. use the "real_stat()" function where appropriate.
++139. allow summoning of monster if only one needed power is there,
+      but at cheaper cost if all needed powers are possessed.
++140. realign the documentation with the new attractiveness figures.
++141. fixed the construction time delay code so that it works properly.
+~142. fix it so that god will properly go to the selected unit after movement.
++143. fix an overflow problem with the region_consume() function.
++144. use fgets() instead of fscanf() in reading in the NPC configurations.
+-145. force fortification construction to only use the materials in that city.
++146. made sure to order the reports for sector capturing to hide locations.
++147. make a news entry when nations change status or meet.
++148. make the sortie a substatus of the attack status.
++149. write a function to determine if an army/navy/caravan status is okay.
++150. check the production calculations to assure that they are accurate.
++151. check the consumption calculations to assure that they are accurate.
++152. should not manually give supplies to units in land not owned by country.
++153. manual supplying should need units to get into owned territory.
++154. query for single unit manual supplying.
++155. allow relocation of civilians into sectors with foodvalue > 0.
++156. prevent people from relocating into sectors owned by someone else.
++157. disallow caravan and navies from giving back supplies already gotten.
++158. no bonus for capturing caches, minimal for capturing stockades.
++159. expand the army status storage to allow for new statuses and flags.
+ 160. allow Allied nations to supply each others troops.
++161. display a "thinking..." message when doing the national estimates.
++162. provide a "default" economy report selection.
+ 163. send mail to nations that meet.
+ 164. send mail when a player changes the diplomacy status towards a nation.
++165. separate naval effectiveness into the three different classes.
++166. is the deletion of a nation always writing to the newspaper?.
++167. enhance the spy enlistment code to be more realistic.
++168. find new method for indicating when an army unit has been healed.
+ 169. is there something wrong with divergent targets in highlighting?
+ 170. provide more "jumping" commands to god in the movement mode.
++171. if god is using a nation, does it always properly block out user?
+ 172. add combat spells for both offense and defense.
+ 173. implement the weather events and random events code.
++174. expand the unit status elements to increase the data available.
++175. create a new ship type of "Barges" to carry caravans.
++176. change all of the movement to percentages [scaled movement]:
+	- each unit gets "100 move points".
+	- move costs become relative percentage points.
+	- this provides instant conversion between movement values
+	  of all units in the game.
+	- this will also lead to easy conversion into an interative system.
++177. add a separate password for adding a nation to the campaign.
++178. add an option to avoid showing user login names in scores.
+ 179. check island size upon nation addition using fill method.
++180. make sure that a nation cannot be created without a race selection.
++181. move the destroy nation command into gods ".exc" file instead.
++182. provide a more clear message in the "i" mode when a nation is dead.
+ 183. provide keyboard macros to implement expanded key bindings.
+ 184. add in the status of "Trash and Burn" for armies.
++185. add the "Supported" counter of Unsupported in highlighting.
++186. add "Cargo Display" to extended command of navies and caravans.
++187. provide a '?' to extended command to see detailed unit information.
++188. allow a player to see how much support a unit will need per turn.
++189. fix the mail reader scrolling mechanism.
++190. redesign the sector distortion code to be based on central function.
++191. make the distortion algorithm based on percentages not hard visibility.
++192. allow "agents" to see even more accurately than spys.
+ 193. perhaps make agents keyed on the nation of origin [keeping track hard].
+ 194. when a spy runs out of supplies, make it "switch sides" and give info.
+ 195. same for agents, but give away even more information.
+ 196. provide wandering GYPSY caravans to act as trading units.  [They
+	randomly show up in a trading post within a nation.]
+ 197. allow armies to adjust sectors through "month-long" action.
+ 198. have movement rates be affected by seasons.
+ 199. increasing units productivity through training in proper sectors.
+ 200. implement new spells:
+	- forbid sector entrance to certain unit types [undead,
+	  elementals, dragons, etc.]
+	- prevent natural disasters in a certain range.
+	- relocation of the castle [once per nation] at no cost.
+        - raise or lower altitude of sector.  [very costly]
+        - adjust vegetation of a sector. [very costly]
+        - call storms, tornados, winds.  Affect ships based on strengths.
+          Cause sector devastation and nails units based on strength.
+        - water walking.
+        - locate specific tradegood by distance/direction (~approx)
+        - shield units to lower killing chances.  [only on single units]
+        - increase food productivity in a sector.
+        - calm units.  [turns off attack capabilities for a turn]
+        - transfer spell points to a leader elsewhere for a cost.
+        - detect alignment, tell direction/distance of nearest.
+        - stun units. lose movment points for a turn.
+        - unstunning units.
+        - confusion, causes unit to move in random directions.
+        - cure confusion.
+        - fear unit, causes flight in opposite direction from caster.
+        - turn undead [can destroy undead units without combat.]
+        - cast curses on units [can be removed by spells]
+        - cast diseases on sectors.
+        - cure diseases.
+        - cast various wards [curse type things].
+        - illusion of multiple units.
+        - invisible units.
+        - foritify a sector against seiges.
+        - cause fires in sectors.
++	- alchemy switching of raw materials.
++201. check that diplomatic statuses are working properly.
+ 202. allow flying units to attempt landings on navies if there is room.
++203. are the wall fortifications good enough? how about city bonuses.
++204. UPDATE THE DOCUMENTATION!
++205. check the xfer stuff again.
+ 206. implement boolean display options [up to 32 selections?]
+ 207. is it possible to delay the display of information until after updates?
+ 208. when disbanding a unit, the "selected" unit should shift properly.
+ 209. make sure to link national attributes properly and display such links.
+ 210. global documentation search using the '/' key?
++211. provide "cycle-focus-backward" command.
+ 212. rewrite the curses interface to call all my own functions to handle
+	a number of situations:  patches for screwy curses packages, future
+	X11 enhancements, etc.  [need to (compile) optionally print an empty
+	space before a clear]
++213. decreased number of recruits available in cities if people moved.
+ 214. re-evaluate the usage of materials for desigs (blksmth=>wood,etc.)
++215. fix bug with drafting of remote draftables (agents,etc.)
++216. is god allowed to draft units of any nation anywhere?
++217. be sure that the fleet report is not overflowing the bottom of screen.
++218. in set_armycosts() is supply cost (talons, food, etc.) being queried?
++219. make sure that caravan units are not moving through controlled sectors.
+~220. is efficiency of caravans being affected by combat?
++221. fix bug involving movement of civilians even though funds lacking.
++222. are supplies being added to costs of units when drafted.
++223. is there a problem with the crossover of the 0 x-axis still?
++224. defensive bonus was not given to units which were proper strength.
++225. unit id change of transported unit needs to have transport num changed.
++226. clarify what "follow" means in the army report documentations.
+ 227. increase the military bonus for nations if they spend on training.
++228. allow units to survive winter if "camped".
+ 229. implement huge loss of popularity if undead units are drafted.
++230. diplomatic adjustments should only be once per turn.  [two shift max]
++231. is combat including allied forces implemented fairly.
+ 232. make sure that regions all get proper effect of minor desgs. [re: docs]
++233. fix calculation of population (national summary) in "resource" report.
++234. allow environment variables to determine the helpdir and defaultdir.
++235. allow god to change a sector owner to "unowned".
++236. are warships able to be divided if damaged?
++237. should each data directory have it's own MOTD?
++238. is the population relocation code working around x=0 axis?
+ 239. implement automated transfer system between cities? [long term?]
++240. provide a "next unit" ala 'G' command for navies, caravans.
+	[this was done when 'G' was written... who asked for this???]
++241. is the drop in winter production in mines, etc. valid? [Increased it]
+ 242. increase ratio of civilians to soldiers?  [decrease recruits, etc.]
++243. make sure that at least one merc will abandon after disbanding.
++244. switch numerics to a "Min", "Low", "Avg","High", "Max", type display.
++245. make sure that any unit zero is automatically renumbered.
++246. leach out the jewels to buy off the debt? ["foreign bankers"...]
+ 247. decrease support costs for the naval units?
+ 248. allow 'mass' grouping of caravans and armies.
+-249. is email between unmet nations worth preventing?
++250. be sure that ALL of the filelocks are cleared after aborting a message.
++251. are troops which are fortified in non-city sectors preventing capture?
+ 252. work on the xterm resizing pause... it doesn't seem to work still.
+ 253. provide for huge supply ranges [to simulate old version 4 games?].
+ 254. document the -D flag. [part of -\? output already]
++255. new land capture system:
+	- fortified troops inside fortifications always prevent capture.
+	- others (attackers/defenders, etc.) need to be overwhelmed.
++256. make sure to catch the hangup signal for the conqrun portion.
++257. make sure god is able to adjust the recruits for a city.
++258. undead units are drafted at 100% eff, mercs at 90%, others at 75%.
++259. preserve spacing in city names when stored to the execute files.
+ 260. enemy military units should not cause highlighting unless within view.
+ 261. fix recentering for god mode along the top of the screen.
++262. use string representations of the die roll in combat not numeric.
++263. units should heal based on season and location.
++264. fix a bug with the "realignment" of the cities during construction.
++265. make the monster "nations" move their units about.
+ 266. move the pirate fleets about, and have them transfer their goods to base.
++267. compute "relative number of workers" from 1 + 1/2 + 1/3 ... of TOOMANY...
++268. display to the player how many workers are working in a sector.
++269. provide a method of renumbering all of the units based on the autoscheme.
++270. merge the hasseen stuff into the new highlighting storage variable.
+-271. merge the weights stuff into the new highlighting storage variable.
++272. assure that the renumbering scheme is consistent in conquer and conqrun.
++273. fix bug with god not being able to set efficiency to MAX.
++274. fix all of the bugs with army renumbering causing armies to disappear.
++275. build a full screen display of the current numbering scheme.
++276. assure that the adjustment (both god and normal) of fleets/armies work.
+ 277. in sysconf.h add '#ifdef SIGSEGV'-like lines for all of the signals used.
++278. make sure that teleport cannot be used to browse around the world.
+	[perhaps prevent movement into non-visible areas]
++279. implement the new Merc Rep national attribute. [adjusts merc costs]
++280. implement a balance to determine the relative worth of the currencies.
+ 281. implement the spoilrate for food.
+ 283. make the eatrate be more dependent on production and maybe even
+	a variant of the nation rate for each city.
+ 284. implement charity in both the updating routine and the estimation and
+	make the popularity rating tied to it as well.
++285. make exposure a percentage dependent on locale and season.
+	[DERVISH troops give reduction as do DESTROYER troops]
++286. make movement through sectors check exposure (at lower rate than
+	update and determine if the unit loses any soldiers)
++287. handle the chance of exclusion of scouts/spies/agents from combat
++288. assure that mercs are always in groups at least as large as 10
++289. make it a world option that the EXPOSURE will take place [after p25]
++290. make sure that flight cast on a leader sets flight for all in group
++291. make sure that only flying units can group with flying leaders.
+ 292. implement the ability to build bridges, canals, roads, fortifications
+	and such using army units as the units performing the work.
++293. fix the redraw of the screen during the movement phase.
++294. make sure to reset the alarm signal catching routine after each use.
++295. fix the bug with the reporting of naval losses in combat (string?)
++296. allow for the destruction of a single man normal army unit.
++297. make the objects customX.o and miscA.o be dependent on the Makefile.
++298. the speed of the unit will affect exposure rate while moving.
++299. implement everything for the ITEM structures which will be used for
+	both the trading code and the working crew code.
++300. write routines for army_renum(), navy_renum(), cvn_renum().
++301. after patch 25 implement a national mapping structure for each nation.
+~302. when mapping is done: provide a surveyor unit to examine sectors
+	for materials or to allow the "unowning" of a sector.
++303. make a new Engineer unit to increase speed of construction of sectors.
++304. write the following routines:  itembysct(itemlist,x,y,class),
+	itembyarmy(anum), itembynavy(nnum), itembycvn(vnum), sort_item().
++305. write a routine to calculate the "worker" value of a unit.
++306. allow the "magic" value of a sector to be adjusted by god.
++307. make sure that movement on bridges is fully implemented.
++308. make sure to prevent movement through a sector once halted.
++309. make ALL of the keybinding mechanisms work without hard-coded sizes.
++310. fix it so that god will be relocated to units when starting movement.
++311. switch the spell point calculation to be based on casters not leaders.
++312. provide each nation with a set of spell casting units and
+	relegate the leaders to only being able to heal or inspire. [>p25]
++313. the two new caster types should be: Sorcerer and Magician. [>p25]
++314. fix a bug with the teleportation of leader units.
++315. handle the merging/dividing of units with spell points.
++316. remove as many of the hard coded "_NUMBER" items as possible.
++317. merge the two (army and navy/cvn) status lists into one list.
++318. provide navies and caravans with an "Always Supply Self" status.
++319. redesign the world builder / editor to allow for some expansion
+	or combine some of the settings into single values. [expanded]
++320. write the conversion routines in iodataX.c to read in old p25 structs
+ 321. write functions such as mapbyloc(x,y), map_insert(x,y,r,d,l).
+ 322. write execute code for the new mapping structure.
+ 323. implement the mapping scheme into the visibility routines.
+~324. rewrite the header.h.dist and sysconf.h files to require less user work.
++325. make diplomatic status changes take an update before being implemented.
++326. added in missing lines for rd_worlddata() functions [wasn't full convert]
++327. make sure that the "-l" command doesn't show users if hide_logins.
++328. allow the -T flag to work for demigods properly.
++329. if fortified, and MAXEFF < 100, increase the MAXEFF by one.
++330. merge allied forces under proper conditions.
++331. fix bugs with the magical powers not compensating when max repro is hit
++332. catch that stupid persistent annoying bug with pop reloc on x=0 axis.
++333. fix bug with missing "break;" when all men in unit lost during move.
++334. make sure that any time a leader is killed, its followers are cleared.
++335. allow building of harbors at 4 times the cost if inland only.
++336. make diplomacy statuses adjustable within proper range multiple times.
++337. made the tranmutation of materials more in line with "magical"
+	energy of the material than with the weight of the material.
+ 338. maybe I could provide a "highest weight alternative" to the
+	selection of materials in the area. [what about even weighting?]
++339. provide a world option which will control MAX DIPLOMACY ADJUST. [p27]
++340. generically have magic powers adjust given national attributes.
++341. make summoning/sending (and cost) of a monster based on partial powers.
+ 342. add more information to the armyinfo selection.
++343. make the "sent" monsters appear owned by the nation which sent them.
++344. implement the antiair features of halting flying units' movements.
++345. allow movement into territory only if at war or allied/treaty?  [Scouts
+	may enter if hostile.]
++346. fixed a MAJOR bug in the take_resources() and consume estimate routines 
+	which caused the "army supply shifting" bug.
++347. eliminate nations if there are no more cities owned by them.
++348. removed the conversion routines for patchlevel 22 and below data files.
++349. add the arrow key bindings to most of the modes (all but main map).
+ 350. make sure supplying within others territory is not possible for units,
+	and make it a world option to enable this. [p28]
++351. increase the success rate of the Transmute spell.
+ 352. Civilian Power to enable the use of tundras (LAPP?)
+ 353. Allow configuration of various recruitment defaults:  statuses
+	and speeds upon drafting different unit classes or types.
+ 354. Make use of the alignment for restrictions and penalties.
++355. fix bug with not giving out spell casters to new nations.
++356. prevent grouping of non-flying units under a flying unit. [was a typo]
++357. do not allow scouts to be grouped under a leader except on a boat.
+ 358. "AQUATIC" power to access underwater sectors.
+ 359. troops that can alter the landscape with effort.
+ 360. "FLORIDA" power to allow adjustment to swamp sectors.  [?]
++361. display the attaction and sector production / usage for non-designations.
++362. add some more information to the world information screen.
++363. if there is more than 100 messages, mark ALL read mail for deletion.
++364. make a function to delete ALL read mail or ALL mail period.
++365. allow spawning off an editor for the current mail message when sending.
++366. order news battle reports in the same way the capturing news is done.
++367. cause an automatic logout of the players if the -T option is enabled.
++368. allow monster spell casters to work, but do not allow them to heal/xfer.
++369. fix the editor so that it is owned only by the user.
++370. allow a user option to determine whether or not mail is checked for.
++371. made use of the selector for the (G)roup extended command.
++372. add an army status of Rover which will capture land, and maneuver on own.
++373. separate out usable npc move stuff from moveG.c into moveX.c.
+ 374. would it be good to set the food value of Jungle sectors to 1 for humans?
++375. add in an option to control if header mode is entered at mail invocation.
++376. have the nation name / god / news info showed when on "To:" line.
++377. add world option to scale the various percentage rates (esp. birth) [p28]
++378. make sure that civilians that are carried are being supplied with food.
+~379. fix the bug with duplicate monster units going rogue upon non-supplying.
++380. is the score screen scrolling properly in all cases?  [seems to? whatup?]
++381. fix the bug in the rand_sector function. [be sure to change newx in loop]
++382. allow a unit in an "inaccessible" and "unstoppable" sector to stop.
++383. tweaked the prompts in the nation information screen.
++384. fix the segmentation fault when the '?' is hit in movement mode.
+ 385. write a routine to "parse" the exec files.
+ 386. test the "z" command to make sure it works like a new login.
++387. improve the land checking for the nation placement routines.
++388. Fix "Lure", "Lay Siege" bug with Naval statuses. [no siege for now]
+ 389. Expand conquer command line options to handle all options.
+ 390. Add the "display" and "zoom level" to the command line options.
+~391. Expand city structures to handle automated transfer of materials: [p28]
+~	- need fields to hold "minimum" amount that must stay
+~	- need flags to indicate mechanism to be used [navy,cvan,direct]
+~	- need fields to indicate priority levels for transport
+~	- probably combine the above two items into a single field
+~	- will need an "internal id" to distinguish cities more easily
+~	- need destination flags for caravans and/or navies
+ 392. Provide paths as part of the nation structure for trade routes. [p29]
+ 393. Have paths be highlighted as part of the display routines. [all/current]
++394. Add a lock file removal mechanism for non-lockf()/flock() sites. [-c]
++395. Make sure to check hidelogins before sending User adjusts to news.
++396. Add a "late login" flag to indicate when the add password is needed.[p28]
+ 397. Add a "terseness" option to indicate screen change amounts in menus.
++398. Fix a bug with the military magic data structures not being complete.
++399. Show the MOTD, if present, when the score report is given.
++400. Allow the MOTD to be edited directly from the command line. [-M flag]
++401. Allow spaces as a display character for water sectors.
++402. Fixed a typo/bug in the abrt() definition.  close( --> fclose(.
++403. Use "enum" types in place of as many of the #defines as possible.
++404. Fixed a number of compiler warnings given by an Ultrix site. [Thanks!]
++405. Add a "mine overexausted" message if a mine gets overworked.
++406. Fix bug with being able to set zero as a number base.  [Will no
+	longer allow zero as a unit number, but it is checked for in
+	the data input... how did that happen?]
++407. Fixed typo in xferG.c. [Bug report and fix by Geoff Wong]
++408. Allow caches to be built in inhabitable lands.
+ 409. Try to return any supply overruns when combining units.
++410. Make sure "overworked" message only appears once.
++411. Make Reserve "heal" more than Garrison.  [Reduce Garrison heal value]
++412. Verify that offloading of units always removes Onboard status.
+ 413. Handle distribution of supplies when onloading/offloading crew.
++414. Tweaked the attraction values a bit (upped Wood, lowered Capital)
++415. Tweaked the seasonal production values for metal and jewel mines.
++416. Made sure MV_OTHNATION restrictions were in place during pop migration.
++417. Double the "price" for soldiers during nation construction.
+ 418. Make national alignment ranged by nation class and not race.
+ 419. Add trailing % signs for charity and inflation (and others).
++420. Make magic powers cost triple for specific purchases.
++421. Reduce the jewel cost reduction in power purchasing when having Jeweler.
++422. Why are dragons so cheap for Orcish nations?  Fix it.
+~423. Make fleets a bit faster and penalize armies more for moving fast.
+ 424. Provide a bonus for being on a Jihad during combat.
++425. Realign the unit speed info so it is always right after move left.
++426. Replace "following" in army info screen with "commanded by".
++427. Make sure that changing of grouped units statuses auto-ungroups.
++428. When national magical powers decrease... lose only 1/2 potential in SP.
+ 429. Make the mail editor wrap at the limit, and allow merging of following
+      lines with a ^D, also with a wrapping mechanism.
+ 430. Caravan and naval supplies should always assume a full crew.
++431. Maybe have movement calculations with higher precision storage.
+ 432. With expansions, must allow for method for seeing all options
+      during full screen listing.  Perhaps on second TAB/SPACE hit.
+ 433. Add config ability to adjust the mail quote string and from string.
+ 434. Decrease spell caster movement after casting spells.
+ 435. Make sure to record ungrouping when a unit jumps from one group
+      to another.
+ 436. Indicate in the consumption report whenever any unit goes unsupplied.

@@ -1,0 +1,96 @@
+This directory contains all of the documentation for the conquer
+multi-player Fantasy Wargame.  All of the documentation is written
+using roff macros, and as such can be used to generate either online
+or hardcopy versions of the documentation.
+
+For those of you who wish to use the conquer roff macros elsewhere, or
+are brave enough to wish to help create / update the documentation for
+conquer itself, I will now list what all of the macros are, and how
+they must be used.  [While the macros do work, they might be a bit
+finicky if not used properly :-)]
+
+Anyway, the list of roff macros is:
+
+    .CH "string"    -- Assign the heading for the conquer
+                       documentation.  This should be done at the
+                       beginning of the separate documentation
+                       sections.  Note that this will not show up in
+                       the online documentation.
+
+    .CS "string"    -- Set the section heading to be "string".  This
+                       will be printed in italics for troff and will
+                       be preceded by a '^L' in nroff.  [There should
+                       be a balancing '.CE' or the text will not be
+                       displayed]  This macro also assures that all of
+                       the enclosed text is kept on a page of its own.
+
+    .CE             -- End the section.  This will flush out the text
+                       since the last '.CS' macro.  Nesting will
+                       probably result in text being lost.
+
+    .PP             -- Begin a normal text paragraph.  For nroff this
+                       will assign the proper indentation.  For troff
+                       this will cause the first line of the paragraph
+                       to be indented a quarter inch.
+
+    .IT             -- Indent the text within the next paragraph.  The
+                       text will be indented and filled, with the
+                       first line starting a little to the left of the
+                       rest of the indented paragraph.  Space down one
+                       line.
+
+    .NT             -- Just like the .IT macro, except that it will not
+                       space down one line.  This is useful to
+                       position multiple indented titles one below
+                       another.
+
+    .ST             -- Just like the .IT macro, except that there is
+                       no temporary indentation on the first line.
+                       This is useful for continuing an indented
+                       description in a new paragraph.
+
+    .TT             -- Just like the .ST macro, except there will be
+                       no space added.  This is useful for providing
+                       an item description when the item identifier
+                       was listed on a prior line.
+
+    .UT             -- Unindent the text.  This command should be
+                       placed at the end of a consecutive string of
+                       paragraphs delimited by the '.IT' macro.  There
+                       need be only one .UT for several .IT macro
+                       invocations, but without any, it will likely
+                       not set the following text properly.
+
+    .SB             -- This macro along with '.SE' will section off
+                       text which is supposed to appear exactly as it
+                       is on the screen.  [Avoid tabs unless you know
+                       what you are doing.]  Such text will be printed
+                       using courier font for the troff version, so
+                       that the spacing will remain proper.
+
+    .SE             -- End the "screen" display.  This should be used
+                       to properly end such sections of text.  Nesting
+                       such macros will probably result in garbled
+                       text.
+
+    .TB             -- This macro is exactly like the .SB macro,
+                       except that the verticle spacing is not quite
+                       as tight.  It should be used for tables, where
+                       columns will need to be aligned.
+
+    .TE             -- End the "table" display.  This should be used
+                       to properly end such sections of text.  Nesting
+                       such macros will probably result in garbled
+                       text.
+
+    .RF             -- Macro to provide a reference to other sections
+                       of documentation.  The first argument is the
+                       short name for the referenced section and the
+                       second argument is the long name.
+
+Note: if you notice that any text is missing, especially near the
+bottom of the docs, check to make sure that there is a '.CE' ending
+the last section of text, and that there is a newline after it.
+
+adam bryant
+vejeta@gmail.com or https://github.com/vejeta/conquerv5/issues

@@ -1,0 +1,86 @@
+version = 1
+SPDX-PackageName = "conquerv5"
+SPDX-PackageSupplier = "Juan Manuel Méndez Rey <vejeta@gmail.com>"
+SPDX-PackageDownloadLocation = "https://github.com/vejeta/conquerv5"
+
+# Martin Forssen contributed file - ntninfoG.c
+[[annotations]]
+path = "gpl-release/Src/ntninfoG.c"
+precedence = "aggregate"
+SPDX-FileCopyrightText = [
+    "1989 Martin Forssen <maf@recordedfuture.com>",
+    "1987-1992 Ed Barlow <barlowedward@hotmail.com>",
+    "1987-1992 Adam Bryant <adb@usa.com>", 
+    "2025 Juan Manuel Méndez Rey <vejeta@gmail.com>"
+]
+SPDX-License-Identifier = "GPL-3.0-or-later"
+SPDX-FileComment = "Originally written by Martin Forssen, later rewritten by Adam Bryant for new data structures"
+
+# GPL-licensed source files in gpl-release/
+[[annotations]]
+path = ["gpl-release/Src/**", "gpl-release/Include/**", "gpl-release/Auxil/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = [
+    "1987-1992 Ed Barlow <barlowedward@hotmail.com>",
+    "1987-1992 Adam Bryant <adb@usa.com>", 
+    "2025 Juan Manuel Méndez Rey <vejeta@gmail.com>"
+]
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+# GPL-licensed documentation in gpl-release/
+[[annotations]]
+path = ["gpl-release/Docs/**", "gpl-release/*.md", "gpl-release/README", "gpl-release/CONVERTING", "gpl-release/PATCH28", "gpl-release/PROBLEMS", "gpl-release/HISTORY.md", "gpl-release/RELICENSING-PERMISSIONS.md", "gpl-release/CONTRIBUTORS.md"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2025 Juan Manuel Méndez Rey <vejeta@gmail.com>"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+# GPL-licensed build files in gpl-release/
+[[annotations]]
+path = ["gpl-release/**/Makefile*", "gpl-release/**/*.sh", "gpl-release/**/*.py"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2025 Juan Manuel Méndez Rey <vejeta@gmail.com>"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+# Original restrictive license source files
+[[annotations]]
+path = ["original/Src/**", "original/Include/**", "original/Auxil/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = [
+    "1987-1992 Ed Barlow <barlowedward@hotmail.com>",
+    "1987-1992 Adam Bryant <adb@usa.com>"
+]
+SPDX-License-Identifier = "LicenseRef-Original-Restrictive"
+
+# Original restrictive license documentation
+[[annotations]]
+path = ["original/Docs/**", "original/README", "original/CONVERTING", "original/PATCH28", "original/PROBLEMS"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = [
+    "1987-1992 Ed Barlow <barlowedward@hotmail.com>",
+    "1987-1992 Adam Bryant <adb@usa.com>"
+]
+SPDX-License-Identifier = "LicenseRef-Original-Restrictive"
+
+# Original restrictive license build files
+[[annotations]]
+path = ["original/**/Makefile*"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = [
+    "1987-1992 Ed Barlow <barlowedward@hotmail.com>",
+    "1987-1992 Adam Bryant <adb@usa.com>"
+]
+SPDX-License-Identifier = "LicenseRef-Original-Restrictive"
+
+# Root level documentation and project files
+[[annotations]]
+path = ["README.md", "LICENSE-NOTICE.md", "docs/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2025 Juan Manuel Méndez Rey <vejeta@gmail.com>"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+# Root level project files
+[[annotations]]
+path = ["REUSE.toml", "LICENSE", ".gitignore"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2025 Juan Manuel Méndez Rey <vejeta@gmail.com>"
+SPDX-License-Identifier = "GPL-3.0-or-later"

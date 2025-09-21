@@ -1,0 +1,129 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-FileCopyrightText: 1987-1992 Ed Barlow <barlowedward@hotmail.com>
+# SPDX-FileCopyrightText: 1987-1992 Adam Bryant <adb@usa.com>
+# SPDX-FileCopyrightText: 2025 Juan Manuel Méndez Rey <vejeta@gmail.com>
+#
+# Conquer - Classic Multi-Player Strategy Game - Build Configuration
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# Relicensed to GPL v3+ with explicit permission from original authors.
+# For relicensing documentation, see RELICENSING-PERMISSIONS.md
+
+
+#	This Makefile should not need changing.
+#
+#       Please report any problems with compilation or build issues
+#       through the project's issue tracker.
+#
+#       Current Maintainer: Juan Manuel Méndez Rey <vejeta@gmail.com>
+#       Project Repository: https://github.com/vejeta/conquerv5
+#       Bug Reports: https://github.com/vejeta/conquerv5/issues
+#
+
+#	All of the default settings
+MAKE	= %%MAKE%%
+MKDPND	= %%MKDPND%%
+MKDIR	= %%MKDIR%%
+SHELL	= %%SHELL%%
+CD	= %%CD%%
+CC	= %%CC%%
+RM      = %%RM%%
+CP	= %%CP%%
+MV	= %%MV%%
+ECHO	= %%ECHO%%
+STRIP	= %%STRIP%%
+NULL	= %%NULL%%
+TOUCH	= %%TOUCH%%
+CHOWN	= %%CHOWN%%
+CHMOD	= %%CHMOD%%
+LIBS	= %%LIBS%%
+SYSFLG	= %%SYSFLG%%
+CFLAGS	= %%CFLAGS%%
+TOPDIR	= %%TOPDIR%%
+DATADIR	= %%DATADIR%%
+BINDIR	= %%BINDIR%%
+INCDIR	= %%TOPDIR%%/%%INCDIR%%
+SRCDIR	= %%TOPDIR%%/%%SRCDIR%%
+AUXDIR	= %%TOPDIR%%/%%AUXDIR%%
+DOCDIR	= %%TOPDIR%%/%%DOCDIR%%
+CQUER	= %%CQUER%%
+CQRUN	= %%CQRUN%%
+CQSORT	= %%CQSORT%%
+CXTRACT	= %%CXTRACT%%
+GFILS	= %%GFILS%%
+AFILS	= %%AFILS%%
+XFILS	= %%XFILS%%
+GOBJS	= %%GOBJS%%
+AOBJS	= %%AOBJS%%
+XOBJS	= %%XOBJS%%
+
+#
+#	Building and Installation Procedures
+#
+all:	
+	@${ECHO} "Use one of:"
+	@${ECHO} "   make build       -- build everything"
+	@${ECHO} "   make install     -- install everything"
+	@${ECHO} "   make clean       -- clean up some files"
+	@${ECHO} "   make clobber     -- clean up all files"
+
+#
+build:	${CQSORT}
+	@${ECHO} Build in Auxil done
+
+#
+install:	in${CQSORT}
+	@${ECHO} Installation in Auxil done
+
+#	Cleaning things up
+clean:
+	${RM} *.o *~ *.bak \#* ${NULL}
+
+#	Really clean things up
+clobber:	clean
+	${RM} in${CQSORT} ${CQSORT} ${NULL}
+
+#
+#	Makefile specfic variables
+#
+
+#	use the value of C flags
+CFLGS	= ${CFLAGS}
+CPPFLGS	= ${SYSFLG}
+
+#	list of object files
+SORTOBJS	= sort.o
+
+#
+#	Rules and dependencies for this Makefile
+#
+.c.o:	$<
+	${CC} ${CFLGS} ${CPPFLGS} -c $*.c
+
+${CQSORT}:	${SORTOBJS}
+	${CC} ${CFLGS} -o ${CQSORT} ${SORTOBJS}
+
+in${CQSORT}:	${CQSORT}
+	@${ECHO} Installing ${CQSORT}...
+	${STRIP} ${CQSORT}
+	-${RM} ${BINDIR}/${CQSORT} ${NULL}
+	-${MKDIR} ${BINDIR}
+	${MV} ${CQSORT} ${BINDIR}
+	${CHOWN} ${BINDIR}/${CQSORT}
+	${CHMOD} 755 ${BINDIR}/${CQSORT}
+	${TOUCH} ${CQSORT}
+	${TOUCH} in${CQSORT}
+
+#
