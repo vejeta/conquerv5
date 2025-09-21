@@ -20,11 +20,10 @@ conquer-v5/
 │   ├── README.md              # Modern documentation
 │   ├── LICENSE                # GPL v3 license text
 │   ├── AUTHORS.md             # Contributors and attribution
+|   ├── HISTORY.md             # Project timeline
 │   ├── RELICENSING-PERMISSIONS.md  # Legal documentation
 │   └── [clean source distribution]
-└── docs/
-    ├── HISTORY.md             # Project timeline
-    └── relicensing-history.md # Detailed legal process
+|
 ```
 
 ## What is Conquer?
