@@ -369,16 +369,26 @@ extern int re_exec();
 
 /* The user listing stuff */
 #ifdef LISTUSERS
-extern int read(), write();
-extern char *ttyname();
+
+#ifndef _UNISTD_H
+extern ssize_t read(int, void *, size_t);
+extern ssize_t write(int, const void *, size_t);
+#endif
+
+#ifndef _UNISTD_H
+extern char *ttyname(int);
+#endif
+
 #endif /* LISTUSERS */
 
 /* Finally, the data customizations */
 
 /* Data Definitions */
+//#ifndef PLATFORM_MACOS
 typedef unsigned short int uns_short;
 typedef unsigned char uns_char;
 typedef uns_char ntntype;
+//#endif /* PLATFORM_MACOS */
 
 #ifdef DOUBLE_ITEMS
 typedef double itemtype;

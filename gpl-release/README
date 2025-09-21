@@ -1,4 +1,4 @@
-It will always be necessary to redo these commands whenever you
+ It will always be necessary to redo these commands whenever you
 receive a new patch or tar file, to assure that any Makefile changes
 are propogated to all of your files.
 
@@ -42,5 +42,4 @@ conquer and as such, will probably have to be updated if you do
 any programming for conquer.  I have a copy of the cextract program
 available if you needed, just send me email.
 
-adam bryant
 vejeta@gmail.com or https://github.com/vejeta/conquerv5/issues

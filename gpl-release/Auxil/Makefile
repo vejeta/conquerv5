@@ -21,6 +21,7 @@
 # Relicensed to GPL v3+ with explicit permission from original authors.
 # For relicensing documentation, see RELICENSING-PERMISSIONS.md
 
+
 #	This Makefile should not need changing.
 #
 #       Please report any problems with compilation or build issues
@@ -32,31 +33,31 @@
 #
 
 #	All of the default settings
-MAKE	= /usr/bin/make
+MAKE	= make
 MKDPND	= makedepend
-MKDIR	= mkdir
-SHELL	= /bin/sh
+MKDIR	= mkdir -p
+SHELL	= /opt/local/bin/bash
 CD	= cd
-CC	= gcc
-RM      = /bin/rm -f
+CC	= cc
+RM      = rm -f
 CP	= cp
 MV	= mv
 ECHO	= echo
-STRIP	= strip
+STRIP	= echo "Not stripping"
 NULL	= 2>/dev/null
 TOUCH	= touch
-CHOWN	= echo ... ignore
+CHOWN	= echo "... ignore (not root)"
 CHMOD	= chmod
-LIBS	= -lcurses -ltermcap -lcrypt
-SYSFLG	= -DBSD
-CFLAGS	= -O -g -Wall -Wshadow -Wpointer-arith -Wcast-qual -Wid-clash-12 -ansi -DDEBUG
-TOPDIR	= /home/brand1/kevin/foo/conquer
-DATADIR	= /usr/local/games/lib/conquer
-BINDIR	= /usr/local/games/bin
-INCDIR	= /home/brand1/kevin/foo/conquer/Include
-SRCDIR	= /home/brand1/kevin/foo/conquer/Src
-AUXDIR	= /home/brand1/kevin/foo/conquer/Auxil
-DOCDIR	= /home/brand1/kevin/foo/conquer/Docs
+LIBS	= -lcurses -ltermcap 
+SYSFLG	= -DBSD -DPLATFORM_MACOS -DPLATFORM_UNIX
+CFLAGS	= -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -g -O0 -DDEBUG -DBSD -DPLATFORM_MACOS -DPLATFORM_UNIX -DLOGIN="jmy99" -std=c99 -fno-omit-frame-pointer -fstack-protector-strong
+TOPDIR	= /Users/jmy99/development/misc/conquerv5/gpl-release
+DATADIR	= /Users/jmy99/.local/share/conquer
+BINDIR	= /Users/jmy99/.local/bin
+INCDIR	= /Users/jmy99/development/misc/conquerv5/gpl-release/Include
+SRCDIR	= /Users/jmy99/development/misc/conquerv5/gpl-release/Src
+AUXDIR	= /Users/jmy99/development/misc/conquerv5/gpl-release/Auxil
+DOCDIR	= /Users/jmy99/development/misc/conquerv5/gpl-release/Docs
 CQUER	= conquer
 CQRUN	= conqrun
 CQSORT	= conqsort
@@ -66,7 +67,7 @@ AFILS	= mainA.c adduserA.c combatA.c configA.c createA.c dataA.c economyA.c magi
 XFILS	= dataX.c datamagX.c datamilX.c checkX.c computeX.c convertX.c customX.c executeX.c hexmapX.c ioX.c iodataX.c magicX.c mailX.c memoryX.c miscX.c moveX.c sectorX.c selectX.c unitsX.c  
 GOBJS	= mainG.o armyG.o caravanG.o customG.o dataG.o displayG.o emailG.o enlistG.o hexmapG.o ieditG.o infoG.o ioG.o iodataG.o keybindG.o magicG.o mailG.o miscG.o moveG.o navyG.o ntninfoG.o pagerG.o regionG.o sectorG.o selectG.o xferG.o time_ckG.o
 AOBJS	= mainA.o adduserA.o combatA.o configA.o createA.o dataA.o economyA.o magicA.o mailA.o miscA.o monsterA.o moveA.o npcA.o sectorA.o updateA.o
-XOBJS	= dataX.o datamagX.o datamilX.o checkX.o computeX.o convertX.o customX.o executeX.o hexmapX.o ioX.o iodataX.o magicX.o mailX.o memoryX.o miscX.o moveX.o sectorX.o selectX.o unitsX.o    
+XOBJS	= dataX.o datamagX.o datamilX.o checkX.o computeX.o convertX.o customX.o executeX.o hexmapX.o ioX.o iodataX.o magicX.o mailX.o memoryX.o miscX.o moveX.o sectorX.o selectX.o unitsX.o  
 
 #
 #	Building and Installation Procedures

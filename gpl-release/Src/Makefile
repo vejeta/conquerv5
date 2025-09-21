@@ -1,43 +1,72 @@
-#	conquer: Copyright 1991 by Edward M Barlow and Adam Bryant
-#		 All Rights Reserved 
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-FileCopyrightText: 1987-1992 Ed Barlow <barlowedward@hotmail.com>
+# SPDX-FileCopyrightText: 1987-1992 Adam Bryant <adb@usa.com>
+# SPDX-FileCopyrightText: 2025 Juan Manuel Méndez Rey <vejeta@gmail.com>
+#
+# Conquer - Classic Multi-Player Strategy Game - Build Configuration
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# Relicensed to GPL v3+ with explicit permission from original authors.
+# For relicensing documentation, see RELICENSING-PERMISSIONS.md
+
 #
 #	This Makefile should not need changing.
 #
-#       Please report any problems with compilation or build issues
-#       through the project's issue tracker.
+#	Please report any problems that you encounter with any of the
+#	Makefiles.  If any problems develop while compiling, or if any
+#	files but Makefile.top and header.h files need editing.
 #
-#       Current Maintainer: Juan Manuel Méndez Rey <vejeta@gmail.com>
-#       Project Repository: https://github.com/vejeta/conquerv5
-#       Bug Reports: https://github.com/vejeta/conquerv5/issues
+#   Please report any problems that you encounter with compilation,
+#   build issues, or bugs through the project's issue tracker.
+#
+#   Current Maintainer: Juan Manuel Méndez Rey <vejeta@gmail.com>
+#   Project Repository: https://github.com/vejeta/conquerv5
+#   Bug Reports: https://github.com/vejeta/conquerv5/issues
+#   Documentation: See README.md and RELICENSING-PERMISSIONS.md
+#
+#   This is a community-maintained GPL v3+ version of the classic
+#   Conquer game. Contributions and improvements are welcome.
 #
 
 #	All of the default settings
-MAKE	= /usr/bin/make
+MAKE	= make
 MKDPND	= makedepend
-MKDIR	= mkdir
-SHELL	= /bin/sh
-CC	= gcc
+MKDIR	= mkdir -p
+SHELL	= /opt/local/bin/bash
+CC	= cc
 CD	= cd
-RM      = /bin/rm -f
+RM      = rm -f
 CP	= cp
 MV	= mv
 ECHO	= echo
-STRIP	= strip
+STRIP	= echo "Not stripping"
 NULL	= 2>/dev/null
 TOUCH	= touch
-CHOWN	= echo ... ignore
+CHOWN	= echo "... ignore (not root)"
 CHMOD	= chmod
-LIBS	= -lcurses -ltermcap -lcrypt
-SYSFLG	= -DBSD
-CFLAGS	= -O -g -Wall -Wshadow -Wpointer-arith -Wcast-qual -Wid-clash-12 -ansi -DDEBUG
-CKFLAGS	= -O -g -Wall -Wshadow -Wpointer-arith -Wcast-qual -Wid-clash-12 -ansi -DDEBUG
-TOPDIR	= /home/brand1/kevin/foo/conquer
-DATADIR	= /usr/local/games/lib/conquer
-BINDIR	= /usr/local/games/bin
-INCDIR	= /home/brand1/kevin/foo/conquer/Include
-SRCDIR	= /home/brand1/kevin/foo/conquer/Src
-AUXDIR	= /home/brand1/kevin/foo/conquer/Auxil
-DOCDIR	= /home/brand1/kevin/foo/conquer/Docs
+LIBS	= -lcurses -ltermcap 
+SYSFLG	= -DBSD -DPLATFORM_MACOS -DPLATFORM_UNIX
+CFLAGS  = -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -g -O0 -DDEBUG -DBSD -DPLATFORM_MACOS -DPLATFORM_UNIX -DLOGIN="jmy99" -std=c99 -fno-omit-frame-pointer -fstack-protector-strong -DLOGIN="jmy99"
+CKFLAGS	= -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -g -O0 -DDEBUG -DBSD -DPLATFORM_MACOS -DPLATFORM_UNIX -DLOGIN="jmy99" -std=c99 -fno-omit-frame-pointer -fstack-protector-strong
+TOPDIR	= /Users/jmy99/development/misc/conquerv5/gpl-release
+DATADIR	= /Users/jmy99/.local/share/conquer
+BINDIR	= /Users/jmy99/.local/bin
+INCDIR	= /Users/jmy99/development/misc/conquerv5/gpl-release/Include
+SRCDIR	= /Users/jmy99/development/misc/conquerv5/gpl-release/Src
+AUXDIR	= /Users/jmy99/development/misc/conquerv5/gpl-release/Auxil
+DOCDIR	= /Users/jmy99/development/misc/conquerv5/gpl-release/Docs
 CQUER	= conquer
 CQRUN	= conqrun
 CQSORT	= conqsort
@@ -49,7 +78,7 @@ XFILS	= dataX.c datamagX.c datamilX.c checkX.c computeX.c convertX.c customX.c e
 #	lists of object files
 AOBJS	= mainA.o adduserA.o combatA.o configA.o createA.o dataA.o economyA.o magicA.o mailA.o miscA.o monsterA.o moveA.o npcA.o sectorA.o updateA.o jointA.o
 GOBJS	= mainG.o armyG.o caravanG.o customG.o dataG.o displayG.o emailG.o enlistG.o hexmapG.o ieditG.o infoG.o ioG.o iodataG.o keybindG.o magicG.o mailG.o miscG.o moveG.o navyG.o ntninfoG.o pagerG.o regionG.o sectorG.o selectG.o xferG.o time_ckG.o jointG.o
-XOBJS	= dataX.o datamagX.o datamilX.o checkX.o computeX.o convertX.o customX.o executeX.o hexmapX.o ioX.o iodataX.o magicX.o mailX.o memoryX.o miscX.o moveX.o sectorX.o selectX.o unitsX.o    
+XOBJS	= dataX.o datamagX.o datamilX.o checkX.o computeX.o convertX.o customX.o executeX.o hexmapX.o ioX.o iodataX.o magicX.o mailX.o memoryX.o miscX.o moveX.o sectorX.o selectX.o unitsX.o  
 
 #
 #	Makefile specific variables
