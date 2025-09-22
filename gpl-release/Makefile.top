@@ -226,7 +226,7 @@ ifneq ($(shell id -u 2>/dev/null),0)
     CHMOD = chmod
     PREFIX ?= $(HOME)/conquerv5
 else
-    CHOWN = chown games:games
+    CHOWN = chown games.games
     CHMOD = chmod
     PREFIX ?= /usr/local
 endif
