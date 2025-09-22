@@ -3,25 +3,9 @@ SPDX-PackageName = "conquerv5"
 SPDX-PackageSupplier = "Juan Manuel Méndez Rey <vejeta@gmail.com>"
 SPDX-PackageDownloadLocation = "https://github.com/vejeta/conquerv5"
 
-# Build artifacts - generated files with no meaningful copyright
-[[annotations]]
-path = [
-    "packages/alpine/x86_64/APKINDEX.tar.gz",
-    "packages/alpine/x86_64/conquerv5-5.0-r0.apk",
-    "packages/debian/conquerv5_5.0-1_arm64.changes",
-    "packages/debian/conquerv5_5.0-1_arm64.deb",
-    "packages/**/*.apk",
-    "packages/**/*.deb",
-    "packages/**/*.tar.gz",
-    "packages/**/*.changes"
-]
-precedence = "aggregate"
-SPDX-FileCopyrightText = "NONE"
-SPDX-License-Identifier = "NOASSERTION"
-
 # CI/CD and project infrastructure files
 [[annotations]]
-path = [".github/workflows/ci.yml", "gpl-release/.gitignore"]
+path = [".github/workflows/ci.yml", "gpl-release/.gitignore", ".reuseignore"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2025 Juan Manuel Méndez Rey <vejeta@gmail.com>"
 SPDX-License-Identifier = "GPL-3.0-or-later"
