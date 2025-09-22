@@ -77,6 +77,23 @@ ifeq ($(UNAME_S),NetBSD)
 endif
 
 # ================================================================
+# LIBC DETECTION (for Alpine/musl compatibility)
+# ================================================================
+
+IS_ALPINE := $(shell test -f /etc/alpine-release && echo yes || echo no)
+
+ifeq ($(UNAME_S),Linux)
+    PLATFORM = linux
+    PLATFORM_FLAGS = -DPLATFORM_LINUX -DPLATFORM_UNIX
+    PLATFORM_LIBS = -lcrypt
+    # Add BSD function compatibility for Alpine Linux (musl libc)
+    ifeq ($(IS_ALPINE),yes)
+        PLATFORM_FLAGS += -D_DEFAULT_SOURCE -D_BSD_SOURCE
+    endif
+endif
+
+
+# ================================================================
 # COMPILER DETECTION
 # ================================================================
 

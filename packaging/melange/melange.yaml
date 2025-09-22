@@ -47,11 +47,20 @@ pipeline:
       echo "=== ConquerV5 Build Process (in gpl-release/) ==="
 
       echo "=== Checking sub-Makefiles for /bin/make ==="
-      grep -R "/bin/make" Src Auxil Docs Include || echo "No /bin/make found"
+      #grep -R "/bin/make" Src Auxil Docs Include || echo "No /bin/make found"
       # Create symlink for legacy /bin/make references
-      if [ ! -f /bin/make ] && [ -f /usr/bin/make ]; then
-        ln -sf /usr/bin/make /bin/make 2>/dev/null || true
-      fi
+      #if [ ! -f /bin/make ] && [ -f /usr/bin/make ]; then
+      #  ln -sf /usr/bin/make /bin/make 2>/dev/null || true
+      #fi
+
+
+      # Debug libc detection
+      echo "=== Debugging libc detection ==="
+      ldd --version 2>&1 || echo "ldd not available"
+      ldd --version 2>&1 | grep -q musl && echo "musl detected" || echo "musl NOT detected"
+      echo "LIBC would be: $(ldd --version 2>&1 | grep -q musl && echo musl || echo glibc)"
+
+
 
       # Set system login for package installation
       export PATH="/usr/bin:$PATH"
