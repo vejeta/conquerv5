@@ -75,6 +75,29 @@ pipeline:
         cat Include/header.h.dist | grep -A2 -B2 LOGIN
       fi
 
+      # Before running make Makefiles
+      echo "=== Debugging LOGIN variable ==="
+      echo "Environment LOGIN: $LOGIN"
+      echo "whoami: $(whoami)"
+      echo "USER: $USER"
+
+      echo "=== Pre-make environment ==="
+      echo "Shell LOGIN: $LOGIN"
+      echo "Shell USER: $USER"
+      echo "Container whoami: $(whoami)"
+
+      echo "=== What make sees ==="
+      make -f Makefile --eval='$(info LOGIN=$(LOGIN))' --eval='$(info CURRENT_USER=$(CURRENT_USER))' --eval='$(info USER=$(USER))' all 2>&1 | head -5
+
+      # Test what make sees
+      make -f Makefile -n info | grep LOGIN || echo "No LOGIN info"
+
+      # Force LOGIN explicitly
+      /usr/bin/make Makefiles LOGIN="games" PREFIX="$PREFIX" DATADIR="$DATADIR" BINDIR="$BINDIR" MAKE="/usr/bin/make"
+
+      # Verify after generation
+      grep LOGIN Include/header.h
+
       # Step 2: Generate all sub-Makefiles
       echo "Step 2: Generating Makefiles..."
       /usr/bin/make Makefiles LOGIN="$LOGIN" PREFIX="$PREFIX" DATADIR="$DATADIR" BINDIR="$BINDIR" MAKE="/usr/bin/make"

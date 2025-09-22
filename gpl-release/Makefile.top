@@ -335,7 +335,7 @@ info:
 
 $(HEADER): $(HEADER_DIST)
 	@echo "Generating $@ from $< (LOGIN=$(LOGIN))"
-	@awk -v login="$(LOGIN)" '/#define[ \t]+LOGIN/ { print "#define LOGIN \"" login "\""; next } { print }' $< > $@
+	@awk -v login="$(LOGIN)" '/^[ \t]*#define[ \t]+LOGIN/ { print "#define LOGIN \"" login "\""; next } { print }' $< > $@
 
 # ================================================================
 # BUILD TARGETS
