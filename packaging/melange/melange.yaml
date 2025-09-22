@@ -76,23 +76,28 @@ pipeline:
 
       # Step 2: Generate all sub-Makefiles
       echo "Step 2: Generating Makefiles..."
-      make Makefiles LOGIN="$LOGIN" PREFIX="$PREFIX" DATADIR="$DATADIR" BINDIR="$BINDIR"
+      /usr/bin/make Makefiles LOGIN="$LOGIN" PREFIX="$PREFIX" DATADIR="$DATADIR" BINDIR="$BINDIR" MAKE="/usr/bin/make"
 
-      # Debug: Show what's in the template files
-            echo "=== DEBUGGING: Searching for obsolete flags ==="
-      echo "Searching in template files:"
-      find . -name "Makefile.*" -o -name "*.src" -o -name "*.inc" -o -name "*.aux" -o -name "*.dcm" | xargs grep -l "Wid-clash\|-ansi" 2>/dev/null || echo "No template files with these flags"
+      # Step 2.5: Debug what's in the Makefiles
+      echo "=== Debugging Makefile contents ==="
+      echo "CFLAGS line in Src/Makefile:"
+      grep -n "CFLAGS.*=" Src/Makefile
+      echo "SYSFLG pattern in Src/Makefile:"
+      grep -n "PLATFORM_LINUX" Src/Makefile
 
-      echo "Searching in all generated Makefiles:"
-      find . -name "Makefile" | xargs grep -n "Wid-clash\|-ansi" 2>/dev/null || echo "No Makefiles with these flags"
+      # Try multiple sed approaches
+      echo "=== Trying different sed replacements ==="
 
-      echo "Checking CFLAGS in generated Makefiles:"
-      find . -name "Makefile" -exec echo "=== {} ===" \; -exec grep -n "CFLAGS.*=" {} \; 2>/dev/null || echo "No CFLAGS definitions found"
+      # Approach 1: Replace the entire CFLAGS line
+      find . -name "Makefile" -exec sed -i '/^CFLAGS.*=.*DPLATFORM_LINUX/s/$/ -D_DEFAULT_SOURCE -D_BSD_SOURCE/' {} \;
 
+      # Verify the change
+      echo "After sed replacement:"
+      grep -n "CFLAGS.*=" Src/Makefile
 
       # Step 3: Build the project
       echo "Step 3: Building project..."
-      make build BUILD=release LOGIN="$LOGIN" PREFIX="$PREFIX" DATADIR="$DATADIR" BINDIR="$BINDIR"
+      /usr/bin/make build BUILD=release LOGIN="$LOGIN" PREFIX="$PREFIX" DATADIR="$DATADIR" BINDIR="$BINDIR" MAKE="/usr/bin/make"
 
       echo "=== Build completed successfully ==="
 
