@@ -47,7 +47,9 @@ getpass PARM_1(char *, prompt)
 
   system("set term/noecho");
   printf(prompt);
-  gets(buffer);
+  if (fgets(buffer, BIGLTH, stdin) != NULL) {
+    buffer[strcspn(buffer, "\n")] = '\0';
+  }
   system("set term/echo");
   return(buffer);
 }

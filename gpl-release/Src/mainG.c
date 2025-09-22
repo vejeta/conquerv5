@@ -302,7 +302,9 @@ main PARM_2 (int, argc, char **, argv)
       fprintf(stderr, "\t\tgodadd   - to remove player addition lock\n");
       fprintf(stderr, "\t\t*        - to remove all lock files\n\n");
       fprintf(stderr, "Remove which lock file(s)? ");
-      gets(nationname);
+      if (fgets(nationname, BITHLTH, stdin) != NULL) {
+        nationname[strcspn(nationname, "\n")] = '\0';
+      }
     }
     if (strcmp(nationname, "*") != 0) {
       sprintf(lfilestr, "%s.%s", nationname, isontag);
@@ -488,7 +490,9 @@ main PARM_2 (int, argc, char **, argv)
     if (pflag || Pflag)
       fprintf(stderr, "Display map for what nation: ");
     else fprintf(stderr, "What nation would you like to be: ");
-    gets(nationname);
+    if (fgets(nationname, BIGLTH, stdin) != NULL) {
+    nationname[strcspn(nationname, "\n")] = '\0';
+    }
   }
 
   /* validate god login */
