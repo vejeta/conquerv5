@@ -185,18 +185,28 @@ endif
 # LIBRARY CONFIGURATION
 # ================================================================
 
-# Detect whether ncurses is present
-HAVE_NCURSES := $(shell ldconfig -p 2>/dev/null | grep -q libncurses && echo yes)
-
-ifeq ($(HAVE_NCURSES),yes)
+# Simple approach: detect common library locations
+HAS_NCURSES := $(shell test -f /usr/lib/libncurses.so -o -f /usr/lib/x86_64-linux-gnu/libncurses.so -o -f /lib/libncurses.so && echo yes || echo no)
+ifeq ($(HAS_NCURSES),yes)
     BASE_LIBS = -lncurses
 else
     BASE_LIBS = -lcurses
 endif
 
+# Check if we're in a musl environment by looking for typical musl indicators
+IS_MUSL := $(shell $(CC) -dumpmachine 2>/dev/null | grep -q musl && echo yes || echo no)
+
+# Simple termcap availability check
+HAS_TERMCAP := $(shell test -f /usr/lib/libtermcap.so -o -f /usr/lib/x86_64-linux-gnu/libtermcap.so && echo yes || echo no)
 
 ifeq ($(PLATFORM),linux)
-    LIBS = $(BASE_LIBS) -ltermcap $(PLATFORM_LIBS)
+    ifeq ($(IS_MUSL),yes)
+        LIBS = $(BASE_LIBS) $(PLATFORM_LIBS)
+    else ifeq ($(HAS_TERMCAP),yes)
+        LIBS = $(BASE_LIBS) -ltermcap $(PLATFORM_LIBS)
+    else
+        LIBS = $(BASE_LIBS) $(PLATFORM_LIBS)
+    endif
 else ifeq ($(PLATFORM),macos)
     LIBS = $(BASE_LIBS) -ltermcap $(PLATFORM_LIBS)
 else ifeq ($(PLATFORM),freebsd)

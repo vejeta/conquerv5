@@ -483,7 +483,7 @@ extern int conq_expert, zoom_level, conq_waterbottoms, conq_supply_level;
 extern int conq_infomode, conq_mercsused, conq_mheaders;
 
 /* pager settings */
-int pager_tab, pager_scroll, pager_offset;
+extern int pager_tab, pager_scroll, pager_offset;
 
 /* other miscellaneous declarations */
 extern char *hasseen;

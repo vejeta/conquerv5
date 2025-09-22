@@ -46,19 +46,11 @@ pipeline:
       cd /home/build/conquerv5/gpl-release
       echo "=== ConquerV5 Build Process (in gpl-release/) ==="
 
-      echo "=== Checking sub-Makefiles for /bin/make ==="
-      #grep -R "/bin/make" Src Auxil Docs Include || echo "No /bin/make found"
-      # Create symlink for legacy /bin/make references
-      #if [ ! -f /bin/make ] && [ -f /usr/bin/make ]; then
-      #  ln -sf /usr/bin/make /bin/make 2>/dev/null || true
-      #fi
-
-
-      # Debug libc detection
-      echo "=== Debugging libc detection ==="
-      ldd --version 2>&1 || echo "ldd not available"
-      ldd --version 2>&1 | grep -q musl && echo "musl detected" || echo "musl NOT detected"
-      echo "LIBC would be: $(ldd --version 2>&1 | grep -q musl && echo musl || echo glibc)"
+            # Debug Alpine detection
+      echo "=== Debugging Alpine detection ==="
+      test -f /etc/alpine-release && echo "Alpine detected!" || echo "Alpine NOT detected"
+      echo "Contents of /etc/alpine-release (if exists):"
+      cat /etc/alpine-release 2>/dev/null || echo "File doesn't exist"
 
 
 
