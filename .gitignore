@@ -1,36 +1,49 @@
-# Object files
-*.o
-*.obj
+# Build artifacts and packages
+packages/
+*.apk
+*.deb
+*.tar.gz
+*.changes
+*.rpm
+*.pkg
 
-# Generated Makefiles (keep the .src, .aux, .dcm, .inc templates)
-Makefile
-*/Makefile
-!Makefile.top
-!*/Makefile.*
+# Melange build files  
+melange.rsa
+melange.rsa.pub
 
-# Executables and binaries
-conquer
-conqrun
-conqsort
-cextract
-ezconv
+# Debian build artifacts
+debian/files
+debian/.debhelper/
+debian/conquerv5/
+debian/conquerv5.substvars
+debian/conquerv5.debhelper.log
 
-# Installation marker files
-in*
-**/in*
+# Temporary build directories
+build/
+dist/
+.build/
+**/build/
+**/dist/
 
-# Backup and temporary files
+# Editor files
 *~
+*.swp
+*.swo
+.*.swp
+.*.swo
 *.bak
-\#*
 *.tmp
 
-# Build artifacts
-sed.out
-
-# Documentation output
-*.doc
-
-# System specific
+# OS generated files  
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.code-workspace
