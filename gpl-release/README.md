@@ -130,6 +130,7 @@ SYSTEM REQUIREMENTS:
 - make utility (GNU make preferred)
 - curses library (ncurses recommended)
 - Standard Unix utilities (sed, etc.)
+- groff, ghostscript (To build documentation)
 
 INSTALLATION PROCESS:
 1. Extract the source code to a directory

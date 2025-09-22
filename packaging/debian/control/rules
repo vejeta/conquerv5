@@ -1,0 +1,74 @@
+#!/usr/bin/make -f
+
+# Export environment variables for legacy C code compatibility
+export LEGACY_CFLAGS = -std=gnu99 -D_GNU_SOURCE -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200112L -Wno-implicit-function-declaration -Wno-incompatible-pointer-types -Wno-implicit-int -Wno-return-type -Wno-old-style-definition -Wno-unused-variable -Wno-unused-function -Wno-format -Wno-deprecated-declarations -fcommon
+export DEB_CFLAGS_APPEND = $(LEGACY_CFLAGS)
+
+# ConquerV5 build configuration
+export LOGIN = games
+export PREFIX = /usr
+export DATADIR = /usr/share/conquerv5
+export BINDIR = /usr/bin
+export BUILD = release
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	cp Makefile.top Makefile
+	# Override ALL variables - escape the colon in CHOWN to avoid sed errors
+	$(MAKE) Makefiles \
+		NULL="" \
+		SHELL="/bin/sh" \
+		CC="gcc" \
+		LOGIN="games" \
+		PREFIX="/usr" \
+		DATADIR="/usr/share/conquerv5" \
+		BINDIR="/usr/bin" \
+		CHOWN="chown games.games" \
+		CHMOD="chmod" \
+		STRIP="strip" \
+		RM="rm -f" \
+		CP="cp" \
+		MV="mv" \
+		ECHO="echo" \
+		TOUCH="touch" \
+		CD="cd" \
+		MKDIR="mkdir -p" \
+		MKDPND="makedepend" \
+		MAKE="make" \
+		CFLAGS="-O2 -DNDEBUG -DBSD -DPLATFORM_LINUX -DPLATFORM_UNIX -std=gnu99 -D_GNU_SOURCE -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200112L -fcommon -Wno-implicit-function-declaration" \
+		CKFLAGS="-O2 -DNDEBUG -DBSD -DPLATFORM_LINUX -DPLATFORM_UNIX -std=gnu99 -D_GNU_SOURCE -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200112L -fcommon -Wno-implicit-function-declaration"
+	# Compile ezconv
+	gcc -o Docs/ezconv Docs/ezconv.c
+
+override_dh_auto_build:
+	# Build everything using the top-level Makefile
+	$(MAKE) build \
+		CC="gcc" \
+		BUILD="$(BUILD)" \
+		LOGIN="$(LOGIN)" \
+		PREFIX="$(PREFIX)" \
+		DATADIR="$(DATADIR)" \
+		BINDIR="$(BINDIR)" \
+		CFLAGS="-O2 -DNDEBUG -DBSD -DPLATFORM_LINUX -DPLATFORM_UNIX -std=gnu99 -D_GNU_SOURCE -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200112L -fcommon -Wno-implicit-function-declaration" \
+		CKFLAGS="-O2 -DNDEBUG -DBSD -DPLATFORM_LINUX -DPLATFORM_UNIX -std=gnu99 -D_GNU_SOURCE -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200112L -fcommon -Wno-implicit-function-declaration"
+
+override_dh_auto_install:
+	# Since the Makefiles don't respect DESTDIR, we need to override the paths
+	$(MAKE) install \
+		LOGIN="$(LOGIN)" \
+		PREFIX="$(CURDIR)/debian/conquerv5$(PREFIX)" \
+		DATADIR="$(CURDIR)/debian/conquerv5$(DATADIR)" \
+		BINDIR="$(CURDIR)/debian/conquerv5$(BINDIR)" \
+		CHOWN="true" \
+		CHMOD="chmod"
+
+override_dh_auto_clean:
+	# Clean build artifacts
+	-$(MAKE) clean
+	-$(MAKE) clobber
+	dh_auto_clean
+
+override_dh_strip:
+	dh_strip

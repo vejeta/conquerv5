@@ -956,7 +956,7 @@ newlogin PARM_1(int, makenpcs)
   int no_save = FALSE, more = TRUE;
   long x;
   char tmp_passwd[PASSLTH+1];
-  register i;
+  register int i;
 
   /* setup curses display */
   cq_init("cqadd");

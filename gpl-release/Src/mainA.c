@@ -291,7 +291,9 @@ main PARM_2 (int, argc, char **, argv)
       fprintf(fupdate, "entering just a single period:\n");
       do {
 	fprintf(fupdate, "msg> ");
-	if (gets(string) == NULL) break;
+	if (fgets(string, BIGLTH, stdin) == NULL) break;
+  /* Remove trailing newline if present */
+  string[strcspn(string, "\n")] = '\0';
 	if (strcmp(string, ".") != 0) {
 	  fprintf(fexe, "  %s\n", string);
 	}

@@ -404,7 +404,7 @@ typedef struct s_dmode {
 if (in_curses) cq_reset(); \
 fprintf(stderr,"\nSerious Error (File %s, Line %d) - Aborting\n",__FILE__,__LINE__); \
 if ((fupdate != stderr) && (fupdate != NULL)) fclose(fupdate); \
-if (need_hangup) hangup(); \
+if (need_hangup) hangup(0); \
 abort(); \
 }
 
@@ -483,7 +483,7 @@ extern int conq_expert, zoom_level, conq_waterbottoms, conq_supply_level;
 extern int conq_infomode, conq_mercsused, conq_mheaders;
 
 /* pager settings */
-int pager_tab, pager_scroll, pager_offset;
+extern int pager_tab, pager_scroll, pager_offset;
 
 /* other miscellaneous declarations */
 extern char *hasseen;

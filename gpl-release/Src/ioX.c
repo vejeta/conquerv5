@@ -46,7 +46,8 @@
 #include "caravanX.h"
 #include "patchlevel.h"
 #ifdef WINCH_HANDLER
-#include <sgtty.h>
+#include <termios.h>
+#include <sys/ioctl.h>   /* For ioctl() and TIOC* constants */
 #endif /* WINCH_HANDLER */
 #ifdef ALLOW_EDIT_FORK
 #include <sys/wait.h>
@@ -72,7 +73,7 @@ send_dummy_char()
 
 /* WIN_SIZE_CHANGE -- signal handler for window size change */
 void
-win_size_change PARM_0(void)
+win_size_change PARM_0(int sig)
 {
 #ifdef WINCH_HANDLER
   struct winsize w;

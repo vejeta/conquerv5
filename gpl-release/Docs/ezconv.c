@@ -24,6 +24,14 @@
  * For relicensing documentation, see RELICENSING-PERMISSIONS.md
  */
 #include <stdio.h>
+
+/* At the top of ezconv.c */
+#if defined(__STDC__) || defined(__STDC_VERSION__)
+    #include <stdlib.h>
+#else
+    extern void exit();
+#endif
+
 #ifndef TRUE
 #define TRUE (1)
 #define FALSE (0)
@@ -32,7 +40,7 @@
 /* syntax */
 char *usage = "Usage: %s [infile [outfile]]\n";
 
-main(argc,argv)
+int main(argc,argv)
   int argc;
   char *argv[];
 {
@@ -82,7 +90,7 @@ main(argc,argv)
 	  break;
 	} else {
 	  /* put it back and continue */
-	  ungetc(ch, fpo);
+	  ungetc(ch, fpi);
 	  ch = '^';
 	}
       }

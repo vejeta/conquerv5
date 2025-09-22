@@ -1,0 +1,170 @@
+package:
+  name: conquerv5
+  version: 5.0
+  epoch: 0
+  description: "Modernized classic ncurses multiplayer fantasy war game. ConquerV5 brings the 1980s Unix gaming experience to modern systems with cross-platform support."
+  url: https://github.com/vejeta/conquerv5
+  copyright:
+    - license: GPL-3.0-or-later
+      paths:
+        - "*"
+  dependencies:
+    runtime:
+      - ncurses
+      - ncurses-terminfo-base
+      - bash
+
+environment:
+  contents:
+    repositories:
+      - https://dl-cdn.alpinelinux.org/alpine/edge/main
+      - https://dl-cdn.alpinelinux.org/alpine/edge/community
+    packages:
+      - alpine-baselayout-data
+      - busybox
+      - build-base
+      - ncurses-dev
+      - make
+      - sed
+      - coreutils
+      - pkgconfig
+      - gcc
+      - libc-dev
+      - bash
+      - gawk
+      - groff
+      - groff-doc
+      - ghostscript  # For PostScript processing
+      - ghostscript-fonts  # This provides the standard PostScript fonts      #
+
+pipeline:
+  - uses: git-checkout
+    with:
+      repository: https://github.com/vejeta/conquerv5
+      branch: packaging  # TODO. Remove when finished development
+      destination: /home/build/conquerv5
+
+  - name: "Configure and build ConquerV5"
+    runs: |
+      cd /home/build/conquerv5/gpl-release
+      echo "=== ConquerV5 Build Process (in gpl-release/) ==="
+
+      # Debug Alpine detection
+      echo "=== Debugging Alpine detection ==="
+      test -f /etc/alpine-release && echo "Alpine detected!" || echo "Alpine NOT detected"
+      echo "Contents of /etc/alpine-release (if exists):"
+      cat /etc/alpine-release 2>/dev/null || echo "File doesn't exist"
+
+      # Set system login for package installation
+      export PATH="/usr/bin:$PATH"
+      export MAKE=make
+      export LOGIN="games"
+      export PREFIX="/usr"
+      export DATADIR="/usr/share/conquerv5"
+      export BINDIR="/usr/bin"
+
+      # Step 1: Set up main Makefile
+      echo "Step 1: Setting up main Makefile..."
+      cp Makefile.top Makefile
+
+      # Step 1.5: Debug header.h generation
+      echo "=== Debugging header.h generation ==="
+      echo "LOGIN variable: $LOGIN"
+      ls -la Include/header.h* || echo "No header files found"
+
+      if [ -f Include/header.h.dist ]; then
+        echo "Contents of header.h.dist:"
+        cat Include/header.h.dist | grep -A2 -B2 LOGIN
+      fi
+
+      # Before running make Makefiles
+      echo "=== Debugging LOGIN variable ==="
+      echo "Environment LOGIN: $LOGIN"
+      echo "whoami: $(whoami)"
+      echo "USER: $USER"
+
+      echo "=== Pre-make environment ==="
+      echo "Shell LOGIN: $LOGIN"
+      echo "Shell USER: $USER"
+      echo "Container whoami: $(whoami)"
+
+      echo "=== What make sees ==="
+      make -f Makefile --eval='$(info LOGIN=$(LOGIN))' --eval='$(info CURRENT_USER=$(CURRENT_USER))' --eval='$(info USER=$(USER))' all 2>&1 | head -5
+
+      # Test what make sees
+      make -f Makefile -n info | grep LOGIN || echo "No LOGIN info"
+
+      # Force LOGIN explicitly
+      /usr/bin/make Makefiles LOGIN="games" PREFIX="$PREFIX" DATADIR="$DATADIR" BINDIR="$BINDIR" MAKE="/usr/bin/make"
+
+      # Verify after generation
+      grep LOGIN Include/header.h
+
+      # Step 2: Generate all sub-Makefiles
+      echo "Step 2: Generating Makefiles..."
+      /usr/bin/make Makefiles LOGIN="$LOGIN" PREFIX="$PREFIX" DATADIR="$DATADIR" BINDIR="$BINDIR" MAKE="/usr/bin/make"
+
+      # Step 2.5: Debug what's in the Makefiles
+      echo "=== Debugging Makefile contents ==="
+      echo "CFLAGS line in Src/Makefile:"
+      grep -n "CFLAGS.*=" Src/Makefile
+      echo "SYSFLG pattern in Src/Makefile:"
+      grep -n "PLATFORM_LINUX" Src/Makefile
+
+      # Try multiple sed approaches
+      echo "=== Trying different sed replacements ==="
+
+      # Approach 1: Replace the entire CFLAGS line
+      find . -name "Makefile" -exec sed -i '/^CFLAGS.*=.*DPLATFORM_LINUX/s/$/ -D_DEFAULT_SOURCE -D_BSD_SOURCE/' {} \;
+
+      # Verify the change
+      echo "After sed replacement:"
+      grep -n "CFLAGS.*=" Src/Makefile
+
+      # After Step 2, add:
+      echo "=== Checking header.h generation ==="
+      ls -la Include/header.h || echo "header.h not found"
+      grep -n LOGIN Include/header.h || echo "No LOGIN definition found"
+
+      # Step 3: Build the project
+      echo "Step 3: Building project..."
+      /usr/bin/make build BUILD=release LOGIN="$LOGIN" PREFIX="$PREFIX" DATADIR="$DATADIR" BINDIR="$BINDIR" MAKE="/usr/bin/make"
+
+      echo "=== Build completed successfully ==="
+
+      # Verify build results
+      echo "=== Verifying build results ==="
+      find . -name "conquer" -o -name "conqrun" -type f -exec ls -la {} \;
+
+  - name: "Install ConquerV5"
+    runs: |
+      cd /home/build/conquerv5/gpl-release
+
+      # Set installation variables
+      export LOGIN="games"
+      export PREFIX="/usr"
+      export DATADIR="/usr/share/conquerv5"
+      export BINDIR="/usr/bin"
+      export DESTDIR="${{targets.destdir}}"
+
+      # Create directories
+      mkdir -p ${{targets.destdir}}/usr/bin
+      mkdir -p ${{targets.destdir}}/usr/share/conquerv5
+
+      # Manual install since make install ignores DESTDIR
+      echo "=== Manual installation to respect DESTDIR ==="
+      find . -name "conquer" -type f -executable -exec cp {} ${{targets.destdir}}/usr/bin/ \;
+      find . -name "conqrun" -type f -executable -exec cp {} ${{targets.destdir}}/usr/bin/ \;
+      find . -name "conqsort" -type f -executable -exec cp {} ${{targets.destdir}}/usr/bin/ \;
+
+      # Install data files
+      cp Src/nations ${{targets.destdir}}/usr/share/conquerv5/ || true
+      cp Docs/*.doc ${{targets.destdir}}/usr/share/conquerv5/ || true
+
+      # Set permissions
+      chmod 755 ${{targets.destdir}}/usr/bin/conq*
+
+      echo "=== Verifying installation ==="
+      ls -la ${{targets.destdir}}/usr/bin/conq*
+
+  - uses: strip

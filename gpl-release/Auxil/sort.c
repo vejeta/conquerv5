@@ -40,6 +40,39 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include <stdio.h>
+#include <ctype.h>
+
+/* Try to detect if standard headers exist */
+#ifdef __has_include
+    #if __has_include(<stdlib.h>)
+        #include <stdlib.h>
+        #define HAVE_STDLIB_H
+    #endif
+    #if __has_include(<string.h>)
+        #include <string.h>
+        #define HAVE_STRING_H
+    #endif
+#elif defined(__STDC__) && __STDC__
+    /* Assume C89 compliance */
+    #include <stdlib.h>
+    #include <string.h>
+    #define HAVE_STDLIB_H
+    #define HAVE_STRING_H
+#endif
+
+/* Fallback declarations for systems without standard headers */
+#ifndef HAVE_STDLIB_H
+extern char *malloc();
+extern void exit();
+#endif
+
+#ifndef HAVE_STRING_H
+extern char *strcpy();
+extern int strlen();
+extern int strcmp();
+#endif
+
 
 /* function checker */
 #ifndef toupper
@@ -101,6 +134,10 @@ FILE *infile, *outfile;
 #else
 #include <string.h>
 #endif /* BSD */
+
+/* Only declare standard functions on very old systems */
+#if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 199901L
+#if !defined(__GNUC__) || __GNUC__ < 3
 #ifndef ULTRIX
 #ifndef AIX
 extern int fprintf();
@@ -114,6 +151,8 @@ extern int _filbuf();
 extern int fclose();
 extern void exit();
 extern char *malloc();
+#endif /* old GCC */
+#endif /* old C standard */
 
 /* the whole enchaladas */
 int
@@ -357,8 +396,7 @@ build_node(data, nptr)
   L_PTR nptr;
 {
   L_PTR temp;
-  char *strcpy();
-  
+
   /* build the memory space */
   if ((temp = (L_PTR)malloc(sizeof(L_DATA))) == (L_PTR)NULL) {
     fprintf(stderr, "Error in creating structure memory!\n");

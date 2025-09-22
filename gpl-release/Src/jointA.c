@@ -91,9 +91,9 @@ bind_func PARM_1(int, which)
 
 /* HANGUP -- signal catching routine */
 void
-hangup PARM_0(void)
+hangup PARM_0(int sig)
 {
-  extern addlocknum, uplocknum;
+  extern int addlocknum, uplocknum;
   extern char lock_string[FILELTH];
 
   /* close any locks that are set */

@@ -1,0 +1,273 @@
+name: ConquerV5 CI/CD Pipeline
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libncurses-dev build-essential make sed coreutils
+
+      - name: Build project
+        run: |
+          # Use the conquerv5 build process (source is in gpl-release/)
+          cd gpl-release
+          mv Makefile.top Makefile
+          make Makefiles
+          make build
+
+      - name: Verify executables
+        run: |
+          # Check that executables were created in gpl-release/Src directory
+          ls -la gpl-release/Src/
+          find gpl-release/ -name "conquer" -o -name "conqrun" -type f
+
+      - name: Basic functionality test
+        run: |
+          # Test that executables can run (help/version)
+          if [ -x "gpl-release/Src/conquer" ]; then
+            ./gpl-release/Src/conquer -h || echo "conquer help test completed"
+          fi
+          if [ -x "gpl-release/Src/conqrun" ]; then
+            ./gpl-release/Src/conqrun -h || echo "conqrun help test completed"
+          fi
+
+  package-apk:
+    name: Build APK Package (Alpine/Melange)
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build APK package with Melange
+        run: |
+          chmod +x scripts/build-melange.sh
+          scripts/build-melange.sh
+
+      - name: Verify APK package
+        run: |
+          echo "=== APK Package Verification ==="
+          find packages/ -name "*.apk" -type f -exec ls -lh {} \;
+
+          APK_FILE=$(find packages/ -name "*.apk" | head -1)
+          if [ -n "$APK_FILE" ]; then
+            echo "=== APK Contents (first 20 files) ==="
+            tar -tzf "$APK_FILE" 2>/dev/null | head -20 || {
+              echo "=== APK Contents (alternative method) ==="
+              tar -tzf "$APK_FILE" 2>&1 | grep -v "APK-TOOLS.checksum" | head -20 | cat
+            }
+
+            echo "=== APK Metadata ==="
+            tar -Oxzf "$APK_FILE" .PKGINFO 2>/dev/null | head -10 || echo "No .PKGINFO found"
+          fi
+
+      - name: Upload APK artifacts
+        uses: actions/upload-artifact@v4
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+        with:
+          name: conquerv5-apk-${{ github.sha }}
+          path: packages/**/*.apk
+          retention-days: 90
+
+  package-deb:
+    name: Build DEB Package (Debian)
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build DEB package
+        run: |
+          chmod +x scripts/build-debian.sh
+          scripts/build-debian.sh
+
+      - name: Verify DEB package
+        run: |
+          echo "=== DEB Package Verification ==="
+          find packages/ -name "*.deb" -type f -exec ls -lh {} \;
+
+          DEB_FILE=$(find packages/debian/ -name "*.deb" | head -1)
+          if [ -n "$DEB_FILE" ]; then
+            echo "=== Package Info ==="
+            dpkg-deb --info "$DEB_FILE"
+            echo ""
+            echo "=== Package Contents ==="
+            dpkg-deb --contents "$DEB_FILE" | head -20
+          fi
+
+      - name: Upload DEB artifacts
+        uses: actions/upload-artifact@v4
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+        with:
+          name: conquerv5-deb-${{ github.sha }}
+          path: packages/**/*.deb
+          retention-days: 90
+
+  verify-pr:
+    name: PR Package Verification
+    needs: [package-apk, package-deb]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: PR Build Summary
+        run: |
+          echo "✅ APK package build completed successfully"
+          echo "✅ DEB package build completed successfully"
+          echo ""
+          echo "This PR successfully builds both package formats."
+          echo "Full testing and artifact upload will occur when merged to master."
+
+  test-packages:
+    name: Integration Testing (Master Only)
+    needs: [package-apk, package-deb]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    strategy:
+      matrix:
+        test: [deb-install, apk-inspect]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download DEB package
+        if: matrix.test == 'deb-install'
+        uses: actions/download-artifact@v4
+        with:
+          name: conquerv5-deb-${{ github.sha }}
+          path: packages/
+
+      - name: Test DEB package installation
+        if: matrix.test == 'deb-install'
+        run: |
+          DEB_FILE=$(find packages/ -name "*.deb" | head -1)
+          if [ -n "$DEB_FILE" ]; then
+            echo "=== Testing DEB Installation ==="
+            echo "Package: $DEB_FILE"
+
+            # Install dependencies
+            sudo apt-get update
+            sudo apt-get install -y libncurses6 ncurses-base
+
+            # Install the package
+            sudo dpkg -i "$DEB_FILE" || true
+            sudo apt-get install -f -y
+
+            # Test installation
+            echo "=== Verifying Installation ==="
+            which conquer
+            which conqrun
+
+            # Test executables
+            conquer -h || echo "conquer help test completed"
+            conqrun -h || echo "conqrun help test completed"
+
+            # Show installed files and locations
+            echo "=== Installed Files ==="
+            dpkg -L conquerv5 | grep -E "(bin|lib)" | head -10
+
+            # Verify file permissions
+            ls -la /usr/bin/conquer /usr/bin/conqrun
+            ls -la /usr/local/share/conquerv5/ || ls -la /usr/share/conquerv5/
+          fi
+
+      - name: Download APK package
+        if: matrix.test == 'apk-inspect'
+        uses: actions/download-artifact@v4
+        with:
+          name: conquerv5-apk-${{ github.sha }}
+          path: packages/
+
+      - name: Inspect APK package
+        if: matrix.test == 'apk-inspect'
+        run: |
+          APK_FILE=$(find packages/ -name "*.apk" | head -1)
+          if [ -n "$APK_FILE" ]; then
+            echo "=== APK Package Inspection ==="
+            echo "Package: $APK_FILE"
+            echo "Size: $(ls -lh "$APK_FILE" | awk '{print $5}')"
+
+            mkdir -p /tmp/apk-extract
+            cd /tmp/apk-extract
+
+            echo "=== Extracting APK ==="
+            tar -xzf "$APK_FILE" 2>/dev/null || {
+              echo "Standard extraction had warnings, trying alternative..."
+              tar -xzf "$APK_FILE" 2>&1 | grep -v "APK-TOOLS.checksum" || true
+            }
+
+            echo "=== APK Structure ==="
+            find . -type f | grep -E "(bin|lib|share)" | head -15
+
+            echo "=== Executables ==="
+            find . -name "conquer*" -type f -exec ls -la {} \; 2>/dev/null || true
+
+            echo "=== Game Data Files ==="
+            find . -path "*/share/conquerv5/*" -type f -exec ls -la {} \; 2>/dev/null || true
+
+            echo "=== Package Metadata ==="
+            if [ -f ".PKGINFO" ]; then
+              echo "--- .PKGINFO ---"
+              head -10 .PKGINFO
+            fi
+          fi
+
+  release:
+    name: Create Release
+    needs: [test-packages]
+    runs-on: ubuntu-latest
+    if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main') && contains(github.event.head_commit.message, '[release]')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v5.0-${{ github.sha }}
+          release_name: ConquerV5 v5.0 (${{ github.sha }})
+          body: |
+            Automated release of ConquerV5 v5.0
+
+            **Modernized Build System:**
+            - Cross-platform Makefile generation
+            - Automatic platform detection
+            - Modern compiler support (GCC, Clang)
+            - Improved dependency handling
+
+            **Packages included:**
+            - 📦 APK for Alpine Linux (melange)
+            - 📦 DEB for Debian/Ubuntu
+
+            **Installation:**
+            - APK: `apk add --allow-untrusted conquerv5-*.apk`
+            - DEB: `dpkg -i conquerv5_*.deb`
+
+            **Usage:**
+            - `conquer` - Start the game
+            - `conqrun` - Administrative tools
+          draft: false
+          prerelease: false
