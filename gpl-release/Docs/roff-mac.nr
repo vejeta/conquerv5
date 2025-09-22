@@ -1,4 +1,4 @@
-.\" || 
+.\" ||
 .\" || This package is designed as a filter to allow the same
 .\" || roff data file to be used to provide proper pagination
 .\" || for both the nroff and troff (psroff) output.
@@ -6,16 +6,17 @@
 .\"
 .\" -- Determine what all of the fonts to be used are
 .\"
-.if t .fp 1 R \{
+.if t \{\
 .\"
 .\" -- Define the Fonts
-		\" font for the main body and page numbering
-.fp 2 B		\" font for titles and such
-.fp 3 C 	\" font for command examples and screen displays
+.fp 1 TR		\" Times-Roman. font for the main body and page numbering
+.fp 2 TB		\" Times-Bold. font for titles and such
+.fp 3 CR 	    \" Courier-Roman. font for command examples and screen displays
 .cs 3 21.5
-.fp 4 S	 	\" just for completion
+.fp 4 S	 	\" Symbol. just for completion
 .po 1.0i
-.wh -1i PB \}
+.wh -1i PB
+.\}
 .\"
 .\" -- Define the strings for the program title and default section heading
 .ds Ct "Conquer Version 5.0 Beta
