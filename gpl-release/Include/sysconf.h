@@ -399,11 +399,9 @@ extern char *ttyname(int);
 /* Finally, the data customizations */
 
 /* Data Definitions */
-//#ifndef PLATFORM_MACOS
 typedef unsigned short int uns_short;
 typedef unsigned char uns_char;
 typedef uns_char ntntype;
-//#endif /* PLATFORM_MACOS */
 
 #ifdef DOUBLE_ITEMS
 typedef double itemtype;
