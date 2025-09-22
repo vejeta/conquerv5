@@ -1,0 +1,164 @@
+package:
+  name: conquerv5
+  version: 5.0
+  epoch: 0
+  description: "Modernized classic multi-player strategy game with cross-platform build system"
+  url: https://github.com/vejeta/conquerv5
+  copyright:
+    - license: GPL-3.0-or-later
+      paths:
+        - "*"
+  dependencies:
+    runtime:
+      - ncurses
+      - ncurses-terminfo-base
+      - bash
+
+environment:
+  contents:
+    repositories:
+      - https://dl-cdn.alpinelinux.org/alpine/edge/main
+      - https://dl-cdn.alpinelinux.org/alpine/edge/community
+    packages:
+      - alpine-baselayout-data
+      - busybox
+      - build-base
+      - ncurses-dev
+      - make
+      - sed
+      - coreutils
+      - pkgconfig
+      - gcc
+      - libc-dev
+      - bash
+      - gawk
+      - groff
+
+pipeline:
+  - uses: git-checkout
+    with:
+      repository: https://github.com/vejeta/conquerv5
+      destination: /home/build/conquerv5
+
+  - name: "Configure and build ConquerV5"
+    runs: |
+      cd /home/build/conquerv5/gpl-release
+      echo "=== ConquerV5 Build Process (in gpl-release/) ==="
+
+      echo "=== Checking sub-Makefiles for /bin/make ==="
+      grep -R "/bin/make" Src Auxil Docs Include || echo "No /bin/make found"
+      # Create symlink for legacy /bin/make references
+      if [ ! -f /bin/make ] && [ -f /usr/bin/make ]; then
+        ln -sf /usr/bin/make /bin/make 2>/dev/null || true
+      fi
+
+      # Set system login for package installation
+      export PATH="/usr/bin:$PATH"
+      export MAKE=make
+      export LOGIN="games"
+      export PREFIX="/usr"
+      export DATADIR="/usr/share/conquerv5"
+      export BINDIR="/usr/bin"
+
+      # Step 1: Set up main Makefile
+      echo "Step 1: Setting up main Makefile..."
+      cp Makefile.top Makefile
+
+      # Step 2: Generate all sub-Makefiles
+      echo "Step 2: Generating Makefiles..."
+      make Makefiles LOGIN="$LOGIN" PREFIX="$PREFIX" DATADIR="$DATADIR" BINDIR="$BINDIR"
+
+      # Debug: Show what's in the template files
+            echo "=== DEBUGGING: Searching for obsolete flags ==="
+      echo "Searching in template files:"
+      find . -name "Makefile.*" -o -name "*.src" -o -name "*.inc" -o -name "*.aux" -o -name "*.dcm" | xargs grep -l "Wid-clash\|-ansi" 2>/dev/null || echo "No template files with these flags"
+
+      echo "Searching in all generated Makefiles:"
+      find . -name "Makefile" | xargs grep -n "Wid-clash\|-ansi" 2>/dev/null || echo "No Makefiles with these flags"
+
+      echo "Checking CFLAGS in generated Makefiles:"
+      find . -name "Makefile" -exec echo "=== {} ===" \; -exec grep -n "CFLAGS.*=" {} \; 2>/dev/null || echo "No CFLAGS definitions found"
+
+
+      # Step 3: Build the project
+      echo "Step 3: Building project..."
+      make build BUILD=release LOGIN="$LOGIN" PREFIX="$PREFIX" DATADIR="$DATADIR" BINDIR="$BINDIR"
+
+      echo "=== Build completed successfully ==="
+
+      # Verify build results
+      echo "=== Verifying build results ==="
+      find . -name "conquer" -o -name "conqrun" -type f -exec ls -la {} \;
+
+  - name: "Install ConquerV5"
+    runs: |
+      cd /home/build/conquerv5/gpl-release
+
+      echo "=== Installing ConquerV5 ==="
+
+      # Set installation variables
+      export LOGIN="games"
+      export PREFIX="/usr"
+      export DATADIR="/usr/share/conquerv5"
+      export BINDIR="/usr/bin"
+      export DESTDIR="${{targets.destdir}}"
+
+      # Create installation directories
+      mkdir -p ${{targets.destdir}}/usr/bin
+      mkdir -p ${{targets.destdir}}/usr/share/conquerv5
+      mkdir -p ${{targets.destdir}}/usr/share/licenses/conquerv5
+      mkdir -p ${{targets.destdir}}/usr/share/doc/conquerv5
+
+      # Use the built-in install target with proper DESTDIR
+      make install DESTDIR="${{targets.destdir}}" LOGIN="$LOGIN" PREFIX="$PREFIX" DATADIR="$DATADIR" BINDIR="$BINDIR" || {
+        echo "=== Install target failed, doing manual installation ==="
+
+        # Manual installation fallback
+        # Find and install executables
+        find . -name "conquer" -type f -executable -exec install -m 755 {} ${{targets.destdir}}/usr/bin/ \;
+        find . -name "conqrun" -type f -executable -exec install -m 755 {} ${{targets.destdir}}/usr/bin/ \;
+
+        # Install additional executables if they exist
+        for exe in conqsort conqps cextract; do
+          if find . -name "$exe" -type f -executable | grep -q .; then
+            find . -name "$exe" -type f -executable -exec install -m 755 {} ${{targets.destdir}}/usr/bin/ \;
+          fi
+        done
+
+        # Install game data files
+        if [ -d "Auxil" ]; then
+          find Auxil -type f \( -name "help*" -o -name "nations" -o -name "rules" -o -name "*.dat" \) -exec install -m 644 {} ${{targets.destdir}}/usr/share/conquerv5/ \;
+        fi
+
+        # Install from Src directory if data files are there
+        if [ -d "Src" ]; then
+          find Src -type f \( -name "help*" -o -name "nations" -o -name "rules" -o -name "*.dat" \) -exec install -m 644 {} ${{targets.destdir}}/usr/share/conquerv5/ \; 2>/dev/null || true
+        fi
+
+        # Install from root directory
+        for file in help* nations rules *.dat; do
+          if [ -f "$file" ]; then
+            install -m 644 "$file" ${{targets.destdir}}/usr/share/conquerv5/
+          fi
+        done
+      }
+
+      # Install documentation
+      for doc in README* COPYING* LICENSE* Docs/*; do
+        if [ -f "$doc" ]; then
+          install -m 644 "$doc" ${{targets.destdir}}/usr/share/doc/conquerv5/
+        fi
+      done
+
+      # Install license
+      if [ -f "COPYING" ]; then
+        install -m 644 COPYING ${{targets.destdir}}/usr/share/licenses/conquerv5/COPYING
+      fi
+
+      echo "=== Installation verification ==="
+      echo "Installed executables:"
+      ls -la ${{targets.destdir}}/usr/bin/conquer* 2>/dev/null || echo "No executables found"
+      echo "Game data files:"
+      ls -la ${{targets.destdir}}/usr/share/conquerv5/ 2>/dev/null || echo "No data files found"
+
+  - uses: strip

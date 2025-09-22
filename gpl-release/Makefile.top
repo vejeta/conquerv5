@@ -168,7 +168,15 @@ endif
 # LIBRARY CONFIGURATION
 # ================================================================
 
-BASE_LIBS = -lcurses
+# Detect whether ncurses is present
+HAVE_NCURSES := $(shell ldconfig -p 2>/dev/null | grep -q libncurses && echo yes)
+
+ifeq ($(HAVE_NCURSES),yes)
+    BASE_LIBS = -lncurses
+else
+    BASE_LIBS = -lcurses
+endif
+
 
 ifeq ($(PLATFORM),linux)
     LIBS = $(BASE_LIBS) -ltermcap $(PLATFORM_LIBS)

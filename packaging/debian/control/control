@@ -1,0 +1,60 @@
+Source: conquerv5
+Section: games
+Priority: optional
+Maintainer: Vejeta <vejeta@gmail.com>
+Build-Depends: debhelper-compat (= 13),
+               libncurses-dev,
+               pkg-config,
+               gcc,
+               libc6-dev,
+               make,
+               sed,
+               coreutils,
+               gawk,
+               groff,
+               bash
+Standards-Version: 4.6.2
+Homepage: https://github.com/vejeta/conquerv5
+Vcs-Git: https://github.com/vejeta/conquerv5.git
+Vcs-Browser: https://github.com/vejeta/conquerv5
+
+Package: conquerv5
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         libncurses6,
+         bash
+Description: Modernized classic ncurses multiplayer fantasy war game
+ ConquerV5 is the modernized version of the classic multiplayer fantasy war game
+ originally created by Ed Barlow and Adam Bryant between 1987-1992. This version
+ features a completely rewritten build system with cross-platform support while
+ preserving the authentic 1980s Unix gaming experience.
+ .
+ This modernized version includes:
+  * Cross-platform build system with automatic platform detection
+  * Support for modern compilers (GCC, Clang, MSVC)
+  * Improved dependency handling and error diagnostics
+  * Enhanced installation paths and configuration
+  * Proper package management integration
+  * All original gameplay features preserved
+ .
+ Terminal-based gaming features:
+  * Full ncurses terminal user interface
+  * Multiplayer gameplay with multiple administrators
+  * Multiple fantasy war scenarios with different maps
+  * Magical powers and comprehensive spell system
+  * Large variety of unit types and tactical options
+  * Support for maps larger than the original 256x256 grid
+  * Screen-based real-time display and interaction
+ .
+ The modernized build system automatically detects your platform (Linux, macOS,
+ FreeBSD, OpenBSD, NetBSD) and configures appropriate compiler flags and
+ dependencies. It generates optimized Makefiles for your specific system while
+ maintaining compatibility with the original game mechanics.
+ .
+ Perfect for terminal enthusiasts, retro gaming fans, and developers interested
+ in classic Unix game architecture. This package brings the authentic 1980s
+ Unix gaming experience to modern Debian and Ubuntu systems with contemporary
+ build tools and package management.
+ .
+ Run 'conquer' to start playing, or 'conqrun -h' for server administration.

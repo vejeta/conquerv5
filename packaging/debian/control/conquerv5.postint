@@ -1,0 +1,52 @@
+#!/bin/bash
+
+set -e
+
+case "$1" in
+    configure)
+        # Ensure game directory has correct permissions
+        if [ -d /usr/share/conquerv5 ]; then
+            chmod 755 /usr/share/conquerv5
+            chmod 644 /usr/share/conquerv5/* 2>/dev/null || true
+        fi
+
+        # Ensure executables are properly executable
+        if [ -f /usr/bin/conquer ]; then
+            chmod 755 /usr/bin/conquer
+        fi
+        if [ -f /usr/bin/conqrun ]; then
+            chmod 755 /usr/bin/conqrun
+        fi
+
+        echo "ConquerV5 game installed successfully!"
+        echo ""
+        echo "🎮 ConquerV5 - Modernized Classic Strategy Game"
+        echo "================================================"
+        echo ""
+        echo "🚀 Quick Start:"
+        echo "   conquer           # Start the game"
+        echo "   conqrun -h        # Administrative options"
+        echo ""
+        echo "📖 Features:"
+        echo "   • Cross-platform modernized build system"
+        echo "   • Classic 1987-1992 gameplay preserved"
+        echo "   • Full ncurses terminal interface"
+        echo "   • Multiplayer fantasy war scenarios"
+        echo "   • Magical powers and tactical combat"
+        echo ""
+        echo "📁 Game data: /usr/share/conquerv5/"
+        echo "📚 Documentation: /usr/share/doc/conquerv5/"
+        ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

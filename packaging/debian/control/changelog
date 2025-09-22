@@ -1,0 +1,11 @@
+conquerv5 (5.0-1) unstable; urgency=medium
+
+  * Initial ConquerV5 packaging
+  * Modernized from original conquer with new build system
+  * Cross-platform Makefile generation system
+  * Automatic platform detection (Linux, macOS, BSD)
+  * Modern compiler support (GCC, Clang)
+  * Proper system installation paths
+  * Template-based Makefile generation
+
+ -- Vejeta <vejeta@gmail.com>  Mon, 23 Sep 2024 12:00:00 +0000
