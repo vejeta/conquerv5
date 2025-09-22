@@ -342,7 +342,7 @@ read-paper (`P') -- Check what is happening in the world around you.
 .UT
 .PP
 A more detailed description of the mail facility can be found
-elsewhere in the documenation.
+elsewhere in the documentation.
 .RF "Xchanges" "Communication Between Players"
 .CE
 .CS "Nation Control Commands"

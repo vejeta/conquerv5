@@ -1,0 +1,36 @@
+# Object files
+*.o
+*.obj
+
+# Generated Makefiles (keep the .src, .aux, .dcm, .inc templates)
+Makefile
+*/Makefile
+!Makefile.top
+!*/Makefile.*
+
+# Executables and binaries
+conquer
+conqrun
+conqsort
+cextract
+ezconv
+
+# Installation marker files
+in*
+**/in*
+
+# Backup and temporary files
+*~
+*.bak
+\#*
+*.tmp
+
+# Build artifacts
+sed.out
+
+# Documentation output
+*.doc
+
+# System specific
+.DS_Store
+Thumbs.db
