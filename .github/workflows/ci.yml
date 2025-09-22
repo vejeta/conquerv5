@@ -199,20 +199,52 @@ jobs:
       - name: Inspect APK package
         if: matrix.test == 'apk-inspect'
         run: |
+          echo "=== Current working directory ==="
+          pwd
+
+          echo "=== Available files in packages/ ==="
+          find packages/ -type f -name "*.apk" -exec ls -la {} \; 2>/dev/null || echo "No APK files found"
+
           APK_FILE=$(find packages/ -name "*.apk" | head -1)
           if [ -n "$APK_FILE" ]; then
             echo "=== APK Package Inspection ==="
-            echo "Package: $APK_FILE"
+            echo "Package (relative): $APK_FILE"
+
+            # Verify file exists before proceeding
+            if [ ! -f "$APK_FILE" ]; then
+              echo "ERROR: APK file not found at relative path: $APK_FILE"
+              exit 1
+            fi
+
             echo "Size: $(ls -lh "$APK_FILE" | awk '{print $5}')"
+
+            # Convert to absolute path before changing directories
+            APK_ABSOLUTE_PATH=$(readlink -f "$APK_FILE")
+            echo "Package (absolute): $APK_ABSOLUTE_PATH"
+
+            # Verify absolute path exists
+            if [ ! -f "$APK_ABSOLUTE_PATH" ]; then
+              echo "ERROR: APK file not found at absolute path: $APK_ABSOLUTE_PATH"
+              exit 1
+            fi
 
             mkdir -p /tmp/apk-extract
             cd /tmp/apk-extract
 
+            echo "=== Working directory after cd ==="
+            pwd
+
             echo "=== Extracting APK ==="
-            tar -xzf "$APK_FILE" 2>/dev/null || {
+            # Check if it's actually a tar.gz file
+            file "$APK_ABSOLUTE_PATH"
+
+            tar -xzf "$APK_ABSOLUTE_PATH" 2>/dev/null || {
               echo "Standard extraction had warnings, trying alternative..."
-              tar -xzf "$APK_FILE" 2>&1 | grep -v "APK-TOOLS.checksum" || true
+              tar -xzf "$APK_ABSOLUTE_PATH" 2>&1 | grep -v "APK-TOOLS.checksum" || true
             }
+
+            echo "=== Files after extraction ==="
+            ls -la
 
             echo "=== APK Structure ==="
             find . -type f | grep -E "(bin|lib|share)" | head -15
@@ -228,6 +260,10 @@ jobs:
               echo "--- .PKGINFO ---"
               head -10 .PKGINFO
             fi
+          else
+            echo "ERROR: No APK files found in packages/ directory"
+            echo "=== Contents of packages/ directory ==="
+            find packages/ -type f 2>/dev/null || echo "packages/ directory is empty or doesn't exist"
           fi
 
   release:
