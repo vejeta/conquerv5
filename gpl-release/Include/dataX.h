@@ -404,7 +404,7 @@ typedef struct s_dmode {
 if (in_curses) cq_reset(); \
 fprintf(stderr,"\nSerious Error (File %s, Line %d) - Aborting\n",__FILE__,__LINE__); \
 if ((fupdate != stderr) && (fupdate != NULL)) fclose(fupdate); \
-if (need_hangup) hangup(); \
+if (need_hangup) hangup(0); \
 abort(); \
 }
 

@@ -567,7 +567,7 @@ bind_func PARM_1(int, which)
 
 /* HANGUP -- signal catching routine */
 void
-hangup PARM_0(void)
+hangup PARM_0(int sig)
 {
   /* finish up the nation */
   if (movemode != MOVE_NOMOVE) {

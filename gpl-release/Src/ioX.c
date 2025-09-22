@@ -72,7 +72,7 @@ send_dummy_char()
 
 /* WIN_SIZE_CHANGE -- signal handler for window size change */
 void
-win_size_change PARM_0(void)
+win_size_change PARM_0(int sig)
 {
 #ifdef WINCH_HANDLER
   struct winsize w;

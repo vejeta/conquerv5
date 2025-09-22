@@ -115,19 +115,24 @@
 
 /* for other BSD systems */
 #ifdef BSD
+/* Only use old declarations on very old systems */
+#if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 199901L
+#if !defined(__GNUC__) || __GNUC__ < 3
 #undef UNISTD
 #undef STDLIB
 #undef LRAND48
-#define WINCH_HANDLER
-#define SETREUID
-#define GETDTABLESIZE
-#define REGEXP
-#define BZERO
-#define SETPRIORITY
 #define DCLR_A
 #define DCLR_B
 #define DCLR_C
 #define DCLR_D
+#endif /* old GCC */
+#endif /* old C standard */
+#define WINCH_HANDLER
+#define SETREUID
+#define GETDTABLESIZE
+/* #define REGEXP */  /* Disabled - old BSD regex not available on modern macOS */
+#define BZERO
+#define SETPRIORITY
 #endif /* BSD */
 
 /* AIX machines */
@@ -267,7 +272,9 @@ extern int setpriority();
 #define index(s,c)	strchr(s,c)
 #endif /* STRCHR */
 
-/* check the ctype "function"s */
+/* check the ctype "function"s - only on very old systems */
+#if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 199901L
+#if !defined(__GNUC__) || __GNUC__ < 3
 #ifndef toupper
 extern int toupper();
 #endif /* toupper */
@@ -286,6 +293,9 @@ extern int isalpha();
 #ifndef isspace
 extern int isspace();
 #endif /* isspace */
+#endif /* old GCC */
+#endif /* old C standard */
+
 
 /* the memory function and sprintf weirdness */
 #ifdef MEMORYH
@@ -306,8 +316,13 @@ extern int sprintf();
 #endif /* MALLOCH */
 
 #ifdef BZERO
+/* Only declare bzero on old systems - modern systems have it as a macro */
+#if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 199901L
+#if !defined(__GNUC__) || __GNUC__ < 3
 extern void bzero();
-#endif /* BSD */
+#endif /* old GCC */
+#endif /* old C standard */
+#endif /* BZERO */
 
 /* so, VAX C doesn't like unlink or uid stuff, huh? */
 #ifdef VAXC

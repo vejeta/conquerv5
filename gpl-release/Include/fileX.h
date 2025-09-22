@@ -249,7 +249,7 @@ extern void show_str PL_(( char * str, int full ));
 extern void unshow_char PL_(( char ch, int full ));
 
 /* WIN_SIZE_CHANGE -- signal handler for window size change */
-extern void win_size_change PL_(( void ));
+extern void win_size_change PL_(( int sig ));
 
 /* Y_OR_N -- Return TRUE for 'y' or 'Y' character press */
 extern int y_or_n PL_(( void ));
@@ -794,7 +794,7 @@ extern void dflt_disp_setup PL_(( char * str, char * fstr, int lnum ));
 extern void display_setup PL_(( char * str, char * fstr, int lnum ));
 
 /* HANGUP -- signal catching routine */
-extern void hangup PL_(( void ));
+extern void hangup PL_(( int sig ));
 
 /* KEYSYS_SETUP -- Configure the keybindings */
 extern void keysys_setup PL_(( int type, char * str, char * fstr, int lnum ));

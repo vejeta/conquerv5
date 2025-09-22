@@ -50,10 +50,10 @@ CHOWN	= echo "... ignore (not root)"
 CHMOD	= chmod
 LIBS	= -lcurses -ltermcap 
 SYSFLG	= -DBSD -DPLATFORM_MACOS -DPLATFORM_UNIX
-CFLAGS	= -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -g -O0 -DDEBUG -DBSD -DPLATFORM_MACOS -DPLATFORM_UNIX -DLOGIN="jmy99" -std=c99 -fno-omit-frame-pointer -fstack-protector-strong
+CFLAGS	= -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -g -O0 -DDEBUG -DBSD -DPLATFORM_MACOS -DPLATFORM_UNIX -std=c99 -fno-omit-frame-pointer -fstack-protector-strong
 TOPDIR	= /Users/jmy99/development/misc/conquerv5/gpl-release
-DATADIR	= /Users/jmy99/.local/share/conquer
-BINDIR	= /Users/jmy99/.local/bin
+DATADIR	= /Users/jmy99/conquerv5/share/conquerv5
+BINDIR	= /Users/jmy99/conquerv5/bin
 INCDIR	= /Users/jmy99/development/misc/conquerv5/gpl-release/Include
 SRCDIR	= /Users/jmy99/development/misc/conquerv5/gpl-release/Src
 AUXDIR	= /Users/jmy99/development/misc/conquerv5/gpl-release/Auxil
@@ -64,10 +64,10 @@ CQSORT	= conqsort
 CXTRACT	= cextract
 GFILS	= mainG.c armyG.c caravanG.c customG.c dataG.c displayG.c emailG.c enlistG.c hexmapG.c ieditG.c infoG.c ioG.c iodataG.c keybindG.c magicG.c mailG.c miscG.c moveG.c navyG.c ntninfoG.c pagerG.c regionG.c sectorG.c selectG.c xferG.c time_ckG.c
 AFILS	= mainA.c adduserA.c combatA.c configA.c createA.c dataA.c economyA.c magicA.c mailA.c miscA.c monsterA.c moveA.c npcA.c sectorA.c updateA.c
-XFILS	= dataX.c datamagX.c datamilX.c checkX.c computeX.c convertX.c customX.c executeX.c hexmapX.c ioX.c iodataX.c magicX.c mailX.c memoryX.c miscX.c moveX.c sectorX.c selectX.c unitsX.c  
+XFILS	= dataX.c datamagX.c datamilX.c checkX.c computeX.c convertX.c customX.c executeX.c hexmapX.c ioX.c iodataX.c magicX.c mailX.c memoryX.c miscX.c moveX.c sectorX.c selectX.c unitsX.c
 GOBJS	= mainG.o armyG.o caravanG.o customG.o dataG.o displayG.o emailG.o enlistG.o hexmapG.o ieditG.o infoG.o ioG.o iodataG.o keybindG.o magicG.o mailG.o miscG.o moveG.o navyG.o ntninfoG.o pagerG.o regionG.o sectorG.o selectG.o xferG.o time_ckG.o
 AOBJS	= mainA.o adduserA.o combatA.o configA.o createA.o dataA.o economyA.o magicA.o mailA.o miscA.o monsterA.o moveA.o npcA.o sectorA.o updateA.o
-XOBJS	= dataX.o datamagX.o datamilX.o checkX.o computeX.o convertX.o customX.o executeX.o hexmapX.o ioX.o iodataX.o magicX.o mailX.o memoryX.o miscX.o moveX.o sectorX.o selectX.o unitsX.o  
+XOBJS	= dataX.o datamagX.o datamilX.o checkX.o computeX.o convertX.o customX.o executeX.o hexmapX.o ioX.o iodataX.o magicX.o mailX.o memoryX.o miscX.o moveX.o sectorX.o selectX.o unitsX.o
 
 #
 #	Building and Installation Procedures

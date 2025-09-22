@@ -1,15 +1,34 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 /*
- * Conquer - Classic Multi-Player Strategy Game - Main Header File (Modernized)
+ * Conquer - Classic Multi-Player Strategy Game - Main Header File
  *
  * Originally Copyright (C) 1987-1992 Ed Barlow <barlowedward@hotmail.com>
  * Originally Copyright (C) 1987-1992 Adam Bryant <adb@usa.com>
  * Copyright (C) 2025 Juan Manuel Méndez Rey <vejeta@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Relicensed to GPL v3+ with explicit permission from original authors.
+ * For relicensing documentation, see RELICENSING-PERMISSIONS.md
  */
+
 
 #ifndef CONQUER_HEADER_H
 #define CONQUER_HEADER_H
 
+#include <unistd.h>
+#include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -58,9 +77,9 @@
 #define VERSION "Version 5.0b"
 
 /* Super User Information - LOGIN can be overridden by Makefile */
-#define OWNER "Kevin"
+#define OWNER "God"
 #ifndef LOGIN
-    #define LOGIN "kevin"    /* administrators login id. IMPORTANT! */
+#define LOGIN "jmy99"
 #endif
 
 /* PRIMARY ADJUSTMENTS - preserved exactly from original v5 */
