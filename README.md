@@ -9,10 +9,10 @@ This repository contains both the original and GPL-licensed versions of Conquer 
 
 ```
 conquer-v5/
-├── README.md                    # This file
-├── LICENSE-NOTICE.md           # Dual licensing explanation
-├── original/                   # Original distribution (restrictive license)
-│   ├── README                  # Original README file
+├── README.md                  # This file
+├── LICENSE-NOTICE.md          # Dual licensing explanation
+├── original/                  # Original distribution (restrictive license)
+│   ├── README                 # Original README file
 │   ├── Makefile               # Original build configuration
 │   ├── CONVERTING             # Data conversion instructions
 │   └── [complete original source tree]
@@ -141,7 +141,7 @@ The **original version** in the `original/` folder preserves the exact distribut
 
 ## Community and Support
 
-- **Repository**: https://github.com/vejeta/conquer
+- **Repository**: https://github.com/vejeta/conquerv5
 - **Issue Tracker**: GitHub Issues (for GPL version)
 - **Historical Reference**: http://vejeta.com/historia-del-conquer/
 - **Original USENET**: comp.sources.games archives (historical)
