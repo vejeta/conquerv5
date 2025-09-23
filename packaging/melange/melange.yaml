@@ -41,7 +41,6 @@ pipeline:
   - uses: git-checkout
     with:
       repository: https://github.com/vejeta/conquerv5
-      branch: packaging  # TODO. Remove when finished development
       destination: /home/build/conquerv5
 
   - name: "Configure and build ConquerV5"
