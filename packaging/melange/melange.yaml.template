@@ -1,0 +1,94 @@
+package:
+  name: conquerv5
+  version: PLACEHOLDER_VERSION
+  epoch: 0
+  description: "Modernized classic ncurses multiplayer fantasy war game. ConquerV5 brings the 1980s Unix gaming experience to modern systems with cross-platform support."
+  url: https://github.com/vejeta/conquerv5
+  copyright:
+    - license: GPL-3.0-or-later
+      paths:
+        - "*"
+  dependencies:
+    runtime:
+      - ncurses
+      - ncurses-terminfo-base
+      - bash
+
+environment:
+  contents:
+    repositories:
+      - https://dl-cdn.alpinelinux.org/alpine/edge/main
+      - https://dl-cdn.alpinelinux.org/alpine/edge/community
+    packages:
+      - alpine-baselayout-data
+      - busybox
+      - build-base
+      - ncurses-dev
+      - make
+      - sed
+      - coreutils
+      - pkgconfig
+      - gcc
+      - libc-dev
+      - bash
+      - gawk
+      - groff
+      - groff-doc
+      - ghostscript
+      - ghostscript-fonts
+
+pipeline:
+  # Fetch local staged tarball instead of git
+  - uses: fetch
+    with:
+      uri: file:///staged/conquerv5-release.tar.gz
+      extract: true
+      expected-sha256: PLACEHOLDER_SHA256
+
+  # Custom ConquerV5 build and Makefile setup
+  - runs: |
+      echo "🗡️ Entering the battlefield… compiling ConquerV5!"
+
+
+      # Environment variables for build
+      export LOGIN="games"
+      export PREFIX="/usr"
+      export DATADIR="/usr/share/conquerv5"
+      export BINDIR="/usr/bin"
+      export MAKE="/usr/bin/make"
+
+
+
+      # Step 1: Set up main Makefile
+      cp Makefile.top Makefile
+
+      # Step 1.1: Remove previous artifacts
+      $MAKE clean
+
+      # Step 2: Generate sub-Makefiles
+      $MAKE Makefiles LOGIN="$LOGIN" PREFIX="$PREFIX" DATADIR="$DATADIR" BINDIR="$BINDIR" MAKE="/usr/bin/make"
+
+      # Step 3: Compile project
+
+      # Approach 1: Replace the entire CFLAGS line, so it can compile in ALPINE.
+
+      find . -name "Makefile" -exec sed -i '/^CFLAGS.*=.*DPLATFORM_LINUX/s/$/ -D_DEFAULT_SOURCE -D_BSD_SOURCE/' {} \;
+      $MAKE build BUILD=release LOGIN="$LOGIN" PREFIX="$PREFIX" DATADIR="$DATADIR" BINDIR="$BINDIR"
+
+      # Step 4: Manual installation respecting DESTDIR
+      mkdir -p ${{targets.destdir}}/usr/bin
+      mkdir -p ${{targets.destdir}}/usr/share/conquerv5
+
+      find . -name "conquer" -type f -executable -exec cp {} ${{targets.destdir}}/usr/bin/ \;
+      find . -name "conqrun" -type f -executable -exec cp {} ${{targets.destdir}}/usr/bin/ \;
+      find . -name "conqsort" -type f -executable -exec cp {} ${{targets.destdir}}/usr/bin/ \;
+
+      # Data files
+      cp Src/nations ${{targets.destdir}}/usr/share/conquerv5/ || true
+      cp Docs/*.doc ${{targets.destdir}}/usr/share/conquerv5/ || true
+
+      # Permissions
+      chmod 755 ${{targets.destdir}}/usr/bin/conq*
+      echo "⚔️ ConquerV5 compilation and installation complete!"
+
+  - uses: strip
