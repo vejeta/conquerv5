@@ -23,7 +23,8 @@ Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          libncurses6,
-         bash
+         bash,
+         ncompress
 Description: Modernized classic ncurses multiplayer fantasy war game
  ConquerV5 is the modernized version of the classic multiplayer fantasy war game
  originally created by Ed Barlow and Adam Bryant between 1987-1992. This version

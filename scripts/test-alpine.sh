@@ -26,7 +26,7 @@ docker run --rm -it --platform=linux/amd64 \
     -v "$ABSOLUTE_MOUNT_DIR":/work \
     alpine:latest sh -c "
   # Install dependencies and the game
-  apk add --no-cache ncurses-terminfo-base ncurses
+  apk add --no-cache ncurses-terminfo-base ncurses ncompress
   apk add --allow-untrusted /work/$APK_BASENAME
 
   # Debug what got installed
