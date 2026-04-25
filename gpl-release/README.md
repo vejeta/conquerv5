@@ -129,8 +129,19 @@ SYSTEM REQUIREMENTS:
 - C compiler (gcc recommended)
 - make utility (GNU make preferred)
 - curses library (ncurses recommended)
+- crypt library (for password hashing)
 - Standard Unix utilities (sed, etc.)
 - groff, ghostscript (To build documentation)
+
+**Debian/Ubuntu packages:**
+```bash
+sudo apt-get install build-essential libncurses-dev libcrypt-dev
+```
+
+**Fedora/RHEL packages:**
+```bash
+sudo dnf install gcc make ncurses-devel libxcrypt-devel
+```
 
 INSTALLATION PROCESS:
 1. Extract the source code to a directory

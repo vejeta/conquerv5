@@ -84,12 +84,8 @@ IS_ALPINE := $(shell test -f /etc/alpine-release && echo yes || echo no)
 
 ifeq ($(UNAME_S),Linux)
     PLATFORM = linux
-    PLATFORM_FLAGS = -DPLATFORM_LINUX -DPLATFORM_UNIX
+    PLATFORM_FLAGS = -DPLATFORM_LINUX -DPLATFORM_UNIX -D_DEFAULT_SOURCE -D_GNU_SOURCE
     PLATFORM_LIBS = -lcrypt
-    # Add BSD function compatibility for Alpine Linux (musl libc)
-    ifeq ($(IS_ALPINE),yes)
-        PLATFORM_FLAGS += -D_DEFAULT_SOURCE -D_BSD_SOURCE
-    endif
 endif
 
 
@@ -224,7 +220,7 @@ endif
 # ================================================================
 
 BASE_CFLAGS = $(COMPILER_FLAGS) $(OPTIMIZATION) $(SYSFLG)
-STD_FLAGS = -std=c99
+STD_FLAGS = -std=gnu99
 
 ifeq ($(BUILD),release)
     PERF_FLAGS = -fomit-frame-pointer -ffast-math

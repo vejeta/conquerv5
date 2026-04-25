@@ -115,7 +115,7 @@ Beyond legal licensing, the project involved significant technical work:
 ### For Players and Modern Development
 Use the **GPL version** in the `gpl-release/` folder:
 
-**Prerequisites:** `libncurses-dev` (or `ncurses-dev`), `build-essential`, `make`
+**Prerequisites (Debian/Ubuntu):** `sudo apt-get install build-essential libncurses-dev libcrypt-dev`
 
 ```bash
 cd gpl-release/
