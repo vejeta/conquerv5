@@ -115,12 +115,22 @@ Beyond legal licensing, the project involved significant technical work:
 ### For Players and Modern Development
 Use the **GPL version** in the `gpl-release/` folder:
 
+**Prerequisites:** `libncurses-dev` (or `ncurses-dev`), `build-essential`, `make`
+
 ```bash
 cd gpl-release/
+
+# Setup configuration files (required first-time step)
+cp Makefile.top Makefile
+cp Include/header.h.dist Include/header.h
+
+# Build and install
 make Makefiles
 make build
 make install
 ```
+
+**Note:** The `header.h` file contains game configuration. For basic testing, the defaults work fine. For production servers, edit `Include/header.h` to customize the OWNER, directories, and game parameters before building.
 
 ### For Historical Study
 The **original version** in the `original/` folder preserves the exact distribution as received, including build artifacts.

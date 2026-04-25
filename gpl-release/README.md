@@ -134,11 +134,19 @@ SYSTEM REQUIREMENTS:
 
 INSTALLATION PROCESS:
 1. Extract the source code to a directory
-2. Review and modify configuration files (see Configuration section)
-3. Configure build system: `make Makefiles`
-4. Compile: `make build`
-5. Install: `make install`
-6. Set up new game: `conqrun -m`
+2. **Copy configuration templates** (REQUIRED before building):
+   ```bash
+   cp Makefile.top Makefile
+   cp Include/header.h.dist Include/header.h
+   ```
+3. (Optional) Edit `Include/header.h` and `Makefile` for your environment
+4. Configure build system: `make Makefiles`
+5. Compile: `make build`
+6. Install: `make install`
+7. Set up new game: `conqrun -m`
+
+**Quick Start (minimal setup):** Steps 2, 4, 5, 6 are sufficient for testing.
+The default configuration works on most Linux systems.
 
 If curses linking fails, you may need to modify the LIBS setting in the
 Makefile to include appropriate terminal libraries for your system.
@@ -162,15 +170,16 @@ and help files when the program is compiled.
 
 CRITICAL CONFIGURATION STEPS:
 
-1. **Copy header.h template**: `cp Include/header.h.dist Include/header.h`
-2. **Edit Include/header.h** and configure:
+1. **Copy Makefile template**: `cp Makefile.top Makefile`
+2. **Copy header.h template**: `cp Include/header.h.dist Include/header.h`
+3. **Edit Include/header.h** and configure:
    - `OWNER`: Administrator name and contact information
    - `LOGIN`: Administrator login ID  
    - Directory paths for game data and executables
    - System-specific settings (BSD vs SYSV flags)
    - Game balance and timing parameters
 
-3. **Edit Makefile** and configure:
+4. **Edit Makefile** and configure:
    - `SYSFLG`: Set appropriate system type (BSD, SYSV3, SYSV4, etc.)
    - `LIBS`: Adjust library settings for your system
    - `TOPDIR`: Full path to your conquer directory
