@@ -48,7 +48,7 @@ UNAME_M := $(shell uname -m 2>/dev/null || echo unknown)
 
 ifeq ($(UNAME_S),Linux)
     PLATFORM = linux
-    PLATFORM_FLAGS = -DPLATFORM_LINUX -DPLATFORM_UNIX
+    PLATFORM_FLAGS = -DPLATFORM_LINUX -DPLATFORM_UNIX -D_DEFAULT_SOURCE -D_GNU_SOURCE
     PLATFORM_LIBS = -lcrypt
 endif
 
@@ -76,17 +76,22 @@ ifeq ($(UNAME_S),NetBSD)
     PLATFORM_LIBS = -lcrypt
 endif
 
+ifeq ($(UNAME_S),DragonFly)
+    PLATFORM = dragonfly
+    PLATFORM_FLAGS = -DPLATFORM_DRAGONFLY -DPLATFORM_UNIX
+    PLATFORM_LIBS = -lcrypt
+endif
+
+# Fallback for unrecognized platforms: conservative defaults
+PLATFORM ?= unknown
+PLATFORM_FLAGS ?= -DPLATFORM_UNIX
+PLATFORM_LIBS ?=
+
 # ================================================================
 # LIBC DETECTION (for Alpine/musl compatibility)
 # ================================================================
 
 IS_ALPINE := $(shell test -f /etc/alpine-release && echo yes || echo no)
-
-ifeq ($(UNAME_S),Linux)
-    PLATFORM = linux
-    PLATFORM_FLAGS = -DPLATFORM_LINUX -DPLATFORM_UNIX -D_DEFAULT_SOURCE -D_GNU_SOURCE
-    PLATFORM_LIBS = -lcrypt
-endif
 
 
 # ================================================================
@@ -211,8 +216,10 @@ else ifeq ($(PLATFORM),openbsd)
     LIBS = $(BASE_LIBS) -ltermcap $(PLATFORM_LIBS)
 else ifeq ($(PLATFORM),netbsd)
     LIBS = $(BASE_LIBS) -ltermcap $(PLATFORM_LIBS)
+else ifeq ($(PLATFORM),dragonfly)
+    LIBS = $(BASE_LIBS) -ltermcap $(PLATFORM_LIBS)
 else
-    LIBS = $(BASE_LIBS) -ltermcap -lcrypt
+    LIBS = $(BASE_LIBS) -ltermcap $(PLATFORM_LIBS)
 endif
 
 # ================================================================
